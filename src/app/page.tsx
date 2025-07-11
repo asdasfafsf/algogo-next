@@ -38,10 +38,10 @@ export default function Home() {
             단계별 학습으로 프로그래밍 실력을 향상시켜보세요.
           </Typography>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="default" size="lg">
+            <Button variant="default" color="blue" size="lg">
               학습 시작하기
             </Button>
-            <Button variant="outline" size="lg">
+            <Button variant="outline" color="blue" size="lg">
               문제 둘러보기
             </Button>
           </div>
@@ -89,45 +89,151 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 버튼 색상 예시 */}
+        <section className="mt-24">
+          <Typography variant="h2" className="text-3xl font-bold text-center text-gray-900 mb-16 border-none pb-0">
+            새로운 버튼 색상 시스템
+          </Typography>
+          
+          {/* 버튼 예시들 */}
+          <div className="mb-16 space-y-8">
+            <div className="text-center">
+              <Typography variant="h3" className="text-xl font-semibold text-gray-900 mb-4 border-none pb-0">
+                Material Design 색상 버튼
+              </Typography>
+                             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                 <Button color="red" size="sm">Red</Button>
+                 <Button color="pink" size="sm">Pink</Button>
+                 <Button color="purple" size="sm">Purple</Button>
+                 <Button color="blue" size="sm">Blue</Button>
+                 <Button color="cyan" size="sm">Cyan</Button>
+                 <Button color="teal" size="sm">Teal</Button>
+                 <Button color="green" size="sm">Green</Button>
+                 <Button color="lime" size="sm">Lime</Button>
+                 <Button color="yellow" size="sm">Yellow</Button>
+                 <Button color="amber" size="sm">Amber</Button>
+                 <Button color="orange" size="sm">Orange</Button>
+                 <Button color="gray" size="sm">Gray</Button>
+               </div>
+            </div>
+            
+            <div className="text-center">
+                             <Typography variant="h3" className="text-xl font-semibold text-gray-900 mb-4 border-none pb-0">
+                 추가 색상 버튼
+               </Typography>
+                             <div className="flex flex-wrap justify-center gap-3">
+                 <Button color="yellow">Yellow</Button>
+                 <Button color="amber">Amber</Button>
+                 <Button color="lime">Lime</Button>
+                 <Button color="cyan">Cyan</Button>
+                 <Button color="indigo">Indigo</Button>
+                 <Button color="gray">Gray</Button>
+                 <Button color="pink">Pink</Button>
+               </div>
+            </div>
+            
+            <div className="text-center">
+              <Typography variant="h3" className="text-xl font-semibold text-gray-900 mb-4 border-none pb-0">
+                Outline 버튼 (다양한 색상)
+              </Typography>
+                             <div className="flex flex-wrap justify-center gap-3">
+                 <Button color="red" variant="outline" size="sm">Red</Button>
+                 <Button color="pink" variant="outline" size="sm">Pink</Button>
+                 <Button color="cyan" variant="outline" size="sm">Cyan</Button>
+                 <Button color="green" variant="outline" size="sm">Green</Button>
+                 <Button color="amber" variant="outline" size="sm">Amber</Button>
+                 <Button color="purple" variant="outline" size="sm">Purple</Button>
+               </div>
+            </div>
+            
+            <div className="text-center">
+              <Typography variant="h3" className="text-xl font-semibold text-gray-900 mb-4 border-none pb-0">
+                Ghost 버튼 (다양한 색상)
+              </Typography>
+                              <div className="flex flex-wrap justify-center gap-3">
+                  <Button color="red" variant="ghost" size="sm">Red</Button>
+                  <Button color="blue" variant="ghost" size="sm">Blue</Button>
+                  <Button color="lime" variant="ghost" size="sm">Lime</Button>
+                  <Button color="purple" variant="ghost" size="sm">Purple</Button>
+                  <Button color="teal" variant="ghost" size="sm">Teal</Button>
+                  <Button color="amber" variant="ghost" size="sm">Amber</Button>
+                </div>
+            </div>
+          </div>
+        </section>
+
         {/* 색상 시스템 미리보기 */}
         <section className="mt-24">
           <Typography variant="h2" className="text-3xl font-bold text-center text-gray-900 mb-16 border-none pb-0">
-            색상 시스템
+            색상 팔레트
           </Typography>
           
-          {/* 브랜드 및 등급 색상 */}
+          {/* 추가 색상들 */}
           <div className="mb-12">
             <Typography variant="h3" className="text-2xl font-semibold text-gray-900 mb-6 border-none pb-0">
-              브랜드 & 등급 색상
+              추가 색상들
             </Typography>
             <div className="grid grid-cols-3 md:grid-cols-7 gap-4">
               <div className="text-center">
-                <div className="w-16 h-16 bg-kakao rounded-lg mx-auto mb-2"></div>
-                <Typography variant="small" className="text-sm text-gray-600">Kakao</Typography>
+                <div className="w-16 h-16 bg-yellow-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Yellow</Typography>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-ruby rounded-lg mx-auto mb-2"></div>
-                <Typography variant="small" className="text-sm text-gray-600">Ruby</Typography>
+                <div className="w-16 h-16 bg-amber-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Amber</Typography>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-diamond rounded-lg mx-auto mb-2"></div>
-                <Typography variant="small" className="text-sm text-gray-600">Diamond</Typography>
+                <div className="w-16 h-16 bg-lime-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Lime</Typography>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-platinum rounded-lg mx-auto mb-2"></div>
-                <Typography variant="small" className="text-sm text-gray-600">Platinum</Typography>
+                <div className="w-16 h-16 bg-cyan-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Cyan</Typography>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-gold rounded-lg mx-auto mb-2"></div>
-                <Typography variant="small" className="text-sm text-gray-600">Gold</Typography>
+                <div className="w-16 h-16 bg-indigo-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Indigo</Typography>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-silver rounded-lg mx-auto mb-2"></div>
-                <Typography variant="small" className="text-sm text-gray-600">Silver</Typography>
+                <div className="w-16 h-16 bg-gray-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Gray</Typography>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-bronze rounded-lg mx-auto mb-2"></div>
-                <Typography variant="small" className="text-sm text-gray-600">Bronze</Typography>
+                <div className="w-16 h-16 bg-pink-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Pink</Typography>
+              </div>
+            </div>
+          </div>
+
+          {/* 확장 색상 팔레트 */}
+          <div className="mb-12">
+            <Typography variant="h3" className="text-2xl font-semibold text-gray-900 mb-6 border-none pb-0">
+              확장 색상 팔레트
+            </Typography>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-pink-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Pink</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-purple-700 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Deep Purple</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-sky-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Light Blue</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-emerald-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Light Green</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-orange-700 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Deep Orange</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-slate-500 rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Blue Gray</Typography>
               </div>
             </div>
           </div>
@@ -222,7 +328,7 @@ export default function Home() {
             <Typography variant="lead" className="text-xl text-blue-100 mb-8">
               무료로 알고리즘 학습을 시작할 수 있습니다.
             </Typography>
-            <Button variant="secondary" size="lg">
+            <Button variant="secondary" color="yellow" size="lg">
               무료로 시작하기
             </Button>
           </div>
