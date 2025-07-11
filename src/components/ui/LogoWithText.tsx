@@ -8,8 +8,8 @@ interface LogoWithTextProps {
 
 export function LogoWithText({ size = 'medium' }: LogoWithTextProps) {
   const textSettings = {
-    small: { variant: 'h3' as const, size: 'sm' as const },
-    medium: { variant: 'h2' as const, size: 'default' as const },
+    small: { variant: 'h3' as const, size: 'lg' as const },
+    medium: { variant: 'h2' as const, size: 'lg' as const },
     large: { variant: 'h1' as const, size: 'lg' as const },
   };
 
