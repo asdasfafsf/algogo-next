@@ -1,0 +1,77 @@
+/* 커스텀 폰트 정의 */
+
+/* Pretendard Variable 폰트 설정 */
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 45 920; /* Variable 폰트의 weight 범위 */
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/PretendardVariable.ttf') format('truetype-variations');
+}
+
+/* 
+  기본 weight 별칭 (필요한 경우 사용)
+  Variable 폰트는 위의 설정만으로도 모든 weight를 지원합니다.
+  
+  추가 파일이 있는 경우 아래 예시를 참고하세요:
+  
+  @font-face {
+    font-family: 'Pretendard';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/Pretendard-Regular.woff2') format('woff2'),
+         url('/fonts/Pretendard-Regular.woff') format('woff');
+  }
+  
+  @font-face {
+    font-family: 'Pretendard';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/Pretendard-Medium.woff2') format('woff2'),
+         url('/fonts/Pretendard-Medium.woff') format('woff');
+  }
+  
+  @font-face {
+    font-family: 'Pretendard';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/Pretendard-SemiBold.woff2') format('woff2'),
+         url('/fonts/Pretendard-SemiBold.woff') format('woff');
+  }
+  
+  @font-face {
+    font-family: 'Pretendard';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/Pretendard-Bold.woff2') format('woff2'),
+         url('/fonts/Pretendard-Bold.woff') format('woff');
+  }
+*/
+
+/* 유틸리티 클래스 */
+.font-custom {
+  font-family: var(--font-custom);
+}
+
+/* 폰트 최적화 */
+.font-feature-settings {
+  font-feature-settings: "liga" 1, "calt" 1, "kern" 1;
+}
+
+/* 한글 최적화 */
+.text-balance {
+  text-wrap: balance;
+}
+
+.leading-relaxed-kr {
+  line-height: 1.7; /* 한글에 적합한 줄간격 */
+}
+
+/* 폰트 로딩 최적화 */
+.font-loading {
+  font-display: swap;
+} 
