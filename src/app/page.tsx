@@ -89,6 +89,130 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 색상 시스템 미리보기 */}
+        <section className="mt-24">
+          <Typography variant="h2" className="text-3xl font-bold text-center text-gray-900 mb-16 border-none pb-0">
+            색상 시스템
+          </Typography>
+          
+          {/* 브랜드 및 등급 색상 */}
+          <div className="mb-12">
+            <Typography variant="h3" className="text-2xl font-semibold text-gray-900 mb-6 border-none pb-0">
+              브랜드 & 등급 색상
+            </Typography>
+            <div className="grid grid-cols-3 md:grid-cols-7 gap-4">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-kakao rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Kakao</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-ruby rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Ruby</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-diamond rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Diamond</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-platinum rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Platinum</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gold rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Gold</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-silver rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Silver</Typography>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-bronze rounded-lg mx-auto mb-2"></div>
+                <Typography variant="small" className="text-sm text-gray-600">Bronze</Typography>
+              </div>
+            </div>
+          </div>
+
+          {/* Material Design 색상 샘플 */}
+          <div className="mb-12">
+            <Typography variant="h3" className="text-2xl font-semibold text-gray-900 mb-6 border-none pb-0">
+              Material Design 색상
+            </Typography>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {/* Red */}
+              <div className="text-center">
+                <div className="flex mb-2">
+                  <div className="w-4 h-8 bg-red-100"></div>
+                  <div className="w-4 h-8 bg-red-300"></div>
+                  <div className="w-4 h-8 bg-red-500"></div>
+                  <div className="w-4 h-8 bg-red-700"></div>
+                  <div className="w-4 h-8 bg-red-900"></div>
+                </div>
+                <Typography variant="small" className="text-sm text-gray-600">Red</Typography>
+              </div>
+              
+              {/* Blue */}
+              <div className="text-center">
+                <div className="flex mb-2">
+                  <div className="w-4 h-8 bg-blue-100"></div>
+                  <div className="w-4 h-8 bg-blue-300"></div>
+                  <div className="w-4 h-8 bg-blue-500"></div>
+                  <div className="w-4 h-8 bg-blue-700"></div>
+                  <div className="w-4 h-8 bg-blue-900"></div>
+                </div>
+                <Typography variant="small" className="text-sm text-gray-600">Blue</Typography>
+              </div>
+              
+              {/* Green */}
+              <div className="text-center">
+                <div className="flex mb-2">
+                  <div className="w-4 h-8 bg-green-100"></div>
+                  <div className="w-4 h-8 bg-green-300"></div>
+                  <div className="w-4 h-8 bg-green-500"></div>
+                  <div className="w-4 h-8 bg-green-700"></div>
+                  <div className="w-4 h-8 bg-green-900"></div>
+                </div>
+                <Typography variant="small" className="text-sm text-gray-600">Green</Typography>
+              </div>
+              
+              {/* Orange */}
+              <div className="text-center">
+                <div className="flex mb-2">
+                  <div className="w-4 h-8 bg-orange-100"></div>
+                  <div className="w-4 h-8 bg-orange-300"></div>
+                  <div className="w-4 h-8 bg-orange-500"></div>
+                  <div className="w-4 h-8 bg-orange-700"></div>
+                  <div className="w-4 h-8 bg-orange-900"></div>
+                </div>
+                <Typography variant="small" className="text-sm text-gray-600">Orange</Typography>
+              </div>
+              
+              {/* Purple */}
+              <div className="text-center">
+                <div className="flex mb-2">
+                  <div className="w-4 h-8 bg-purple-100"></div>
+                  <div className="w-4 h-8 bg-purple-300"></div>
+                  <div className="w-4 h-8 bg-purple-500"></div>
+                  <div className="w-4 h-8 bg-purple-700"></div>
+                  <div className="w-4 h-8 bg-purple-900"></div>
+                </div>
+                <Typography variant="small" className="text-sm text-gray-600">Purple</Typography>
+              </div>
+              
+              {/* Teal */}
+              <div className="text-center">
+                <div className="flex mb-2">
+                  <div className="w-4 h-8 bg-teal-100"></div>
+                  <div className="w-4 h-8 bg-teal-300"></div>
+                  <div className="w-4 h-8 bg-teal-500"></div>
+                  <div className="w-4 h-8 bg-teal-700"></div>
+                  <div className="w-4 h-8 bg-teal-900"></div>
+                </div>
+                <Typography variant="small" className="text-sm text-gray-600">Teal</Typography>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* CTA 섹션 */}
         <section className="mt-24 text-center">
           <div className="bg-blue-600 rounded-2xl px-8 py-16 text-white">
