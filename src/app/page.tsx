@@ -16,7 +16,7 @@ export default function Home() {
             <a href="#about" className="text-gray-600 hover:text-gray-900 transition-colors">
               소개
             </a>
-            <Button variant="primary" size="sm">
+            <Button variant="default" size="sm">
               시작하기
             </Button>
           </nav>
@@ -36,7 +36,7 @@ export default function Home() {
             단계별 학습으로 프로그래밍 실력을 향상시켜보세요.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="primary" size="lg">
+            <Button variant="default" size="lg">
               학습 시작하기
             </Button>
             <Button variant="outline" size="lg">

@@ -1,3 +1,4 @@
-export * from "./Button";
-export * from "./Input";
-export * from "./Card"; 
+// shadcn/ui components
+export * from "./ui/button";
+export * from "./ui/input";
+export * from "./ui/card"; 
