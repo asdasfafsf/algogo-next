@@ -42,30 +42,30 @@ export default function ModalContainer() {
     return null;
   }
 
+  const toastModals = modal.list().filter((elem) => elem.Component !== null && elem.key?.startsWith('Toast-'));
+  const regularModals = modal.list().filter((elem) => elem.Component !== null && !elem.key?.startsWith('Toast-'));
+
   return ReactDOM.createPortal(
     <>
       {/* 토스트 영역 */}
       <div className="fixed bottom-0 right-0 z-50 p-4 pointer-events-none">
-        {modal.list()
-          .filter((elem) => elem.Component !== null && elem.key?.startsWith('Toast-'))
-          .map((elem) => {
-            const Component = elem.Component as React.ComponentType<any>;
-            return (
-              <Component
-                key={elem.key} // 고유한 키 사용
-                resolve={elem.resolve}
-                reject={elem.reject}
-                {...(elem?.props ?? {})}
-              />
-            );
-          })}
+        {toastModals.map((elem) => {
+          const Component = elem.Component as React.ComponentType<any>;
+          return (
+            <Component
+              key={elem.key} // 고유한 키 사용
+              resolve={elem.resolve}
+              reject={elem.reject}
+              {...(elem?.props ?? {})}
+            />
+          );
+        })}
       </div>
 
-      {/* 일반 모달 영역 */}
-      <div className="fixed inset-0 z-40 pointer-events-auto">
-        {modal.list()
-          .filter((elem) => elem.Component !== null && !elem.key?.startsWith('Toast-'))
-          .map((elem) => {
+      {/* 일반 모달 영역 - 모달이 있을 때만 렌더링 */}
+      {regularModals.length > 0 && (
+        <div className="fixed inset-0 z-40 pointer-events-auto">
+          {regularModals.map((elem) => {
             const Component = elem.Component as React.ComponentType<any>;
             return (
               <Component
@@ -76,7 +76,8 @@ export default function ModalContainer() {
               />
             );
           })}
-      </div>
+        </div>
+      )}
     </>,
     modalElement
   );
