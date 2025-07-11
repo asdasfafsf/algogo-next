@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Clipboard } from 'lucide-react';
 import useModal from '@/plugins/modal/useModal';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 
 interface PromptModalProps {
   content: string;

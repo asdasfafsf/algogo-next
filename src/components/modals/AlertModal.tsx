@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import useModal from '@/plugins/modal/useModal';
-import { Button } from '@/components/ui/button';
-import { Typography } from '../ui/typography';
+import { Button } from '@/components/ui/Button';
+import { Typography } from '../ui/Typography';
 
 interface AlertModalProps {
   content: string;
