@@ -36,6 +36,12 @@ const meta: Meta<typeof Button> = {
     disabled: {
       control: { type: 'boolean' },
     },
+    loading: {
+      control: { type: 'boolean' },
+    },
+    fullWidth: {
+      control: { type: 'boolean' },
+    },
   },
 }
 
@@ -618,6 +624,77 @@ export const HoverEffects: Story = {
           <Button color="green" ripple>Green Both</Button>
           <Button color="red" ripple>Red Both</Button>
           <Button color="purple" ripple>Purple Both</Button>
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+// 새로운 기능들 데모
+export const NewFeatures: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Loading States</div>
+        <div className="flex flex-wrap gap-4">
+          <Button loading color="blue">
+            Loading...
+          </Button>
+          <Button loading variant="outline" color="green">
+            Processing...
+          </Button>
+          <Button loading variant="secondary" color="red">
+            Saving...
+          </Button>
+          <Button loading startIcon={<Search className="h-4 w-4" />} color="purple">
+            Searching...
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Icon Buttons (Start/End Icons)</div>
+        <div className="flex flex-wrap gap-4">
+          <Button startIcon={<Download className="h-4 w-4" />} color="blue">
+            Download
+          </Button>
+          <Button endIcon={<ChevronRight className="h-4 w-4" />} variant="outline" color="green">
+            Next
+          </Button>
+          <Button 
+            startIcon={<Plus className="h-4 w-4" />} 
+            endIcon={<ChevronRight className="h-4 w-4" />}
+            variant="secondary" 
+            color="purple"
+          >
+            Add & Continue
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Full Width Buttons</div>
+        <div className="space-y-3">
+          <Button fullWidth color="blue">
+            Full Width Primary
+          </Button>
+          <Button fullWidth variant="outline" color="green">
+            Full Width Outline
+          </Button>
+          <Button fullWidth loading color="purple">
+            Full Width Loading
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Improved Sizes (더 균형잡힌 크기)</div>
+        <div className="flex items-center gap-4">
+          <Button size="xs" color="blue">XS (28px)</Button>
+          <Button size="sm" color="blue">SM (36px)</Button>
+          <Button size="default" color="blue">Default (40px)</Button>
+          <Button size="lg" color="blue">LG (44px)</Button>
+          <Button size="xl" color="blue">XL (48px)</Button>
         </div>
       </div>
     </div>

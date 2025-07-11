@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-bold transition-all duration-300 !cursor-pointer disabled:pointer-events-none disabled:opacity-50 disabled:!cursor-not-allowed [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-all duration-300 !cursor-pointer disabled:pointer-events-none disabled:opacity-50 disabled:!cursor-not-allowed [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
@@ -41,12 +41,16 @@ const buttonVariants = cva(
         gray: "",
       },
       size: {
-        xs: "h-8 px-3 text-sm gap-1.5 has-[>svg]:px-2.5",
-        sm: "h-10 px-4 text-sm gap-1.5 has-[>svg]:px-3",
-        default: "h-11 px-6 py-2 has-[>svg]:px-5",
-        lg: "h-12 px-8 text-lg has-[>svg]:px-6",
-        xl: "h-14 px-10 text-xl has-[>svg]:px-8",
-        icon: "size-10",
+        xs: "h-7 px-2.5 text-xs gap-1 has-[>svg]:px-2",
+        sm: "h-9 px-3 text-sm gap-1.5 has-[>svg]:px-2.5", 
+        default: "h-10 px-4 py-2 text-sm gap-2 has-[>svg]:px-3",
+        lg: "h-11 px-6 text-base gap-2 has-[>svg]:px-5",
+        xl: "h-12 px-8 text-lg gap-2.5 has-[>svg]:px-6",
+        icon: "size-9",
+      },
+      fullWidth: {
+        true: "w-full",
+        false: "",
       },
     },
     compoundVariants: [
@@ -546,34 +550,45 @@ const buttonVariants = cva(
       variant: "default",
       color: "default",
       size: "default",
+      fullWidth: false,
     },
   }
 )
+
+interface ButtonProps extends Omit<React.ComponentProps<"button">, "color">, VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+  ripple?: boolean
+  loading?: boolean
+  startIcon?: React.ReactNode
+  endIcon?: React.ReactNode
+}
 
 function Button({
   className,
   variant,
   color,
   size,
+  fullWidth,
   asChild = false,
   ripple = false,
+  loading = false,
+  startIcon,
+  endIcon,
   onClick,
+  disabled,
+  children,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-    ripple?: boolean
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button"
   const buttonRef = React.useRef<HTMLButtonElement>(null)
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (ripple && buttonRef.current) {
+    if (ripple && buttonRef.current && !loading && !disabled) {
       // 기존 애니메이션 클래스 제거
       buttonRef.current.classList.remove('ripple-animate')
       
       // 강제로 reflow 발생시켜 클래스 제거를 즉시 적용
-      buttonRef.current.offsetHeight
+      void buttonRef.current.offsetHeight
       
       // 새로운 애니메이션 클래스 추가
       buttonRef.current.classList.add('ripple-animate')
@@ -587,9 +602,34 @@ function Button({
     }
     
     // 원래 onClick 핸들러 실행
-    if (onClick) {
+    if (onClick && !loading && !disabled) {
       onClick(e)
     }
+  }
+
+  const isDisabled = disabled || loading
+
+  const renderIcon = (icon: React.ReactNode) => {
+    if (loading) {
+      return (
+        <div className="animate-spin rounded-full border-2 border-current border-t-transparent w-4 h-4" />
+      )
+    }
+    return icon
+  }
+
+  const renderContent = () => {
+    if (asChild) {
+      return children
+    }
+
+    return (
+      <>
+        {(startIcon || loading) && renderIcon(startIcon)}
+        {children}
+        {endIcon && !loading && endIcon}
+      </>
+    )
   }
 
   return (
@@ -597,12 +637,16 @@ function Button({
       ref={asChild ? undefined : buttonRef}
       data-slot="button"
       className={cn(
-        buttonVariants({ variant, color, size, className }),
+        buttonVariants({ variant, color, size, fullWidth }),
+        className,
         ripple && "ripple"
       )}
       onClick={asChild ? onClick : handleClick}
+      disabled={isDisabled}
       {...props}
-    />
+    >
+      {renderContent()}
+    </Comp>
   )
 }
 
