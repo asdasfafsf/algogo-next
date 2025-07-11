@@ -17,16 +17,17 @@ export function LandingHeader() {
           <LogoWithText size="medium" />
           
           {/* Desktop Navigation */}
-          <nav className="items-center hidden space-x-8 md:flex">
+          <nav className="items-center hidden space-x-2 md:flex">
             <Button 
-              className='text-sm'
+              size='lg'
+              className='text-xs font-bold'
               variant="ghost" 
               color="default" 
               onClick={() => router.push('/login')}
             >
               로그인
             </Button>
-            <Button className='text-sm' color="blue" onClick={() => router.push('/signup')}>
+            <Button size='lg' className='text-xs font-bold' color="blue" onClick={() => router.push('/signup')}>
               시작하기
             </Button>
           </nav>
@@ -57,10 +58,10 @@ export function LandingHeader() {
                 지원
               </Link>
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="ghost" color="default" onClick={() => router.push('/login')}>
+                <Button size='lg' variant="ghost" color="default" onClick={() => router.push('/login')}>
                   로그인
                 </Button>
-                <Button color="blue" onClick={() => router.push('/signup')}>
+                <Button size='lg' color="blue" onClick={() => router.push('/signup')}>
                   시작하기
                 </Button>
               </div>

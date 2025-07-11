@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-static';
+
 import {
   CodeBracketIcon, 
   PuzzlePieceIcon, 
@@ -61,11 +63,11 @@ export default function Landing() {
               <br />
               알고고가 실시간 테스트부터 제출까지 도와드릴게요 ✨
             </p>
-            <div className="space-x-4">
-              <Button color="blue" onClick={() => router.push('/signup')}>
+            <div className="flex flex-col sm:flex-row gap-2 justify-center">
+              <Button size='lg' className='text-xs font-bold' color="blue" onClick={() => router.push('/signup')}>
                 지금 시작하기
               </Button>
-              <Button onClick={() => handleAlert('현재 준비중입니다')}>
+              <Button size='lg' className='text-xs font-bold' onClick={() => handleAlert('현재 준비중입니다')}>
                 크롬 확장 프로그램 받기
               </Button>
             </div>
@@ -208,8 +210,9 @@ export default function Landing() {
               </p>
               <div className="flex justify-center gap-4">
                 <Button
+                  size='lg'
+                  className='text-xs font-bold'
                   color="blue"
-                  size="lg"
                   onClick={() => router.push('/signup')}
                 >
                   무료로 시작하기
