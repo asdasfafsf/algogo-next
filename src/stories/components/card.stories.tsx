@@ -7,8 +7,8 @@ import {
   CardContent, 
   CardFooter,
   CardAction 
-} from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+} from '@/components/ui/Card'
+import { Button } from '@/components/ui/Button'
 import { MoreHorizontal, Star, Eye, Calendar } from 'lucide-react'
 
 const meta: Meta<typeof Card> = {
