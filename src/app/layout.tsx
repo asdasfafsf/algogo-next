@@ -25,7 +25,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-custom`}
+        style={{
+          // 커스텀 폰트가 로드되기 전 fallback 폰트 설정
+          '--font-custom': "'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif"
+        } as React.CSSProperties}
       >
         {children}
       </body>
