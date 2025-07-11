@@ -557,6 +557,7 @@ function Button({
   size,
   asChild = false,
   ripple = false,
+  onClick,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
@@ -564,14 +565,42 @@ function Button({
     ripple?: boolean
   }) {
   const Comp = asChild ? Slot : "button"
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (ripple && buttonRef.current) {
+      // 기존 애니메이션 클래스 제거
+      buttonRef.current.classList.remove('ripple-animate')
+      
+      // 강제로 reflow 발생시켜 클래스 제거를 즉시 적용
+      buttonRef.current.offsetHeight
+      
+      // 새로운 애니메이션 클래스 추가
+      buttonRef.current.classList.add('ripple-animate')
+      
+      // 애니메이션이 끝나면 클래스 제거
+      setTimeout(() => {
+        if (buttonRef.current) {
+          buttonRef.current.classList.remove('ripple-animate')
+        }
+      }, 600)
+    }
+    
+    // 원래 onClick 핸들러 실행
+    if (onClick) {
+      onClick(e)
+    }
+  }
 
   return (
     <Comp
+      ref={asChild ? undefined : buttonRef}
       data-slot="button"
       className={cn(
         buttonVariants({ variant, color, size, className }),
         ripple && "ripple"
       )}
+      onClick={asChild ? onClick : handleClick}
       {...props}
     />
   )

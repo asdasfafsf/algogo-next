@@ -345,3 +345,85 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .drop-shadow-blue {
+    filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.3));
+  }
+  .drop-shadow-green {
+    filter: drop-shadow(0 4px 8px rgba(34, 197, 94, 0.3));
+  }
+  .drop-shadow-red {
+    filter: drop-shadow(0 4px 8px rgba(239, 68, 68, 0.3));
+  }
+  .drop-shadow-purple {
+    filter: drop-shadow(0 4px 8px rgba(147, 51, 234, 0.3));
+  }
+  .drop-shadow-pink {
+    filter: drop-shadow(0 4px 8px rgba(236, 72, 153, 0.3));
+  }
+  .drop-shadow-orange {
+    filter: drop-shadow(0 4px 8px rgba(249, 115, 22, 0.3));
+  }
+  .drop-shadow-indigo {
+    filter: drop-shadow(0 4px 8px rgba(99, 102, 241, 0.3));
+  }
+  .drop-shadow-teal {
+    filter: drop-shadow(0 4px 8px rgba(20, 184, 166, 0.3));
+  }
+  .drop-shadow-gray {
+    filter: drop-shadow(0 4px 8px rgba(107, 114, 128, 0.3));
+  }
+  .drop-shadow-cyan {
+    filter: drop-shadow(0 4px 8px rgba(6, 182, 212, 0.3));
+  }
+  .drop-shadow-yellow {
+    filter: drop-shadow(0 4px 8px rgba(234, 179, 8, 0.3));
+  }
+  .drop-shadow-amber {
+    filter: drop-shadow(0 4px 8px rgba(245, 158, 11, 0.3));
+  }
+  .drop-shadow-lime {
+    filter: drop-shadow(0 4px 8px rgba(132, 204, 22, 0.3));
+  }
+  
+  .ripple {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  @keyframes ripple-animation {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+    }
+  }
+  
+  .ripple-animate::before {
+    animation: ripple-animation 0.6s ease-out;
+  }
+}
