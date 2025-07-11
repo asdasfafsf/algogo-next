@@ -8,7 +8,7 @@ const typographyVariants = cva("font-custom", {
   variants: {
     variant: {
       h1: "scroll-m-20 font-extrabold tracking-tight",
-      h2: "scroll-m-20 border-b pb-2 font-semibold tracking-tight first:mt-0",
+      h2: "scroll-m-20 font-semibold tracking-tight",
       h3: "scroll-m-20 font-semibold tracking-tight",
       h4: "scroll-m-20 font-semibold tracking-tight",
       p: "leading-7 [&:not(:first-child)]:mt-6",
