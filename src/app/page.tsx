@@ -1,8 +1,19 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
+import useModal from "@/plugins/modal/useModal";
+import AlertModal from "@/components/modals/AlertModal";
 
 export default function Home() {
+  const modal = useModal();
+
+  const handleClick = () => {
+    console.log('handleClick');
+    modal.push('Alert', AlertModal as any, { content: '기본 알림입니다.' });
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
       {/* Header */}
@@ -18,7 +29,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-3">
             <Button variant="ghost">로그인</Button>
-            <Button>시작하기</Button>
+            <Button onClick={handleClick}>시작하기</Button>
           </div>
         </div>
       </header>
