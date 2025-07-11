@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import useModal from '@/plugins/modal/useModal';
 import { Button } from '@/components/ui/button';
+import { Typography } from '../ui/typography';
 
 interface AlertModalProps {
   content: string;
@@ -62,16 +63,19 @@ export default function AlertModal({
         className="w-[400px] bg-card text-card-foreground rounded-xl shadow-sm animate-in fade-in duration-200"
       >
         <div className="flex justify-between items-center px-6 py-6">
-          <h2 id="alert-title" className="text-lg font-semibold">{title}</h2>
+          <Typography variant="h2" id="alert-title" className="text-lg font-semibold">{title}</Typography>
         </div>
 
-        <div className="px-6 pb-6 text-sm leading-relaxed text-muted-foreground">
-          {content}
+        <div className="px-6 pb-6">
+          <Typography variant="p"  className='text-muted-foreground'>
+            {content}
+          </Typography>
         </div>
 
-        <div className="flex justify-end px-6 pb-6">
+        <div className="flex justify-end px-6 pb-4">
           <Button
             onClick={handleClose}
+            color="blue"
             className="min-w-[80px]"
           >
             {confirmText}
