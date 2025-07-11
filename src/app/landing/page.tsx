@@ -11,8 +11,8 @@ import { Button } from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
 import useModal from '@/plugins/modal/useModal';
 import AlertModal from '@/components/modals/AlertModal';
-import { LandingHeader } from '@/components/layout/LandingHeader';
-import { LandingFooter } from '@/components/layout/LandingFooter';
+import { LandingHeader } from '@/components/layout/landing/LandingHeader';
+import { LandingFooter } from '@/components/layout/landing/LandingFooter';
 import { FadeInSection } from '@/components/ui/FadeInSection';
 
 interface FeatureCardProps {

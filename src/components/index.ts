@@ -6,5 +6,5 @@ export * from "./ui/Typography";
 export * from "./ui/Logo";
 export * from "./ui/LogoWithText";
 export * from "./ui/FadeInSection";
-export * from "./layout/LandingHeader";
-export * from "./layout/LandingFooter";
+export * from "./layout/landing/LandingHeader";
+export * from "./layout/landing/LandingFooter";
