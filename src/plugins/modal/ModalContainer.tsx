@@ -1,7 +1,9 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-no-useless-fragment */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import useModal from './useModal';
 
@@ -9,17 +11,36 @@ const MODAL_ID = 'modal-container';
 
 export default function ModalContainer() {
   const modal = useModal();
+  const [modalElement, setModalElement] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (document.getElementById(MODAL_ID)) {
-      return;
+    // 기존 요소가 있는지 확인
+    let element = document.getElementById(MODAL_ID);
+    
+    if (!element) {
+      // 새로운 모달 컨테이너 생성
+      element = document.createElement('div');
+      element.id = MODAL_ID;
+      element.style.position = 'fixed';
+      element.style.top = '0';
+      element.style.left = '0';
+      element.style.zIndex = '9999';
+      element.style.pointerEvents = 'none';
+      document.body.appendChild(element);
     }
 
-    const modalDOM = document.createElement('div');
-    modalDOM.id = MODAL_ID;
-    modalDOM.style.position = 'fixed';
-    document.body.append(modalDOM);
-  }, []);
+    setModalElement(element);
+
+    // 정리 함수: 컴포넌트 언마운트 시 모든 모달 닫기
+    return () => {
+      modal.clear();
+    };
+  }, [modal]);
+
+  // 모달 요소가 준비되지 않았으면 null 반환
+  if (!modalElement) {
+    return null;
+  }
 
   return ReactDOM.createPortal(
     <>
@@ -27,11 +48,11 @@ export default function ModalContainer() {
       <div className="fixed bottom-0 right-0 z-50 p-4 pointer-events-none">
         {modal.list()
           .filter((elem) => elem.Component !== null && elem.key?.startsWith('Toast-'))
-          .map((elem, index) => {
+          .map((elem) => {
             const Component = elem.Component as React.ComponentType<any>;
             return (
               <Component
-                key={index}
+                key={elem.key} // 고유한 키 사용
                 resolve={elem.resolve}
                 reject={elem.reject}
                 {...(elem?.props ?? {})}
@@ -41,20 +62,22 @@ export default function ModalContainer() {
       </div>
 
       {/* 일반 모달 영역 */}
-      {modal.list()
-        .filter((elem) => elem.Component !== null && !elem.key?.startsWith('Toast-'))
-        .map((elem, index) => {
-          const Component = elem.Component as React.ComponentType<any>;
-          return (
-            <Component
-              key={index}
-              resolve={elem.resolve}
-              reject={elem.reject}
-              {...(elem?.props ?? {})}
-            />
-          );
-        })}
+      <div className="fixed inset-0 z-40 pointer-events-auto">
+        {modal.list()
+          .filter((elem) => elem.Component !== null && !elem.key?.startsWith('Toast-'))
+          .map((elem) => {
+            const Component = elem.Component as React.ComponentType<any>;
+            return (
+              <Component
+                key={elem.key} // 고유한 키 사용
+                resolve={elem.resolve}
+                reject={elem.reject}
+                {...(elem?.props ?? {})}
+              />
+            );
+          })}
+      </div>
     </>,
-    window.document.getElementById(MODAL_ID)!,
+    modalElement
   );
 }

@@ -1,15 +1,16 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-redeclare */
 import React, { useState } from 'react';
 import ModalController from './ModalController';
 import ModalContext from './ModalContext';
 import ModalContainer from './ModalContainer';
 
-interface ModalProvider {
-  children: React.ReactNode
+interface ModalProviderProps {
+  children: React.ReactNode;
 }
 
-
-export default function ModalProvider({ children }: ModalProvider) {
+export default function ModalProvider({ children }: ModalProviderProps) {
   const flagState = useState(1);
   const [modalController] = useState(() => new ModalController(flagState));
 

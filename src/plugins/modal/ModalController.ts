@@ -1,18 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, SetStateAction } from 'react';
 
-interface ModalInfo {
+// 개선된 타입 정의
+interface ModalInfo<T = any> {
   key: string;
-  Component: React.FC<any> | null;
+  Component: React.FC<ModalProps<T>> | null;
   props: unknown;
-  resolve: (value: any) => void;
-  reject: (value: any) => void;
+  resolve: (value: T) => void;
+  reject: (reason?: any) => void;
+  timestamp: number; // 고유 키 생성을 위한 타임스탬프
+}
+
+interface ModalProps<T = any> {
+  resolve: (value: T) => void;
+  reject: (reason?: any) => void;
 }
 
 export default class ModalController {
   private flagState: [number, Dispatch<SetStateAction<number>>];
-
   private modalInfos: ModalInfo[] = [];
+  private keyCounter: number = 0; // 고유 키 생성용 카운터
 
   constructor(flagState: [number, Dispatch<SetStateAction<number>>]) {
     this.flagState = flagState;
@@ -21,6 +28,11 @@ export default class ModalController {
   private flush() {
     const setFlag = this.flagState[1];
     setFlag((prev) => prev + 1);
+  }
+
+  // 고유한 키 생성
+  private generateUniqueKey(baseKey: string): string {
+    return `${baseKey}-${Date.now()}-${++this.keyCounter}`;
   }
 
   list() {
@@ -40,7 +52,7 @@ export default class ModalController {
     return this.modalInfos[this.modalInfos.length - 1];
   }
 
-  private handlePromises(key: string, resolver: (value: any) => void, value: any) {
+  private handlePromises<T>(key: string, resolver: (value: T) => void, value: T) {
     resolver(value);
     this.modalInfos = this.modalInfos.filter((elem) => key !== elem.key);
     this.flush();
@@ -54,19 +66,30 @@ export default class ModalController {
   }
 
   pop() {
-    this.top()?.reject('Close modal');
-    this.modalInfos.pop();
-    this.flush();
+    const topModal = this.top();
+    if (topModal) {
+      topModal.reject('Modal closed');
+      this.modalInfos.pop();
+      this.flush();
+    }
   }
 
-  async push(key: string, Component: React.FC<any> | null, props: unknown) {
+  async push<T = any>(
+    baseKey: string, 
+    Component: React.FC<ModalProps<T>> | null, 
+    props: unknown = {}
+  ): Promise<T> {
     return new Promise((resolve, reject) => {
+      const uniqueKey = this.generateUniqueKey(baseKey);
+      const timestamp = Date.now();
+      
       this.modalInfos.push({
-        key,
+        key: uniqueKey,
         Component,
         props,
-        resolve: (value) => this.handlePromises(key, resolve, value),
-        reject: (reason) => this.handlePromises(key, reject, reason),
+        resolve: (value: T) => this.handlePromises(uniqueKey, resolve, value),
+        reject: (reason?: any) => this.handlePromises(uniqueKey, reject, reason),
+        timestamp,
       });
       this.flush();
     });
