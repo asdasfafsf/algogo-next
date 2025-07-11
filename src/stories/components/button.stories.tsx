@@ -372,22 +372,78 @@ export const Sizes: Story = {
 // 아이콘이 포함된 버튼들
 export const WithIcons: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Button color="blue">
-        <Download className="mr-2 h-4 w-4" />
-        다운로드
-      </Button>
-      <Button variant="outline" color="green">
-        <Search className="mr-2 h-4 w-4" />
-        검색
-      </Button>
-      <Button variant="secondary" color="purple">
-        계속하기
-        <ChevronRight className="ml-2 h-4 w-4" />
-      </Button>
-      <Button size="icon" variant="outline" color="orange">
-        <Plus className="h-4 w-4" />
-      </Button>
+    <div className="space-y-6">
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">아이콘 + 텍스트 (왼쪽 아이콘)</div>
+        <div className="flex flex-wrap gap-4">
+          <Button color="blue">
+            <Download className="mr-2 h-4 w-4" />
+            다운로드
+          </Button>
+          <Button variant="outline" color="green">
+            <Search className="mr-2 h-4 w-4" />
+            검색
+          </Button>
+          <Button variant="secondary" color="red">
+            <Plus className="mr-2 h-4 w-4" />
+            추가하기
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">텍스트 + 아이콘 (오른쪽 아이콘)</div>
+        <div className="flex flex-wrap gap-4">
+          <Button variant="secondary" color="purple">
+            계속하기
+            <ChevronRight className="ml-2 h-4 w-4" />
+          </Button>
+          <Button color="indigo">
+            저장하기
+            <Download className="ml-2 h-4 w-4" />
+          </Button>
+          <Button variant="outline" color="teal">
+            자세히 보기
+            <ChevronRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">아이콘만 있는 버튼들 (size=&quot;icon&quot;)</div>
+        <div className="flex flex-wrap gap-4">
+          <Button size="icon" color="blue">
+            <Plus className="h-4 w-4" />
+          </Button>
+          <Button size="icon" variant="outline" color="orange">
+            <Search className="h-4 w-4" />
+          </Button>
+          <Button size="icon" variant="ghost" color="purple">
+            <Download className="h-4 w-4" />
+          </Button>
+          <Button size="icon" variant="secondary" color="green">
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">다양한 크기의 아이콘 버튼</div>
+        <div className="flex items-center gap-4">
+          <Button size="sm" color="cyan">
+            <Plus className="mr-1.5 h-3 w-3" />
+            작은 버튼
+          </Button>
+          <Button size="default" color="pink">
+            <Plus className="mr-2 h-4 w-4" />
+            기본 버튼
+          </Button>
+          <Button size="lg" color="amber">
+            <Plus className="mr-2 h-5 w-5" />
+            큰 버튼
+          </Button>
+        </div>
+      </div>
     </div>
   ),
 }
