@@ -7,10 +7,10 @@ import { ProblemTrainingCard } from "./ProblemTrainingCard";
 export const ProblemTrainingSection = () => {
   return (
         <section>
-          <div className="mb-6">
+          <div className="mb-4">
             <Typography
               variant="large"
-              className="font-bold mb-2"
+              className="font-bold"
             >
               알고리즘 트레이닝
             </Typography>
