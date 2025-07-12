@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
-import { MainLayout } from '@/components/layout/main'
-
+import Home from '../page'
 export const metadata: Metadata = {
   title: '전체 문제',
   description: '다양한 알고리즘 문제를 풀어보세요. 난이도별, 유형별로 정리된 코딩테스트 문제를 통해 실력을 향상시키세요.',
@@ -12,13 +11,4 @@ export const metadata: Metadata = {
   }
 }
 
-export default function ProblemsPage() {
-  return (
-    <MainLayout>
-      <div>
-        <h1>전체 문제</h1>
-        <p>알고리즘 문제 목록이 여기에 표시됩니다.</p>
-      </div>
-    </MainLayout>
-  )
-}
+export default Home;

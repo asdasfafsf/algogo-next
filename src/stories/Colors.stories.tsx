@@ -114,6 +114,27 @@ export const GreenColors: Story = {
   ),
 }
 
+// Purple 색상 팔레트
+export const PurpleColors: Story = {
+  render: () => (
+    <ColorPalette
+      title="Purple"
+      colors={[
+        { name: 'Purple 50', class: 'bg-purple-50' },
+        { name: 'Purple 100', class: 'bg-purple-100' },
+        { name: 'Purple 200', class: 'bg-purple-200' },
+        { name: 'Purple 300', class: 'bg-purple-300' },
+        { name: 'Purple 400', class: 'bg-purple-400' },
+        { name: 'Purple 500', class: 'bg-purple-500' },
+        { name: 'Purple 600', class: 'bg-purple-600' },
+        { name: 'Purple 700', class: 'bg-purple-700' },
+        { name: 'Purple 800', class: 'bg-purple-800' },
+        { name: 'Purple 900', class: 'bg-purple-900' },
+      ]}
+    />
+  ),
+}
+
 // Red 색상 팔레트
 export const RedColors: Story = {
   render: () => (
