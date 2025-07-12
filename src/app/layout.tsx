@@ -14,7 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AlgoGo - 알고리즘 학습 플랫폼",
+  title: {
+    template: '알고고 - %s',
+    default: '알고고 - 알고리즘 학습 플랫폼'
+  },
   description: "효율적인 알고리즘 학습과 문제 해결을 위한 플랫폼",
 };
 

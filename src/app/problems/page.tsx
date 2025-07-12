@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   }
 }
 
-export default function Home() {
+export default function ProblemsPage() {
   return (
     <MainLayout>
       <div>
