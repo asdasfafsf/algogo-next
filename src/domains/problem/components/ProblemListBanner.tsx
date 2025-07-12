@@ -20,7 +20,7 @@ const bannerItems = [
 
 export function ProblemListBanner() {
   return (
-    <div className="w-full mb-16">
+    <div className="w-full mb-8">
       <Carousel 
         className="w-full"
         opts={{

@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { MainLayout } from '@/components/layout/main'
 import { ProblemListBanner } from '@/domains/problem/components/ProblemListBanner'
+import { Typography } from '@/components/ui/Typography'
+import { ProblemTrainingCard } from '@/domains/problem'
 
 export const metadata: Metadata = {
   title: '알고고 - 알고리즘 학습 플랫폼',
@@ -19,31 +21,47 @@ export default function Home() {
       <ProblemListBanner />
       
       {/* 임시 콘텐츠 - 나중에 다른 섹션들로 교체 */}
-      <div className="space-y-12">
+      <div className="space-y-4">
         <section>
-          <h2 className="text-2xl font-bold mb-6">오늘의 문제</h2>
-          <div className="bg-gray-50 rounded-lg p-6">
-            <p className="text-gray-600">오늘의 문제 컴포넌트가 여기에 들어갑니다.</p>
-          </div>
+          <Typography
+            variant="large"
+            className="font-bold mb-2"
+          >
+            알고리즘 트레이닝
+          </Typography>
+          <main className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <ProblemTrainingCard
+              title="오늘의 문제"
+              description="매일 새로운 도전"
+              iconUrl="https://cdn-icons-png.flaticon.com/512/2721/2721691.png"
+              color="blue"
+              status="active"
+            />
+            <ProblemTrainingCard
+              title="유형별"
+              description="패턴별 학습"
+              iconUrl="https://cdn-icons-png.flaticon.com/512/5262/5262593.png"
+              color="purple"
+              status="coming-soon"
+            />
+            <ProblemTrainingCard
+              title="준비중"
+              description="곧 만나요"
+              iconUrl="https://cdn-icons-png.flaticon.com/512/2972/2972531.png"
+              color="gray"
+              status="coming-soon"
+            />
+          </main>
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold mb-6">유형별 문제</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {['알고리즘', '자료구조', 'SQL'].map((category) => (
-              <div key={category} className="bg-gray-50 rounded-lg p-6">
-                <h3 className="font-semibold mb-2">{category}</h3>
-                <p className="text-gray-600 text-sm">{category} 문제 카드가 여기에 들어갑니다.</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-bold mb-6">전체 문제</h2>
-          <div className="bg-gray-50 rounded-lg p-6">
-            <p className="text-gray-600">문제 테이블이 여기에 들어갑니다.</p>
-          </div>
+          <Typography
+            variant="large"
+            className="font-bold mb-2"
+          >
+            전체 문제
+          </Typography>
+ 
         </section>
       </div>
     </MainLayout>
