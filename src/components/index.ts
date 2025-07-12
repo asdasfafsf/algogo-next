@@ -16,3 +16,4 @@ export * from "./layout/main/layout";
 export * from "./ui/Chip";
 export * from "./ui/Popover";
 export * from "./ui/Select";
+export * from "./shared/ProblemLevelChip";
