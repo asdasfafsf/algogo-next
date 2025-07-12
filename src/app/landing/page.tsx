@@ -64,10 +64,10 @@ export default function Landing() {
               알고고가 실시간 테스트부터 제출까지 도와드릴게요 ✨
             </p>
             <div className="flex flex-col sm:flex-row gap-2 justify-center">
-              <Button size='lg' className='text-xs font-bold' color="blue" onClick={() => router.push('/signup')}>
+              <Button size='sm' className='text-xs font-bold' color="blue" ripple onClick={() => router.push('/signup')}>
                 지금 시작하기
               </Button>
-              <Button size='lg' className='text-xs font-bold' onClick={() => handleAlert('현재 준비중입니다')}>
+              <Button size='sm' className='text-xs font-bold' ripple onClick={() => handleAlert('현재 준비중입니다')}>
                 크롬 확장 프로그램 받기
               </Button>
             </div>
@@ -210,9 +210,10 @@ export default function Landing() {
               </p>
               <div className="flex justify-center gap-4">
                 <Button
-                  size='lg'
+                  size='sm'
                   className='text-xs font-bold'
                   color="blue"
+                  ripple
                   onClick={() => router.push('/signup')}
                 >
                   무료로 시작하기

@@ -14,20 +14,12 @@ export function LandingHeader() {
     <header className="fixed top-0 left-0 right-0 z-30 shadow-sm bg-white/80 backdrop-blur-md">
       <div className="container max-w-screen-xl px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
-          <LogoWithText size="medium" />
+          <LogoWithText size="medium" animateOnHover={true} />
           
           {/* Desktop Navigation */}
           <nav className="items-center hidden space-x-2 md:flex">
-            <Button 
-              size='lg'
-              className='text-xs font-bold'
-              variant="ghost" 
-              color="default" 
-              onClick={() => router.push('/login')}
-            >
-              로그인
-            </Button>
-            <Button size='lg' className='text-xs font-bold' color="blue" onClick={() => router.push('/signup')}>
+ 
+            <Button size='sm' className='text-xs font-bold' color="blue" onClick={() => router.push('/signup')}>
               시작하기
             </Button>
           </nav>
