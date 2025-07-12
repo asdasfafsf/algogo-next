@@ -690,11 +690,11 @@ export const NewFeatures: Story = {
       <div className="space-y-4">
         <div className="text-sm font-medium text-muted-foreground">Improved Sizes (더 균형잡힌 크기)</div>
         <div className="flex items-center gap-4">
-          <Button size="xs" color="blue">XS (28px)</Button>
-          <Button size="sm" color="blue">SM (36px)</Button>
-          <Button size="default" color="blue">Default (40px)</Button>
-          <Button size="lg" color="blue">LG (44px)</Button>
-          <Button size="xl" color="blue">XL (48px)</Button>
+          <Button size="xs" color="blue">XS (32px)</Button>
+          <Button size="sm" color="blue">SM (40px)</Button>
+          <Button size="default" color="blue">Default (44px)</Button>
+          <Button size="lg" color="blue">LG (48px)</Button>
+          <Button size="xl" color="blue">XL (56px)</Button>
         </div>
       </div>
     </div>
