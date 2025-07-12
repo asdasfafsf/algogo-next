@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { Chip } from '@/components/ui/Chip'
-import { User, Star, Tag, X, Plus, Heart } from 'lucide-react'
+import { User, Star, Tag, Plus, Heart } from 'lucide-react'
 import { useState } from 'react'
 
 const meta = {
