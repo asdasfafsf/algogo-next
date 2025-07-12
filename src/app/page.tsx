@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { MainLayout } from '@/components/layout/main'
-import { Typography } from '@/components/ui/Typography'
-import { ProblemListBanner } from '@/domains/problem'
+import { ProblemListBanner, ProblemListSection } from '@/domains/problem'
 import { ProblemTrainingSection } from '@/domains/problem'
 
 export const metadata: Metadata = {
@@ -20,17 +19,9 @@ export default function Home() {
     <MainLayout>
       <ProblemListBanner />
       
-      <div className="space-y-4">
+      <div className="space-y-6">
         <ProblemTrainingSection />
-        <section>
-          <Typography
-            variant="large"
-            className="font-bold mb-2"
-          >
-            전체 문제
-          </Typography>
- 
-        </section>
+        <ProblemListSection />
       </div>
     </MainLayout>
   )
