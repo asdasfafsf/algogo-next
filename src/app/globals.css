@@ -426,4 +426,31 @@
   .ripple-animate::before {
     animation: ripple-animation 0.6s ease-out;
   }
+  
+  /* Logo bounce animation */
+  @keyframes logo-bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    10% {
+      transform: translateY(-8px);
+    }
+    30% {
+      transform: translateY(-4px);
+    }
+    40% {
+      transform: translateY(-2px);
+    }
+    60% {
+      transform: translateY(-1px);
+    }
+  }
+  
+  .logo-bounce {
+    animation: logo-bounce 2s ease-in-out infinite;
+  }
+  
+  .logo-bounce-on-hover:hover .logo-bounce {
+    animation: logo-bounce 0.8s ease-in-out infinite;
+  }
 }
