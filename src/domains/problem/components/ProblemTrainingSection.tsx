@@ -20,6 +20,7 @@ export const ProblemTrainingSection = () => {
               icon={<Zap size={32} />}
               color="blue"
               status="active"
+              href="/problem/today"
             />
             <ProblemTrainingCard
               title="유형별"

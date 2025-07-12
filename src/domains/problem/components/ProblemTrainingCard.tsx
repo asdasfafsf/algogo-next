@@ -1,4 +1,5 @@
 import { Card } from '@/components/ui/Card';
+import Link from 'next/link';
 import React from 'react';
 
 export interface TrainingCardProps {
@@ -7,6 +8,7 @@ export interface TrainingCardProps {
   icon: React.ReactNode;
   color: 'blue' | 'purple' | 'gray' | 'green' | 'amber' | 'rose' | 'emerald' | 'indigo' | 'teal' | 'orange';
   status: 'active' | 'coming-soon';
+  href?: string;
   onClick?: () => void;
 }
 
@@ -99,12 +101,13 @@ export function ProblemTrainingCard({
   icon,
   color,
   status,
+  href,
   onClick,
 }: TrainingCardProps) {
   const config = colorConfig[color];
   const isActive = status === 'active';
 
-  return (
+  const cardContent = (
     <Card
       className={`
         relative p-6 text-white transition-all duration-500 overflow-hidden
@@ -112,7 +115,7 @@ export function ProblemTrainingCard({
         border border-gray-800/50 backdrop-blur-sm
         ${isActive ? `cursor-pointer hover:scale-[1.02] hover:-translate-y-1 group ${config.border} ${config.glow}` : 'cursor-not-allowed'}
       `}
-      onClick={isActive ? onClick : undefined}
+      onClick={isActive && !href ? onClick : undefined}
     >
       {/* 배경 글로우 효과 */}
       <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-5 rounded-lg`} />
@@ -180,4 +183,15 @@ export function ProblemTrainingCard({
       )}
     </Card>
   );
+
+  // href가 있고 활성 상태면 Link로 감싸기
+  if (href && isActive) {
+    return (
+      <Link href={href} className="block w-full h-full no-underline text-inherit">
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 }
