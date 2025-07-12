@@ -8,11 +8,7 @@ export interface ProblemFilterProps {
   onStatusChange?: (status: string) => void;
 }
 
-export function ProblemFilter({
-  onDifficultyChange,
-  onTypeChange,
-  onStatusChange,
-}: ProblemFilterProps) {
+export function ProblemFilter({}: ProblemFilterProps) {
   return (
     <div className="bg-gray-50 rounded-lg p-4">
       <div className="flex flex-wrap gap-4 items-center">
