@@ -1,9 +1,10 @@
 import { Card } from '@/components/ui/Card';
+import React from 'react';
 
 export interface TrainingCardProps {
   title: string;
   description: string;
-  iconUrl: string;
+  icon: React.ReactNode;
   color: 'blue' | 'purple' | 'gray';
   status: 'active' | 'coming-soon';
   onClick?: () => void;
@@ -36,7 +37,7 @@ const colorConfig = {
 export function ProblemTrainingCard({
   title,
   description,
-  iconUrl,
+  icon,
   color,
   status,
   onClick,
@@ -61,11 +62,9 @@ export function ProblemTrainingCard({
           ${isActive ? 'transition-all duration-300 group-hover:scale-110' : ''}
         `}
         >
-          <img
-            src={iconUrl}
-            alt={title}
-            className={`w-8 h-8 object-contain filter brightness-0 invert ${!isActive ? 'opacity-60' : ''}`}
-          />
+          <div className={`w-8 h-8 text-white ${!isActive ? 'opacity-60' : ''}`}>
+            {icon}
+          </div>
         </div>
 
         {/* 오른쪽 텍스트 정보 */}

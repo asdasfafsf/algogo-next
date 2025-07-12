@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { ProblemTrainingCard } from '@/domains/problem/components/ProblemTrainingCard'
+import { Zap, BookOpen, Settings } from 'lucide-react'
 
 const meta = {
   title: 'Domains/Problem/TrainingCard',
@@ -32,10 +33,6 @@ const meta = {
       control: 'text',
       description: '카드의 설명',
     },
-    iconUrl: {
-      control: 'text',
-      description: '아이콘 이미지 URL',
-    },
   },
 } satisfies Meta<typeof ProblemTrainingCard>
 
@@ -47,7 +44,7 @@ export const Default: Story = {
   args: {
     title: '오늘의 문제',
     description: '매일 업데이트되는 추천 문제를 풀어보세요',
-    iconUrl: '/images/calendar.svg',
+    icon: <Zap size={32} />,
     color: 'blue',
     status: 'active',
   },
@@ -58,7 +55,7 @@ export const Purple: Story = {
   args: {
     title: '유형별 문제',
     description: '알고리즘 유형별로 분류된 문제들을 연습하세요',
-    iconUrl: '/images/category.svg',
+    icon: <BookOpen size={32} />,
     color: 'purple',
     status: 'active',
   },
@@ -69,7 +66,7 @@ export const ComingSoon: Story = {
   args: {
     title: '특별 훈련',
     description: '고급 알고리즘 훈련 과정이 곧 출시됩니다',
-    iconUrl: '/images/training.svg',
+    icon: <Settings size={32} />,
     color: 'gray',
     status: 'coming-soon',
   },
@@ -84,27 +81,34 @@ export const AllColors: Story = {
         <ProblemTrainingCard
           title="오늘의 문제"
           description="매일 업데이트되는 추천 문제를 풀어보세요"
-          iconUrl="/images/calendar.svg"
+          icon={<Zap size={32} />}
           color="blue"
           status="active"
         />
         <ProblemTrainingCard
           title="유형별 문제"
           description="알고리즘 유형별로 분류된 문제들을 연습하세요"
-          iconUrl="/images/category.svg"
+          icon={<BookOpen size={32} />}
           color="purple"
           status="active"
         />
         <ProblemTrainingCard
           title="특별 훈련"
           description="고급 알고리즘 훈련 과정이 곧 출시됩니다"
-          iconUrl="/images/training.svg"
+          icon={<Settings size={32} />}
           color="gray"
           status="coming-soon"
         />
       </div>
     </div>
   ),
+  args: {
+    title: '오늘의 문제',
+    description: '매일 업데이트되는 추천 문제를 풀어보세요',
+    icon: <Zap size={32} />,
+    color: 'blue',
+    status: 'active',
+  },
 }
 
 // 상태별 비교
@@ -118,7 +122,7 @@ export const StatusComparison: Story = {
           <ProblemTrainingCard
             title="활성 카드"
             description="클릭 가능한 상태입니다"
-            iconUrl="/images/check.svg"
+            icon={<Zap size={32} />}
             color="blue"
             status="active"
           />
@@ -128,7 +132,7 @@ export const StatusComparison: Story = {
           <ProblemTrainingCard
             title="준비중 카드"
             description="아직 사용할 수 없습니다"
-            iconUrl="/images/clock.svg"
+            icon={<Settings size={32} />}
             color="gray"
             status="coming-soon"
           />
@@ -136,6 +140,13 @@ export const StatusComparison: Story = {
       </div>
     </div>
   ),
+  args: {
+    title: '활성 카드',
+    description: '클릭 가능한 상태입니다',
+    icon: <Zap size={32} />,
+    color: 'blue',
+    status: 'active',
+  },
 }
 
 // 반응형 레이아웃 예시
@@ -148,27 +159,34 @@ export const ResponsiveLayout: Story = {
         <ProblemTrainingCard
           title="기초 알고리즘"
           description="프로그래밍 기초를 다지는 알고리즘 문제들"
-          iconUrl="/images/basic.svg"
+          icon={<Zap size={32} />}
           color="blue"
           status="active"
         />
         <ProblemTrainingCard
           title="중급 알고리즘"
           description="한 단계 높은 수준의 알고리즘 문제들"
-          iconUrl="/images/intermediate.svg"
+          icon={<BookOpen size={32} />}
           color="purple"
           status="active"
         />
         <ProblemTrainingCard
           title="고급 알고리즘"
           description="전문가 수준의 복잡한 알고리즘 문제들"
-          iconUrl="/images/advanced.svg"
+          icon={<Settings size={32} />}
           color="gray"
           status="coming-soon"
         />
       </div>
     </div>
   ),
+  args: {
+    title: '기초 알고리즘',
+    description: '프로그래밍 기초를 다지는 알고리즘 문제들',
+    icon: <Zap size={32} />,
+    color: 'blue',
+    status: 'active',
+  },
   parameters: {
     viewport: {
       defaultViewport: 'responsive',
