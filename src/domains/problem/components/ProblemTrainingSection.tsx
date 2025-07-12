@@ -9,7 +9,7 @@ export const ProblemTrainingSection = () => {
         <section>
           <Typography
             variant="large"
-            className="font-bold mb-2"
+            className="font-bold mb-4"
           >
             알고리즘 트레이닝
           </Typography>
