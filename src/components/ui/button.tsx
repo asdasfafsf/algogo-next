@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-all duration-300 !cursor-pointer disabled:pointer-events-none disabled:opacity-50 disabled:!cursor-not-allowed [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
@@ -41,10 +41,16 @@ const buttonVariants = cva(
         gray: "",
       },
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "size-9",
+        xs: "h-8 px-3 text-xs gap-1.5 has-[>svg]:px-2.5",
+        sm: "h-10 px-4 text-sm gap-1.5 has-[>svg]:px-3", 
+        default: "h-11 px-6 text-sm gap-2 has-[>svg]:px-4",
+        lg: "h-12 px-7 text-base gap-2 has-[>svg]:px-6",
+        xl: "h-14 px-9 text-lg gap-2.5 has-[>svg]:px-7",
+        icon: "size-10",
+      },
+      fullWidth: {
+        true: "w-full",
+        false: "",
       },
     },
     compoundVariants: [
@@ -52,7 +58,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "default",
-        className: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90"
+        className: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 hover:text-shadow-glow"
       },
       {
         variant: "outline",
@@ -96,7 +102,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "red",
-        className: "bg-red-500 text-white shadow-xs hover:bg-red-600 focus-visible:ring-red-300"
+        className: "bg-red-500 text-white shadow-xs hover:bg-red-600 hover:drop-shadow-red focus-visible:ring-red-300"
       },
       {
         variant: "outline",
@@ -118,7 +124,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "pink",
-        className: "bg-pink-500 text-white shadow-xs hover:bg-pink-600 focus-visible:ring-pink-300"
+        className: "bg-pink-500 text-white shadow-xs hover:bg-pink-600 hover:drop-shadow-pink focus-visible:ring-pink-300"
       },
       {
         variant: "outline",
@@ -140,7 +146,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "purple",
-        className: "bg-purple-500 text-white shadow-xs hover:bg-purple-600 focus-visible:ring-purple-300"
+        className: "bg-purple-500 text-white shadow-xs hover:bg-purple-600 hover:drop-shadow-purple focus-visible:ring-purple-300"
       },
       {
         variant: "outline",
@@ -162,7 +168,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "blue",
-        className: "bg-blue-500 text-white shadow-xs hover:bg-blue-600 focus-visible:ring-blue-300"
+        className: "bg-blue-500 text-white shadow-xs hover:bg-blue-600 hover:drop-shadow-blue focus-visible:ring-blue-300"
       },
       {
         variant: "outline",
@@ -184,7 +190,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "green",
-        className: "bg-green-500 text-white shadow-xs hover:bg-green-600 focus-visible:ring-green-300"
+        className: "bg-green-500 text-white shadow-xs hover:bg-green-600 hover:drop-shadow-green focus-visible:ring-green-300"
       },
       {
         variant: "outline",
@@ -206,7 +212,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "yellow",
-        className: "bg-yellow-500 text-black shadow-xs hover:bg-yellow-600 focus-visible:ring-yellow-300"
+        className: "bg-yellow-500 text-black shadow-xs hover:bg-yellow-600 hover:drop-shadow-yellow focus-visible:ring-yellow-300"
       },
       {
         variant: "outline",
@@ -228,7 +234,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "orange",
-        className: "bg-orange-500 text-white shadow-xs hover:bg-orange-600 focus-visible:ring-orange-300"
+        className: "bg-orange-500 text-white shadow-xs hover:bg-orange-600 hover:drop-shadow-orange focus-visible:ring-orange-300"
       },
       {
         variant: "outline",
@@ -250,7 +256,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "indigo",
-        className: "bg-indigo-500 text-white shadow-xs hover:bg-indigo-600 focus-visible:ring-indigo-300"
+        className: "bg-indigo-500 text-white shadow-xs hover:bg-indigo-600 hover:drop-shadow-indigo focus-visible:ring-indigo-300"
       },
       {
         variant: "outline",
@@ -272,7 +278,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "teal",
-        className: "bg-teal-500 text-white shadow-xs hover:bg-teal-600 focus-visible:ring-teal-300"
+        className: "bg-teal-500 text-white shadow-xs hover:bg-teal-600 hover:drop-shadow-teal focus-visible:ring-teal-300"
       },
       {
         variant: "outline",
@@ -294,7 +300,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "gray",
-        className: "bg-gray-500 text-white shadow-xs hover:bg-gray-600 focus-visible:ring-gray-300"
+        className: "bg-gray-500 text-white shadow-xs hover:bg-gray-600 hover:drop-shadow-gray focus-visible:ring-gray-300"
       },
       {
         variant: "outline",
@@ -316,7 +322,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "pink",
-        className: "bg-pink-500 text-white shadow-xs hover:bg-pink-600 focus-visible:ring-pink-300"
+        className: "bg-pink-500 text-white shadow-xs hover:bg-pink-600 hover:drop-shadow-pink focus-visible:ring-pink-300"
       },
       {
         variant: "outline",
@@ -338,7 +344,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "deep-purple",
-        className: "bg-purple-700 text-white shadow-xs hover:bg-purple-800 focus-visible:ring-purple-300"
+        className: "bg-purple-700 text-white shadow-xs hover:bg-purple-800 hover:drop-shadow-purple focus-visible:ring-purple-300"
       },
       {
         variant: "outline",
@@ -360,7 +366,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "light-blue",
-        className: "bg-sky-500 text-white shadow-xs hover:bg-sky-600 focus-visible:ring-sky-300"
+        className: "bg-sky-500 text-white shadow-xs hover:bg-sky-600 hover:drop-shadow-blue focus-visible:ring-sky-300"
       },
       {
         variant: "outline",
@@ -382,7 +388,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "cyan",
-        className: "bg-cyan-500 text-white shadow-xs hover:bg-cyan-600 focus-visible:ring-cyan-300"
+        className: "bg-cyan-500 text-white shadow-xs hover:bg-cyan-600 hover:drop-shadow-cyan focus-visible:ring-cyan-300"
       },
       {
         variant: "outline",
@@ -404,7 +410,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "light-green",
-        className: "bg-emerald-500 text-white shadow-xs hover:bg-emerald-600 focus-visible:ring-emerald-300"
+        className: "bg-emerald-500 text-white shadow-xs hover:bg-emerald-600 hover:drop-shadow-green focus-visible:ring-emerald-300"
       },
       {
         variant: "outline",
@@ -426,7 +432,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "lime",
-        className: "bg-lime-500 text-black shadow-xs hover:bg-lime-600 focus-visible:ring-lime-300"
+        className: "bg-lime-500 text-black shadow-xs hover:bg-lime-600 hover:drop-shadow-lime focus-visible:ring-lime-300"
       },
       {
         variant: "outline",
@@ -448,7 +454,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "amber",
-        className: "bg-amber-500 text-black shadow-xs hover:bg-amber-600 focus-visible:ring-amber-300"
+        className: "bg-amber-500 text-black shadow-xs hover:bg-amber-600 hover:drop-shadow-amber focus-visible:ring-amber-300"
       },
       {
         variant: "outline",
@@ -470,7 +476,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "deep-orange",
-        className: "bg-orange-700 text-white shadow-xs hover:bg-orange-800 focus-visible:ring-orange-300"
+        className: "bg-orange-700 text-white shadow-xs hover:bg-orange-800 hover:drop-shadow-orange focus-visible:ring-orange-300"
       },
       {
         variant: "outline",
@@ -492,7 +498,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "brown",
-        className: "bg-amber-800 text-white shadow-xs hover:bg-amber-900 focus-visible:ring-amber-300"
+        className: "bg-amber-800 text-white shadow-xs hover:bg-amber-900 hover:drop-shadow-amber focus-visible:ring-amber-300"
       },
       {
         variant: "outline",
@@ -514,7 +520,7 @@ const buttonVariants = cva(
       {
         variant: "default",
         color: "blue-gray",
-        className: "bg-slate-500 text-white shadow-xs hover:bg-slate-600 focus-visible:ring-slate-300"
+        className: "bg-slate-500 text-white shadow-xs hover:bg-slate-600 hover:drop-shadow-blue-gray focus-visible:ring-slate-300"
       },
       {
         variant: "outline",
@@ -544,29 +550,103 @@ const buttonVariants = cva(
       variant: "default",
       color: "default",
       size: "default",
+      fullWidth: false,
     },
   }
 )
+
+interface ButtonProps extends Omit<React.ComponentProps<"button">, "color">, VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+  ripple?: boolean
+  loading?: boolean
+  startIcon?: React.ReactNode
+  endIcon?: React.ReactNode
+}
 
 function Button({
   className,
   variant,
   color,
   size,
+  fullWidth,
   asChild = false,
+  ripple = false,
+  loading = false,
+  startIcon,
+  endIcon,
+  onClick,
+  disabled,
+  children,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button"
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (ripple && buttonRef.current && !loading && !disabled) {
+      // 기존 애니메이션 클래스 제거
+      buttonRef.current.classList.remove('ripple-animate')
+      
+      // 강제로 reflow 발생시켜 클래스 제거를 즉시 적용
+      void buttonRef.current.offsetHeight
+      
+      // 새로운 애니메이션 클래스 추가
+      buttonRef.current.classList.add('ripple-animate')
+      
+      // 애니메이션이 끝나면 클래스 제거
+      setTimeout(() => {
+        if (buttonRef.current) {
+          buttonRef.current.classList.remove('ripple-animate')
+        }
+      }, 600)
+    }
+    
+    // 원래 onClick 핸들러 실행
+    if (onClick && !loading && !disabled) {
+      onClick(e)
+    }
+  }
+
+  const isDisabled = disabled || loading
+
+  const renderIcon = (icon: React.ReactNode) => {
+    if (loading) {
+      return (
+        <div className="animate-spin rounded-full border-2 border-current border-t-transparent w-4 h-4" />
+      )
+    }
+    return icon
+  }
+
+  const renderContent = () => {
+    if (asChild) {
+      return children
+    }
+
+    return (
+      <>
+        {(startIcon || loading) && renderIcon(startIcon)}
+        {children}
+        {endIcon && !loading && endIcon}
+      </>
+    )
+  }
 
   return (
     <Comp
+      ref={asChild ? undefined : buttonRef}
       data-slot="button"
-      className={cn(buttonVariants({ variant, color, size, className }))}
+      className={cn(
+        buttonVariants({ variant, color, size, fullWidth }),
+        className,
+        ripple && "ripple"
+      )}
+      onClick={asChild ? onClick : handleClick}
+      disabled={isDisabled}
       {...props}
-    />
+    >
+      {renderContent()}
+    </Comp>
   )
 }
 

@@ -69,24 +69,24 @@ export function LandingFooter() {
           <div className="flex flex-col items-center justify-center space-y-4">
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/terms">
-                <Typography variant="small" className="hover:text-blue-600 transition-colors">
+                <Typography variant="muted" className="hover:text-blue-600 transition-colors">
                   이용약관
                 </Typography>
               </Link>
               <Typography variant="muted" size="sm">|</Typography>
               <Link href="/privacy">
-                <Typography variant="small" className="hover:text-blue-600 transition-colors">
+                <Typography variant="muted" className="hover:text-blue-600 transition-colors">
                   개인정보처리방침
                 </Typography>
               </Link>
               <Typography variant="muted" size="sm">|</Typography>
               <Link href="/service-policy">
-                <Typography variant="small" className="hover:text-blue-600 transition-colors">
+                <Typography variant="muted" className="hover:text-blue-600 transition-colors">
                   서비스 운영정책
                 </Typography>
               </Link>
             </div>
-            <Typography variant="small" className="text-center">
+            <Typography variant="muted" className="text-center">
               © {new Date().getFullYear()} AlgoGo Corp. All rights reserved.
             </Typography>
           </div>

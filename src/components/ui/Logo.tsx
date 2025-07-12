@@ -2,6 +2,8 @@ interface LogoProps {
   size?: 'small' | 'medium' | 'large';
   className?: string;
   color?: 'blue' | 'black' | 'white' | 'green' | 'purple' | 'red';
+  animate?: boolean;
+  animateOnHover?: boolean;
 }
 
 const sizeMap = {
@@ -43,13 +45,22 @@ const colorMap = {
   },
 };
 
-export function Logo({ size = 'medium', className = '', color = 'blue' }: LogoProps) {
+export function Logo({ 
+  size = 'medium', 
+  className = '', 
+  color = 'blue', 
+  animate = false, 
+  animateOnHover = false 
+}: LogoProps) {
   const colors = colorMap[color];
   
+  const wrapperClass = animateOnHover ? 'logo-bounce-on-hover' : '';
+  const dotClass = animate ? 'logo-bounce' : '';
+  
   return (
-    <div className={`relative ${sizeMap[size]} ${className}`}>
+    <div className={`relative ${sizeMap[size]} ${className} ${wrapperClass}`}>
       {/* Background Circle */}
-      <div className={`w-full h-full ${colors.bg} rounded-full shadow-sm`} />
+      <div className={`w-full h-full rounded-full`} />
       
       {/* Logo Content */}
       <div className="absolute inset-0 flex items-center justify-center">
@@ -57,8 +68,8 @@ export function Logo({ size = 'medium', className = '', color = 'blue' }: LogoPr
         <div className={`absolute left-[15%] w-[30%] h-[70%] border-2 border-r-0 ${colors.border} rounded-l-md`} />
         {/* Right Bracket */}
         <div className={`absolute right-[15%] w-[30%] h-[70%] border-2 border-l-0 ${colors.border} rounded-r-md`} />
-        {/* Center Dot */}
-        <div className={`w-[25%] h-[25%] ${colors.dot} rounded-full`} />
+        {/* Center Dot - 통통 튀는 공! */}
+        <div className={`w-[25%] h-[25%] ${colors.dot} rounded-full ${dotClass}`} />
       </div>
     </div>
   );

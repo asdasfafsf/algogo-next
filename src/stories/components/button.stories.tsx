@@ -25,12 +25,21 @@ const meta: Meta<typeof Button> = {
     },
     size: {
       control: { type: 'select' },
-      options: ['default', 'sm', 'lg', 'icon'],
+      options: ['xs', 'sm', 'default', 'lg', 'xl', 'icon'],
     },
     asChild: {
       control: { type: 'boolean' },
     },
+    ripple: {
+      control: { type: 'boolean' },
+    },
     disabled: {
+      control: { type: 'boolean' },
+    },
+    loading: {
+      control: { type: 'boolean' },
+    },
+    fullWidth: {
       control: { type: 'boolean' },
     },
   },
@@ -359,9 +368,11 @@ export const ColorShowcase: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
+      <Button size="xs" color="blue">XS</Button>
       <Button size="sm" color="blue">Small</Button>
       <Button size="default" color="blue">Default</Button>
       <Button size="lg" color="blue">Large</Button>
+      <Button size="xl" color="blue">XL</Button>
       <Button size="icon" color="blue">
         <Plus className="h-4 w-4" />
       </Button>
@@ -481,6 +492,211 @@ export const Loading: Story = {
         <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
         처리 중...
       </Button>
+    </div>
+  ),
+}
+
+// Ripple Effects 데모
+export const RippleEffects: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Ripple Effects - 클릭해서 확인하세요!</div>
+        <div className="flex flex-wrap gap-4">
+          <Button color="blue" ripple>
+            Blue Ripple
+          </Button>
+          <Button color="green" ripple>
+            Green Ripple
+          </Button>
+          <Button color="red" ripple>
+            Red Ripple
+          </Button>
+          <Button color="purple" ripple>
+            Purple Ripple
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Outline Variants with Ripple</div>
+        <div className="flex flex-wrap gap-4">
+          <Button variant="outline" color="blue" ripple>
+            Blue Outline
+          </Button>
+          <Button variant="outline" color="green" ripple>
+            Green Outline
+          </Button>
+          <Button variant="outline" color="red" ripple>
+            Red Outline
+          </Button>
+          <Button variant="outline" color="purple" ripple>
+            Purple Outline
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">다양한 크기의 Ripple Buttons</div>
+        <div className="flex items-center gap-4">
+          <Button size="xs" color="cyan" ripple>
+            XS Ripple
+          </Button>
+          <Button size="sm" color="pink" ripple>
+            SM Ripple
+          </Button>
+          <Button size="default" color="amber" ripple>
+            Default Ripple
+          </Button>
+          <Button size="lg" color="teal" ripple>
+            LG Ripple
+          </Button>
+          <Button size="xl" color="orange" ripple>
+            XL Ripple
+          </Button>
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+// All Button Sizes 업데이트
+export const AllSizes: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">모든 크기 옵션</div>
+        <div className="flex items-center gap-4">
+          <Button size="xs" color="blue">XS</Button>
+          <Button size="sm" color="blue">SM</Button>
+          <Button size="default" color="blue">Default</Button>
+          <Button size="lg" color="blue">LG</Button>
+          <Button size="xl" color="blue">XL</Button>
+          <Button size="icon" color="blue">
+            <Plus className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+      
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Ripple과 함께</div>
+        <div className="flex items-center gap-4">
+          <Button size="xs" color="purple" ripple>XS Ripple</Button>
+          <Button size="sm" color="purple" ripple>SM Ripple</Button>
+          <Button size="default" color="purple" ripple>Default Ripple</Button>
+          <Button size="lg" color="purple" ripple>LG Ripple</Button>
+          <Button size="xl" color="purple" ripple>XL Ripple</Button>
+          <Button size="icon" color="purple" ripple>
+            <Plus className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+// Hover Effects Showcase
+export const HoverEffects: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Drop Shadow Hover Effects - 호버해보세요!</div>
+        <div className="grid grid-cols-4 gap-4">
+          <Button color="blue">Blue Shadow</Button>
+          <Button color="green">Green Shadow</Button>
+          <Button color="red">Red Shadow</Button>
+          <Button color="purple">Purple Shadow</Button>
+          <Button color="pink">Pink Shadow</Button>
+          <Button color="orange">Orange Shadow</Button>
+          <Button color="indigo">Indigo Shadow</Button>
+          <Button color="teal">Teal Shadow</Button>
+          <Button color="cyan">Cyan Shadow</Button>
+          <Button color="yellow">Yellow Shadow</Button>
+          <Button color="amber">Amber Shadow</Button>
+          <Button color="lime">Lime Shadow</Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Ripple + Hover 조합</div>
+        <div className="grid grid-cols-4 gap-4">
+          <Button color="blue" ripple>Blue Both</Button>
+          <Button color="green" ripple>Green Both</Button>
+          <Button color="red" ripple>Red Both</Button>
+          <Button color="purple" ripple>Purple Both</Button>
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+// 새로운 기능들 데모
+export const NewFeatures: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Loading States</div>
+        <div className="flex flex-wrap gap-4">
+          <Button loading color="blue">
+            Loading...
+          </Button>
+          <Button loading variant="outline" color="green">
+            Processing...
+          </Button>
+          <Button loading variant="secondary" color="red">
+            Saving...
+          </Button>
+          <Button loading startIcon={<Search className="h-4 w-4" />} color="purple">
+            Searching...
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Icon Buttons (Start/End Icons)</div>
+        <div className="flex flex-wrap gap-4">
+          <Button startIcon={<Download className="h-4 w-4" />} color="blue">
+            Download
+          </Button>
+          <Button endIcon={<ChevronRight className="h-4 w-4" />} variant="outline" color="green">
+            Next
+          </Button>
+          <Button 
+            startIcon={<Plus className="h-4 w-4" />} 
+            endIcon={<ChevronRight className="h-4 w-4" />}
+            variant="secondary" 
+            color="purple"
+          >
+            Add & Continue
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Full Width Buttons</div>
+        <div className="space-y-3">
+          <Button fullWidth color="blue">
+            Full Width Primary
+          </Button>
+          <Button fullWidth variant="outline" color="green">
+            Full Width Outline
+          </Button>
+          <Button fullWidth loading color="purple">
+            Full Width Loading
+          </Button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground">Improved Sizes (더 균형잡힌 크기)</div>
+        <div className="flex items-center gap-4">
+          <Button size="xs" color="blue">XS (32px)</Button>
+          <Button size="sm" color="blue">SM (40px)</Button>
+          <Button size="default" color="blue">Default (44px)</Button>
+          <Button size="lg" color="blue">LG (48px)</Button>
+          <Button size="xl" color="blue">XL (56px)</Button>
+        </div>
+      </div>
     </div>
   ),
 } 
