@@ -1,27 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
-import { DifficultyFilter } from '@/domains/problem/components/DifficultyFilter'
+import { ProblemLevelFilter } from '@/domains/problem/components/ProblemLevelFilter'
 import { useState } from 'react'
 
-const meta: Meta<typeof DifficultyFilter> = {
-  title: 'Domains/Problem/DifficultyFilter',
-  component: DifficultyFilter,
+const meta: Meta<typeof ProblemLevelFilter> = {
+  title: 'Domains/Problem/ProblemLevelFilter',
+  component: ProblemLevelFilter,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: '백준 난이도를 다중 선택할 수 있는 칩 기반 필터 컴포넌트입니다. 드롭다운을 열면 티어별로 그룹화된 난이도 칩들이 표시되고, 확인 버튼을 눌러야 선택이 적용됩니다.',
+        component: '백준 문제 레벨을 다중 선택할 수 있는 칩 기반 필터 컴포넌트입니다. 드롭다운을 열면 티어별로 그룹화된 레벨 칩들이 표시되고, 확인 버튼을 눌러야 선택이 적용됩니다.',
       },
     },
   },
   tags: ['autodocs'],
   argTypes: {
-    selectedDifficulties: {
+    selectedLevels: {
       control: 'object',
-      description: '선택된 난이도 값들의 배열 (0-30)',
+      description: '선택된 레벨 값들의 배열 (0-30)',
     },
-    onDifficultiesChange: {
-      action: 'difficultiesChanged',
-      description: '선택된 난이도가 변경될 때 호출되는 콜백',
+    onLevelsChange: {
+      action: 'levelsChanged',
+      description: '선택된 레벨이 변경될 때 호출되는 콜백',
     },
     placeholder: {
       control: 'text',
@@ -43,54 +43,54 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    placeholder: '난이도 선택',
+    placeholder: '레벨 선택',
   },
 }
 
-export const WithSelectedDifficulties: Story = {
+export const WithSelectedLevels: Story = {
   args: {
-    selectedDifficulties: [5, 10, 15], // 브론즈1, 실버1, 골드1
-    placeholder: '난이도 선택',
+    selectedLevels: [5, 10, 15], // 브론즈1, 실버1, 골드1
+    placeholder: '레벨 선택',
   },
 }
 
 export const ManySelected: Story = {
   args: {
-    selectedDifficulties: [1, 2, 3, 6, 7, 8, 11, 12, 16, 21, 26], // 다양한 티어
-    placeholder: '난이도 선택',
+    selectedLevels: [1, 2, 3, 6, 7, 8, 11, 12, 16, 21, 26], // 다양한 티어
+    placeholder: '레벨 선택',
   },
 }
 
 export const Disabled: Story = {
   args: {
-    selectedDifficulties: [10, 15],
+    selectedLevels: [10, 15],
     disabled: true,
-    placeholder: '난이도 선택',
+    placeholder: '레벨 선택',
   },
 }
 
 export const CustomPlaceholder: Story = {
   args: {
-    placeholder: '문제 난이도를 선택하세요',
+    placeholder: '문제 레벨을 선택하세요',
   },
 }
 
 function ControlledExample() {
-  const [selectedDifficulties, setSelectedDifficulties] = useState<number[]>([])
+  const [selectedLevels, setSelectedLevels] = useState<number[]>([])
 
   return (
     <div className="space-y-4">
-      <DifficultyFilter
-        selectedDifficulties={selectedDifficulties}
-        onDifficultiesChange={setSelectedDifficulties}
-        placeholder="난이도를 선택하세요"
+      <ProblemLevelFilter
+        selectedLevels={selectedLevels}
+        onLevelsChange={setSelectedLevels}
+        placeholder="레벨을 선택하세요"
       />
       <div className="text-sm text-gray-600 max-w-md">
-        <div className="font-medium mb-1">선택된 난이도:</div>
-        {selectedDifficulties.length > 0 ? (
+        <div className="font-medium mb-1">선택된 레벨:</div>
+        {selectedLevels.length > 0 ? (
           <div className="space-y-1">
-            {selectedDifficulties.sort((a, b) => a - b).map(difficulty => {
-              const getDifficultyLabel = (value: number) => {
+            {selectedLevels.sort((a, b) => a - b).map(level => {
+              const getLevelLabel = (value: number) => {
                 if (value === 0) return "알 수 없음"
                 if (value <= 5) return `브론즈 ${6 - value}`
                 if (value <= 10) return `실버 ${11 - value}`
@@ -101,8 +101,8 @@ function ControlledExample() {
               }
               
               return (
-                <div key={difficulty} className="text-xs">
-                  • {getDifficultyLabel(difficulty)} (값: {difficulty})
+                <div key={level} className="text-xs">
+                  • {getLevelLabel(level)} (값: {level})
                 </div>
               )
             })}
@@ -120,19 +120,19 @@ export const Controlled: Story = {
   parameters: {
     docs: {
       description: {
-        story: '상태를 제어하는 예제입니다. 선택된 난이도들이 아래에 표시됩니다.',
+        story: '상태를 제어하는 예제입니다. 선택된 레벨들이 아래에 표시됩니다.',
       },
     },
   },
 }
 
 function FilterFormExample() {
-  const [difficulties, setDifficulties] = useState<number[]>([])
+  const [levels, setLevels] = useState<number[]>([])
   const [problemType, setProblemType] = useState('')
   const [status, setStatus] = useState('')
 
   const handleReset = () => {
-    setDifficulties([])
+    setLevels([])
     setProblemType('')
     setStatus('')
   }
@@ -143,11 +143,11 @@ function FilterFormExample() {
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">난이도</label>
-          <DifficultyFilter
-            selectedDifficulties={difficulties}
-            onDifficultiesChange={setDifficulties}
-            placeholder="난이도 선택"
+          <label className="text-sm font-medium text-gray-700">레벨</label>
+          <ProblemLevelFilter
+            selectedLevels={levels}
+            onLevelsChange={setLevels}
+            placeholder="레벨 선택"
           />
         </div>
         
@@ -189,7 +189,7 @@ function FilterFormExample() {
         </button>
         
         <div className="text-sm text-gray-600">
-          선택된 필터: 난이도 {difficulties.length}개
+          선택된 필터: 레벨 {levels.length}개
           {problemType && ', 유형 1개'}
           {status && ', 상태 1개'}
         </div>
