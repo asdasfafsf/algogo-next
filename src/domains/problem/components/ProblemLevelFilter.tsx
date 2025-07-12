@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import {
   Popover,
@@ -11,6 +10,7 @@ import {
 import { Button } from "@/components/ui/Button"
 import { Chip } from "@/components/ui/Chip"
 import { cn } from "@/lib/utils"
+import { useProblemLevelFilter } from "../hooks/useProblemLevelFilter"
 
 interface ProblemLevel {
   value: number
@@ -113,41 +113,17 @@ export function ProblemLevelFilter({
   disabled = false,
   className,
 }: ProblemLevelFilterProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [tempSelectedLevels, setTempSelectedLevels] = useState<number[]>([])
+  const {
+    isOpen,
+    tempSelectedLevels,
+    buttonText: hookButtonText,
+    handleOpenChange,
+    handleChipClick,
+    handleConfirm,
+    handleCancel,
+  } = useProblemLevelFilter({ selectedLevels, onLevelsChange })
 
-  // 팝오버가 열릴 때 현재 선택된 값들로 초기화
-  const handleOpenChange = (open: boolean) => {
-    if (open) {
-      setTempSelectedLevels([...selectedLevels])
-    }
-    setIsOpen(open)
-  }
-
-  const handleChipClick = (levelValue: number) => {
-    setTempSelectedLevels(prev => {
-      if (prev.includes(levelValue)) {
-        return prev.filter(l => l !== levelValue)
-      } else {
-        return [...prev, levelValue]
-      }
-    })
-  }
-
-  const handleConfirm = () => {
-    onLevelsChange?.(tempSelectedLevels)
-    setIsOpen(false)
-  }
-
-  const handleCancel = () => {
-    setTempSelectedLevels([...selectedLevels])
-    setIsOpen(false)
-  }
-
-  const selectedCount = selectedLevels.length
-  const buttonText = selectedCount > 0 
-    ? `레벨 (${selectedCount}개 선택됨)`
-    : placeholder
+  const buttonText = hookButtonText === "레벨 선택" ? placeholder : hookButtonText
 
   return (
     <Popover open={isOpen} onOpenChange={handleOpenChange}>
