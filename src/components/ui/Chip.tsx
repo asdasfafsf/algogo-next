@@ -186,7 +186,7 @@ export function Chip({
     ${currentColor}
     ${currentRounded}
     ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
-    ${isClickable ? 'cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1' : ''}
+    ${isClickable ? 'cursor-pointer focus:outline-none' : ''}
     ${className}
   `.trim()
 
