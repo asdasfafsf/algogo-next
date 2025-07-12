@@ -41,12 +41,12 @@ const buttonVariants = cva(
         gray: "",
       },
       size: {
-        xs: "h-7 px-2.5 text-xs gap-1 has-[>svg]:px-2",
-        sm: "h-9 px-3 text-sm gap-1.5 has-[>svg]:px-2.5", 
-        default: "h-10 px-4 py-2 text-sm gap-2 has-[>svg]:px-3",
-        lg: "h-11 px-6 text-base gap-2 has-[>svg]:px-5",
-        xl: "h-12 px-8 text-lg gap-2.5 has-[>svg]:px-6",
-        icon: "size-9",
+        xs: "h-8 px-3 text-xs gap-1.5 has-[>svg]:px-2.5",
+        sm: "h-10 px-4 text-sm gap-1.5 has-[>svg]:px-3", 
+        default: "h-11 px-6 text-sm gap-2 has-[>svg]:px-4",
+        lg: "h-12 px-7 text-base gap-2 has-[>svg]:px-6",
+        xl: "h-14 px-9 text-lg gap-2.5 has-[>svg]:px-7",
+        icon: "size-10",
       },
       fullWidth: {
         true: "w-full",

@@ -2,6 +2,8 @@ interface LogoProps {
   size?: 'small' | 'medium' | 'large';
   className?: string;
   color?: 'blue' | 'black' | 'white' | 'green' | 'purple' | 'red';
+  animate?: boolean;
+  animateOnHover?: boolean;
 }
 
 const sizeMap = {
@@ -49,7 +51,7 @@ export function Logo({ size = 'medium', className = '', color = 'blue' }: LogoPr
   return (
     <div className={`relative ${sizeMap[size]} ${className}`}>
       {/* Background Circle */}
-      <div className={`w-full h-full ${colors.bg} rounded-full shadow-sm`} />
+      <div className={`w-full h-full rounded-full`} />
       
       {/* Logo Content */}
       <div className="absolute inset-0 flex items-center justify-center">
