@@ -65,7 +65,7 @@ export function ProblemStateFilter({
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-60" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={8}>
+      <PopoverContent className="w-[200px] max-w-[90vw] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={8}>
         <div className="p-3 bg-white rounded-xl">
           <div className="space-y-1">
             {PROBLEM_STATES.map((state) => {

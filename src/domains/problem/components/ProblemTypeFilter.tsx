@@ -319,7 +319,7 @@ export function ProblemTypeFilter({
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-60" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[600px] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={8}>
+      <PopoverContent className="w-[600px] max-w-[90vw] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={8}>
         <div className="bg-white rounded-xl">
           {/* 스크롤 영역 - 패딩을 제외하고 순수 콘텐츠만 */}
           <div className="max-h-80 overflow-y-auto overflow-x-hidden overscroll-contain">
