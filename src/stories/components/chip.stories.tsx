@@ -363,9 +363,9 @@ export const RealWorldExample: Story = {
       <div>
         <h3 className="text-sm font-medium text-gray-700 mb-3">상태</h3>
         <div className="flex gap-2">
-          <Chip color="green" startIcon={<Star />}>해결됨</Chip>
-          <Chip color="amber" startIcon={<Tag />}>시도중</Chip>
-          <Chip color="default" startIcon={<User />}>미해결</Chip>
+          <Chip color="emerald" startIcon={<Star />}>맞힌 문제</Chip>
+          <Chip color="rose" startIcon={<Tag />}>틀린 문제</Chip>
+          <Chip color="indigo" startIcon={<User />}>안 푼 문제</Chip>
         </div>
       </div>
     </div>
