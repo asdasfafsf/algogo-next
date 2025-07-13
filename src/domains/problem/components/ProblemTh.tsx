@@ -102,7 +102,7 @@ export function ProblemTh({
       params.set('sort', newSort.toString());
     }
     
-    router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   const { isAscActive, isDescActive } = getSortState();
