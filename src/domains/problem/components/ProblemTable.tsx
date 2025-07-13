@@ -2,14 +2,15 @@ import { ProblemSummary } from '@/types/problem.type';
 import { ProblemLevelChip } from '@/components/shared/ProblemLevelChip';
 import { ProblemStateIcon } from '@/components/shared/ProblemStateIcon';
 import { ProblemSourceCell } from './ProblemSourceCell';
+import { ProblemTh } from './ProblemTh';
+import { PROBLEM_SORT } from '@/constants/problem.constant';
 
 export interface ProblemTableProps {
   problems: ProblemSummary[];
-  onProblemClick?: (problemUuid: string) => void;
+  sort?: number;
 }
 
-export function ProblemTable({ problems, onProblemClick }: ProblemTableProps) {
-
+export function ProblemTable({ problems, sort = PROBLEM_SORT.DEFAULT }: ProblemTableProps) {
 
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat('ko-KR').format(num);
@@ -37,64 +38,44 @@ export function ProblemTable({ problems, onProblemClick }: ProblemTableProps) {
         <table className="w-full min-w-[800px]">
           <thead className="bg-gradient-to-r from-slate-50 via-blue-50/20 to-slate-50 border-b border-slate-200/80 backdrop-blur-sm">
             <tr>
-              <th className="px-5 py-4 text-center text-sm font-medium text-slate-700 w-20 min-w-20">
+              <ProblemTh className="px-5 py-4 text-center w-20 min-w-20">
                 상태
-              </th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-slate-700 min-w-[320px] max-w-none cursor-pointer hover:bg-slate-100/50 transition-colors">
-                <div className="flex items-center gap-1.5">
-                  <span>제목</span>
-                  <div className="flex flex-col gap-px">
-                    <svg className="w-2 h-1.5 text-slate-300" viewBox="0 0 12 8" fill="currentColor">
-                      <path d="M6 0L12 8H0L6 0Z"/>
-                    </svg>
-                    <svg className="w-2 h-1.5 text-slate-300" viewBox="0 0 12 8" fill="currentColor">
-                      <path d="M6 8L0 0H12L6 8Z"/>
-                    </svg>
-                  </div>
-                </div>
-              </th>
-              <th className="px-5 py-4 text-center text-sm font-medium text-slate-700 w-36 min-w-36 cursor-pointer hover:bg-slate-100/50 transition-colors">
-                <div className="flex items-center justify-center gap-1.5">
-                  <span>난이도</span>
-                  <div className="flex flex-col gap-px">
-                    <svg className="w-2 h-1.5 text-slate-300" viewBox="0 0 12 8" fill="currentColor">
-                      <path d="M6 0L12 8H0L6 0Z"/>
-                    </svg>
-                    <svg className="w-2 h-1.5 text-slate-300" viewBox="0 0 12 8" fill="currentColor">
-                      <path d="M6 8L0 0H12L6 8Z"/>
-                    </svg>
-                  </div>
-                </div>
-              </th>
-              <th className="px-5 py-4 text-center text-sm font-medium text-slate-700 w-40 min-w-40 cursor-pointer hover:bg-slate-100/50 transition-colors">
-                <div className="flex items-center justify-center gap-1.5">
-                  <span>정답률</span>
-                  <div className="flex flex-col gap-px">
-                    <svg className="w-2 h-1.5 text-slate-300" viewBox="0 0 12 8" fill="currentColor">
-                      <path d="M6 0L12 8H0L6 0Z"/>
-                    </svg>
-                    <svg className="w-2 h-1.5 text-slate-300" viewBox="0 0 12 8" fill="currentColor">
-                      <path d="M6 8L0 0H12L6 8Z"/>
-                    </svg>
-                  </div>
-                </div>
-              </th>
-              <th className="px-5 py-4 text-center text-sm font-medium text-slate-700 w-24 min-w-24 cursor-pointer hover:bg-slate-100/50 transition-colors">
-                <div className="flex items-center justify-center gap-1.5">
-                  <span>제출</span>
-                  <div className="flex flex-col gap-px">
-                    <svg className="w-2 h-1.5 text-slate-300" viewBox="0 0 12 8" fill="currentColor">
-                      <path d="M6 0L12 8H0L6 0Z"/>
-                    </svg>
-                    <svg className="w-2 h-1.5 text-slate-300" viewBox="0 0 12 8" fill="currentColor">
-                      <path d="M6 8L0 0H12L6 8Z"/>
-                    </svg>
-                  </div>
-                </div>
-              </th>
-              <th className="px-5 py-4 text-center text-sm font-medium text-slate-700 w-28 min-w-28">
+              </ProblemTh>
+              <ProblemTh 
+                className="px-6 py-4 text-left min-w-[320px] max-w-none"
+                sortable
+                sortColumn="title"
+                currentSort={sort}
+              >
+                제목
+              </ProblemTh>
+              <ProblemTh 
+                className="px-5 py-4 text-center w-36 min-w-36"
+                sortable
+                sortColumn="level"
+                currentSort={sort}
+              >
+                난이도
+              </ProblemTh>
+              <ProblemTh 
+                className="px-5 py-4 text-center w-40 min-w-40"
+                sortable
+                sortColumn="answerRate"
+                currentSort={sort}
+              >
+                정답률
+              </ProblemTh>
+              <ProblemTh 
+                className="px-5 py-4 text-center w-24 min-w-24"
+                sortable
+                sortColumn="submitCount"
+                currentSort={sort}
+              >
+                제출
+              </ProblemTh>
+              <ProblemTh className="px-5 py-4 text-center w-28 min-w-28">
                 출처
-              </th>
+              </ProblemTh>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-slate-200">
@@ -112,7 +93,6 @@ export function ProblemTable({ problems, onProblemClick }: ProblemTableProps) {
                   <div className="flex items-center h-full">
                     <button 
                       className="text-left w-full focus:outline-none cursor-pointer"
-                      onClick={() => onProblemClick?.(problem.uuid)}
                     >
                       <span className="text-sm font-normal text-slate-800 group-hover:text-blue-700 truncate block transition-colors duration-200">
                         {problem.title}

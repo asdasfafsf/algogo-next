@@ -1,11 +1,8 @@
-'use client'
-
 import { Typography } from "@/components/ui/Typography";
 import { ProblemFilter } from "./ProblemFilter";
 import { ProblemTable } from "./ProblemTable";
-import { ProblemPagination } from "./ProblemPagination";
 import type { IquiryProblemsSummary, ProblemSummary } from '@/types/problem.type';
-import { PROBLEM_TYPE, PROBLEM_STATE } from '@/constants/problem.constant';
+import { PROBLEM_TYPE, PROBLEM_STATE, PROBLEM_SORT } from '@/constants/problem.constant';
 
 // 샘플 데이터
 const sampleProblems: ProblemSummary[] = [
@@ -57,22 +54,11 @@ const sampleProblems: ProblemSummary[] = [
 ];
 
 interface ProblemListSectionProps {
-    filters?: Partial<IquiryProblemsSummary>
+    filters?: Partial<IquiryProblemsSummary>;
+    sort?: number;
 }
 
-export function ProblemListSection({ filters }: ProblemListSectionProps) {
-    const handleProblemClick = (problemUuid: string) => {
-        console.log(`Problem ${problemUuid} clicked`);
-    };
-
-    const handlePageChange = (page: number) => {
-        console.log(`Page changed to ${page}`);
-    };
-
-    const handleItemsPerPageChange = (itemsPerPage: number) => {
-        console.log(`Items per page changed to ${itemsPerPage}`);
-    };
-
+export function ProblemListSection({ filters, sort = PROBLEM_SORT.DEFAULT }: ProblemListSectionProps) {
     return (
         <section className="space-y-6">
             {/* 섹션 헤더 */}
@@ -97,18 +83,9 @@ export function ProblemListSection({ filters }: ProblemListSectionProps) {
             {/* 테이블 섹션 */}
             <ProblemTable 
                 problems={sampleProblems}
-                onProblemClick={handleProblemClick}
+                sort={sort}
             />
 
-            {/* 페이지네이션 섹션 */}
-            <ProblemPagination
-                currentPage={1}
-                totalPages={16}
-                itemsPerPage={10}
-                totalItems={156}
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange}
-            />
         </section>
     )
 }
