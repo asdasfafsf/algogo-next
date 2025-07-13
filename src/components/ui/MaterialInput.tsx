@@ -143,7 +143,7 @@ export function MaterialInput({
   const currentSize = sizeClasses[size]
 
   const baseInputClasses = `
-    w-full outline-none transition-all duration-200 ease-in-out
+    w-full outline-none transition-all duration-200 ease-in-out font-medium
     ${currentSize.input}
     ${startIcon ? currentSize.iconStart : ''}
     ${endIcon ? currentSize.iconEnd : ''}
