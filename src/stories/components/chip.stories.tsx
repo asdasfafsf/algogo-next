@@ -62,6 +62,9 @@ export const Default: Story = {
 
 // 크기 변형
 export const Sizes: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="flex items-center gap-4">
       <Chip size="small">Small</Chip>
@@ -73,6 +76,9 @@ export const Sizes: Story = {
 
 // 색상 변형 (Filled)
 export const FilledColors: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="flex flex-wrap gap-3">
       <Chip color="default">Default</Chip>
@@ -88,6 +94,9 @@ export const FilledColors: Story = {
 
 // Outlined 변형
 export const OutlinedColors: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="flex flex-wrap gap-3">
       <Chip variant="outlined" color="default">Default</Chip>
@@ -103,6 +112,9 @@ export const OutlinedColors: Story = {
 
 // Soft 변형
 export const SoftColors: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="flex flex-wrap gap-3">
       <Chip variant="soft" color="default">Default</Chip>
@@ -118,6 +130,9 @@ export const SoftColors: Story = {
 
 // Soft + Outlined 변형
 export const SoftOutlinedColors: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="flex flex-wrap gap-3">
       <Chip variant="soft-outlined" color="default">Default</Chip>
@@ -133,6 +148,9 @@ export const SoftOutlinedColors: Story = {
 
 // 아이콘과 함께
 export const WithIcons: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="flex flex-wrap gap-3">
       <Chip startIcon={<User />} color="blue">사용자</Chip>
@@ -146,6 +164,9 @@ export const WithIcons: Story = {
 
 // 삭제 가능한 Chip
 export const Deletable: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => {
     const [chips, setChips] = useState([
       { id: 1, label: 'React', color: 'blue' as const },
@@ -177,6 +198,9 @@ export const Deletable: Story = {
 
 // 클릭 가능한 Chip
 export const Clickable: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => {
     const [selected, setSelected] = useState<string[]>([])
 
@@ -215,6 +239,9 @@ export const Clickable: Story = {
 
 // 비활성화 상태
 export const Disabled: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="flex flex-wrap gap-3">
       <Chip disabled>비활성화</Chip>
@@ -227,6 +254,9 @@ export const Disabled: Story = {
 
 // 브랜드 & 등급 색상
 export const BrandAndRankColors: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold">브랜드 & 등급 색상</h3>
@@ -245,6 +275,9 @@ export const BrandAndRankColors: Story = {
 
 // Material Design 색상들
 export const MaterialDesignColors: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold">Material Design 색상</h3>
@@ -271,6 +304,9 @@ export const MaterialDesignColors: Story = {
 
 // Rounded 변형
 export const RoundedVariants: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold">모서리 둥글기 변형</h3>
@@ -287,6 +323,9 @@ export const RoundedVariants: Story = {
 
 // 실제 사용 예시
 export const RealWorldExample: Story = {
+  args: {
+    children: 'Chip'
+  },
   render: () => (
     <div className="space-y-6">
       <div>

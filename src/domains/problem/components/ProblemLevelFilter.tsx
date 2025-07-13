@@ -69,10 +69,6 @@ const PROBLEM_LEVELS: ProblemLevel[] = [
 // 티어별로 그룹화
 const PROBLEM_LEVEL_GROUPS = [
   { 
-    name: "알 수 없음", 
-    levels: PROBLEM_LEVELS.filter(l => l.tier === "unrated") 
-  },
-  { 
     name: "브론즈", 
     levels: PROBLEM_LEVELS.filter(l => l.tier === "bronze") 
   },
@@ -96,20 +92,22 @@ const PROBLEM_LEVEL_GROUPS = [
     name: "루비", 
     levels: PROBLEM_LEVELS.filter(l => l.tier === "ruby") 
   },
+  { 
+    name: "알 수 없음", 
+    levels: PROBLEM_LEVELS.filter(l => l.tier === "unrated") 
+  },
 ]
 
 interface ProblemLevelFilterProps {
-  selectedLevels?: number[]
-  onLevelsChange?: (levels: number[]) => void
+  levelList: number[]  // 순수한 props - IquiryProblemsSummary의 levelList 타입과 동일
   placeholder?: string
   disabled?: boolean
   className?: string
 }
 
 export function ProblemLevelFilter({
-  selectedLevels = [],
-  onLevelsChange,
-  placeholder = "레벨 선택",
+  levelList,
+  placeholder = "난이도 선택",
   disabled = false,
   className,
 }: ProblemLevelFilterProps) {
@@ -121,9 +119,9 @@ export function ProblemLevelFilter({
     handleChipClick,
     handleConfirm,
     handleCancel,
-  } = useProblemLevelFilter({ selectedLevels, onLevelsChange })
+  } = useProblemLevelFilter({ levelList })
 
-  const buttonText = hookButtonText === "레벨 선택" ? placeholder : hookButtonText
+  const buttonText = hookButtonText === "난이도 선택" ? placeholder : hookButtonText
 
   return (
     <Popover open={isOpen} onOpenChange={handleOpenChange}>
@@ -134,7 +132,7 @@ export function ProblemLevelFilter({
           aria-expanded={isOpen}
           size="sm"
           className={cn(
-            "w-[200px] justify-between text-xs font-medium",
+            "w-[160px] h-8 justify-between text-xs font-medium",
             "border-gray-200 hover:border-gray-300 hover:bg-gray-50",
             "rounded-lg shadow-sm transition-all duration-200",
             "focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500",
@@ -148,7 +146,7 @@ export function ProblemLevelFilter({
       </PopoverTrigger>
       <PopoverContent className="w-[400px] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={8}>
         <div className="p-4 bg-white rounded-xl">
-          <div className="space-y-4 max-h-80 overflow-y-auto">
+          <div className="space-y-4 max-h-80 overflow-y-auto overscroll-contain">
             {PROBLEM_LEVEL_GROUPS.map((group) => (
               <div key={group.name} className="space-y-2">
                 <h4 className="text-xs font-medium text-gray-700">{group.name}</h4>
@@ -162,9 +160,9 @@ export function ProblemLevelFilter({
                         color={level.chipColor}
                         size="small"
                         onClick={() => handleChipClick(level.value)}
-                        className="cursor-pointer transition-all"
+                        className="cursor-pointer transition-all font-bold"
                       >
-                        {level.label}
+                        <span className="font-bold">{level.label}</span>
                       </Chip>
                     )
                   })}
@@ -174,19 +172,19 @@ export function ProblemLevelFilter({
           </div>
           
           {/* 확인/취소 버튼 */}
-          <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-gray-100">
+          <div className="flex justify-end gap-2 mt-3 pt-3 border-t border-gray-100">
             <Button
               variant="ghost"
               size="sm"
               onClick={handleCancel}
-              className="text-xs text-gray-600 hover:text-gray-800 hover:bg-gray-100 px-4 py-2 rounded-md font-medium"
+              className="text-xs text-gray-600 hover:text-gray-800 hover:bg-gray-100 px-3 py-1.5 h-7 rounded-md font-medium"
             >
               취소
             </Button>
             <Button
               size="sm"
               onClick={handleConfirm}
-              className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium shadow-sm"
+              className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 h-7 rounded-md font-medium shadow-sm"
             >
               확인
             </Button>

@@ -4,6 +4,7 @@ import { Typography } from "@/components/ui/Typography";
 import { ProblemFilter } from "./ProblemFilter";
 import { ProblemTable, type Problem } from "./ProblemTable";
 import { ProblemPagination } from "./ProblemPagination";
+import type { IquiryProblemsSummary } from '@/types/problem.type';
 
 // 샘플 데이터
 const sampleProblems: Problem[] = [
@@ -33,7 +34,11 @@ const sampleProblems: Problem[] = [
   }
 ];
 
-export function ProblemListSection() {
+interface ProblemListSectionProps {
+    filters?: Partial<IquiryProblemsSummary>
+}
+
+export function ProblemListSection({ filters }: ProblemListSectionProps) {
     const handleProblemClick = (problemId: number) => {
         console.log(`Problem ${problemId} clicked`);
     };
@@ -65,7 +70,7 @@ export function ProblemListSection() {
             </div>
 
             {/* 필터 섹션 */}
-            <ProblemFilter />
+            <ProblemFilter filters={filters} />
 
             {/* 테이블 섹션 */}
             <ProblemTable 
