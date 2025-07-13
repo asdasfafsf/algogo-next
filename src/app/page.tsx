@@ -69,13 +69,27 @@ export default function Home({ searchParams }: HomePageProps) {
     ? parseInt(searchParams.sort, 10) 
     : PROBLEM_SORT.DEFAULT
   
+  const pageNo = searchParams.pageNo && typeof searchParams.pageNo === 'string' 
+    ? parseInt(searchParams.pageNo, 10) 
+    : 1
+
+  const pageSize = searchParams.pageSize && typeof searchParams.pageSize === 'string' 
+    ? parseInt(searchParams.pageSize, 10) 
+    : 20
+
   return (
     <MainLayout>
       <ProblemListBanner />
       
       <div className="space-y-6">
         <ProblemTrainingSection />
-        <ProblemListSection filters={filters} sort={sort} />
+        <ProblemListSection 
+          filters={filters} 
+          sort={sort} 
+          pageNo={pageNo} 
+          pageSize={pageSize} 
+          totalCount={0} 
+        />
       </div>
     </MainLayout>
   )

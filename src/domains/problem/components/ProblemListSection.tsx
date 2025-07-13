@@ -3,6 +3,7 @@ import { ProblemFilter } from "./filters";
 import { ProblemTable } from "./table";
 import type { IquiryProblemsSummary, ProblemSummary } from '@/types/problem.type';
 import { PROBLEM_TYPE, PROBLEM_STATE, PROBLEM_SORT } from '@/constants/problem.constant';
+import { ProblemPagination } from "./ProblemPagination";
 
 // 샘플 데이터
 const sampleProblems: ProblemSummary[] = [
@@ -56,9 +57,18 @@ const sampleProblems: ProblemSummary[] = [
 interface ProblemListSectionProps {
     filters?: Partial<IquiryProblemsSummary>;
     sort?: number;
+    pageNo?: number;
+    pageSize?: number;
+    totalCount?: number;
 }
 
-export function ProblemListSection({ filters, sort = PROBLEM_SORT.DEFAULT }: ProblemListSectionProps) {
+export function ProblemListSection({
+  filters,
+  sort = PROBLEM_SORT.DEFAULT,
+  pageNo = 1,
+  pageSize = 20,
+  totalCount = 0
+}: ProblemListSectionProps) {
     return (
         <section className="space-y-6">
             {/* 섹션 헤더 */}
@@ -84,6 +94,12 @@ export function ProblemListSection({ filters, sort = PROBLEM_SORT.DEFAULT }: Pro
             <ProblemTable 
                 problems={sampleProblems}
                 sort={sort}
+            />
+
+            <ProblemPagination
+                pageNo={pageNo}
+                pageSize={pageSize}
+                totalCount={totalCount}
             />
 
         </section>
