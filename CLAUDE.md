@@ -17,7 +17,8 @@ AlgoGo is a Korean algorithm learning platform built with Next.js 15, React 19, 
 ### Testing and Documentation
 - `npm run storybook` - Start Storybook dev server (port 6006)
 - `npm run build-storybook` - Build Storybook
-- `vitest` - Run tests (configured with Storybook integration and Playwright browser testing)
+- `npx vitest` - Run tests (configured with Storybook integration and Playwright browser testing)
+- `npx vitest --ui` - Run tests with UI interface
 
 ## Architecture Overview
 
@@ -35,19 +36,21 @@ src/
 ├── app/                    # Next.js App Router pages
 ├── components/
 │   ├── ui/                # Reusable UI components (Button, Card, Input, Typography)
-│   └── modals/            # Modal components (Alert, Confirm, Prompt)
+│   ├── modals/            # Modal components (Alert, Confirm, Prompt)
+│   ├── auth/              # Authentication components
+│   ├── layout/            # Layout components (Header, Footer, Navigation)
+│   └── shared/            # Shared components (Chips for problem states/levels/types)
 ├── domains/               # Feature-based organization
-│   ├── algorithm/         # Algorithm-related features
-│   ├── learning/          # Learning functionality
-│   ├── problem/           # Problem management
-│   └── user/              # User management
-├── hooks/                 # Shared custom hooks
+│   └── problem/           # Problem management (filters, pagination, table, cards)
+├── hooks/                 # Shared custom hooks (useDebounce, useLocalStorage, useToggle)
 ├── lib/                   # Utilities (cn function for className merging)
 ├── plugins/
 │   └── modal/            # Modal management system
 ├── stories/              # Storybook stories
 ├── styles/               # Global styles and fonts
-└── utils/                # Helper functions
+├── types/                # TypeScript type definitions (auth, problem)
+├── constants/            # Application constants (auth, problem)
+└── utils/                # Helper functions (format, typography, helpers)
 ```
 
 ### Domain-Driven Architecture

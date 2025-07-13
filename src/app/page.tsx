@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 import { MainLayout } from '@/components/layout/main'
-import { Typography } from '@/components/ui/Typography'
-import { ProblemListBanner } from '@/domains/problem'
+import { ProblemListBanner, ProblemListSection } from '@/domains/problem'
 import { ProblemTrainingSection } from '@/domains/problem'
+import type { IquiryProblemsSummary, ProblemState, ProblemType } from '@/types/problem.type'
 
 export const metadata: Metadata = {
   title: '알고고 - 알고리즘 학습 플랫폼',
@@ -15,22 +15,61 @@ export const metadata: Metadata = {
   }
 }
 
-export default function Home() {
+interface HomePageProps {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+// URL searchParams를 IquiryProblemsSummary 타입으로 변환
+function parseSearchParams(searchParams: HomePageProps['searchParams']): Partial<IquiryProblemsSummary> {
+  const parsed: Partial<IquiryProblemsSummary> = {}
+  
+  // levelList 파싱
+  if (searchParams.levelList && typeof searchParams.levelList === 'string') {
+    const levels = searchParams.levelList
+      .split(',')
+      .map(level => parseInt(level.trim(), 10))
+      .filter(level => !isNaN(level))
+    
+    if (levels.length > 0) {
+      parsed.levelList = levels
+    }
+  }
+
+  if (searchParams.typeList && typeof searchParams.typeList === 'string') {
+    const types = searchParams.typeList
+      .split(',')
+      .map(type => type.trim())
+      .filter(type => type !== '')
+    
+    if (types.length > 0) {
+      parsed.typeList = types as ProblemType[]
+    }
+  }
+
+  if (searchParams.states && typeof searchParams.states === 'string') {
+    const states = searchParams.states
+      .split(',')
+      .map(state => state.trim())
+      .filter(state => state !== '')
+    
+    if (states.length > 0) {
+      parsed.states = states as ProblemState[]
+    }
+  }
+  
+  return parsed
+}
+
+export default function Home({ searchParams }: HomePageProps) {
+  const filters = parseSearchParams(searchParams)
+  
   return (
     <MainLayout>
       <ProblemListBanner />
       
-      <div className="space-y-4">
+      <div className="space-y-6">
         <ProblemTrainingSection />
-        <section>
-          <Typography
-            variant="large"
-            className="font-bold mb-2"
-          >
-            전체 문제
-          </Typography>
- 
-        </section>
+        <ProblemListSection filters={filters} />
       </div>
     </MainLayout>
   )

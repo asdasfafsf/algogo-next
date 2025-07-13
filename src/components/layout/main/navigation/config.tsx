@@ -42,7 +42,7 @@ export const navigationConfig: NavigationConfig = {
   ]
 }
 
-export const subCategories = [
+export const subCategories: Array<{ title: string; href: string; color: string }> = [
   // { title: '알고리즘', href: '/problems/algorithm', color: 'bg-purple-500' },
   // { title: '자료구조', href: '/problems/data-structure', color: 'bg-orange-500' },
   // { title: 'SQL', href: '/problems/sql', color: 'bg-red-500' },
