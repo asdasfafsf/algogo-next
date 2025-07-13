@@ -4,30 +4,35 @@ import { useRouter, usePathname } from "next/navigation"
 import { Button } from "@/components/ui/Button"
 import { RotateCcw } from "lucide-react"
 import { ProblemLevelChip } from "@/components/shared/ProblemLevelChip"
+import { ProblemTypeChip } from "@/components/shared/ProblemTypeChip"
+import type { ProblemType } from "@/types/problem.type"
 
 interface AppliedFiltersProps {
   levelList: number[]
+  typeList?: ProblemType[]
 }
 
-export function AppliedFilters({ levelList }: AppliedFiltersProps) {
+export function AppliedFilters({ levelList, typeList = [] }: AppliedFiltersProps) {
   const router = useRouter()
   const pathname = usePathname()
   
   const selectedLevels = levelList
-  const hasFilters = selectedLevels.length > 0
+  const selectedTypes = typeList
+  const hasFilters = selectedLevels.length > 0 || selectedTypes.length > 0
   
   const handleClearAll = () => {
-    // 기존 URL의 다른 파라미터들 유지하면서 levelList만 제거
+    // 기존 URL의 다른 파라미터들 유지하면서 levelList와 typeList 제거
     const currentUrl = new URL(window.location.href)
     const newSearchParams = new URLSearchParams(currentUrl.search)
     newSearchParams.delete('levelList')
+    newSearchParams.delete('typeList')
     
     // Next.js router를 사용하여 페이지 이동
     const newUrl = newSearchParams.toString()
       ? `${pathname}?${newSearchParams.toString()}`
       : pathname
     
-    router.push(newUrl)
+    router.push(newUrl, { scroll: false })
   }
   
   const handleRemoveLevel = (levelToRemove: number) => {
@@ -49,7 +54,29 @@ export function AppliedFilters({ levelList }: AppliedFiltersProps) {
       ? `${pathname}?${newSearchParams.toString()}`
       : pathname
     
-    router.push(newUrl)
+    router.push(newUrl, { scroll: false })
+  }
+  
+  const handleRemoveType = (typeToRemove: ProblemType) => {
+    // 특정 유형 제거
+    const updatedTypes = selectedTypes.filter(type => type !== typeToRemove)
+    
+    // 기존 URL의 다른 파라미터들 유지
+    const currentUrl = new URL(window.location.href)
+    const newSearchParams = new URLSearchParams(currentUrl.search)
+    
+    if (updatedTypes.length > 0) {
+      newSearchParams.set('typeList', updatedTypes.join(','))
+    } else {
+      newSearchParams.delete('typeList')
+    }
+    
+    // Next.js router를 사용하여 페이지 이동
+    const newUrl = newSearchParams.toString()
+      ? `${pathname}?${newSearchParams.toString()}`
+      : pathname
+    
+    router.push(newUrl, { scroll: false })
   }
   
   if (!hasFilters) {
@@ -70,15 +97,34 @@ export function AppliedFilters({ levelList }: AppliedFiltersProps) {
         </Button>
         
         {/* 적용된 난이도 필터 */}
-        <div className="flex flex-wrap gap-2">
-          {selectedLevels.map((level) => (
-            <ProblemLevelChip
-              key={level}
-              level={level}
-              onRemove={handleRemoveLevel}
-            />
-          ))}
-        </div>
+        {selectedLevels.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {selectedLevels.map((level) => (
+              <ProblemLevelChip
+                key={level}
+                level={level}
+                variant="filled"
+                onRemove={handleRemoveLevel}
+                className="font-bold"
+              />
+            ))}
+          </div>
+        )}
+        
+        {/* 적용된 유형 필터 */}
+        {selectedTypes.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {selectedTypes.map((type) => (
+              <ProblemTypeChip
+                key={type}
+                type={type}
+                variant="filled"
+                onRemove={handleRemoveType}
+                className="font-bold"
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

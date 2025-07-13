@@ -2,6 +2,7 @@
 
 import { Typography } from "@/components/ui/Typography";
 import { ProblemLevelFilter } from "./ProblemLevelFilter";
+import { ProblemTypeFilter } from "./ProblemTypeFilter";
 import { AppliedFilters } from "./AppliedFilters";
 import type { IquiryProblemsSummary } from '@/types/problem.type';
 
@@ -22,10 +23,19 @@ export function ProblemFilter({ filters }: ProblemFilterProps) {
           </Typography>
           <ProblemLevelFilter levelList={filters?.levelList || []} />
         </div>
+        <div className="flex items-center gap-3">
+          <Typography variant="small" className="font-semibold text-gray-800 min-w-fit">
+            유형
+          </Typography>
+          <ProblemTypeFilter typeList={filters?.typeList || []} />
+        </div>
       </div>
       
       {/* 적용된 필터 표시 */}
-      <AppliedFilters levelList={filters?.levelList || []} />
+      <AppliedFilters 
+        levelList={filters?.levelList || []} 
+        typeList={filters?.typeList || []} 
+      />
     </div>
   );
 }

@@ -145,11 +145,11 @@ export function ProblemLevelFilter({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[400px] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={8}>
-        <div className="p-4 bg-white rounded-xl">
-          <div className="space-y-4 max-h-80 overflow-y-auto overscroll-contain">
+        <div className="p-6 bg-white rounded-xl">
+          <div className="space-y-6 max-h-80 overflow-y-auto overflow-x-hidden overscroll-contain">
             {PROBLEM_LEVEL_GROUPS.map((group) => (
-              <div key={group.name} className="space-y-2">
-                <h4 className="text-xs font-medium text-gray-700">{group.name}</h4>
+              <div key={group.name} className="space-y-3">
+                <h4 className="text-sm font-semibold text-gray-800">{group.name}</h4>
                 <div className="flex flex-wrap gap-2">
                   {group.levels.map((level) => {
                     const isSelected = tempSelectedLevels.includes(level.value)
@@ -172,7 +172,7 @@ export function ProblemLevelFilter({
           </div>
           
           {/* 확인/취소 버튼 */}
-          <div className="flex justify-end gap-2 mt-3 pt-3 border-t border-gray-100">
+          <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-gray-100">
             <Button
               variant="ghost"
               size="sm"
