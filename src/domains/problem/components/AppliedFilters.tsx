@@ -125,7 +125,7 @@ export function AppliedFilters({ levelList, typeList = [], states = [] }: Applie
         
         {/* 적용된 난이도 필터 */}
         {(selectedLevels.length || selectedTypes.length || selectedStates.length) && (
-          <div className="flex flex-wrap gap-1">
+            <>
             {selectedLevels?.map((level) => (
               <ProblemLevelChip
                 key={level}
@@ -153,7 +153,7 @@ export function AppliedFilters({ levelList, typeList = [], states = [] }: Applie
                 className="font-bold"
               />
             ))}
-          </div>
+            </>
         )}
        
       </div>

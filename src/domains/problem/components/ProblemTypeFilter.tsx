@@ -308,9 +308,7 @@ export function ProblemTypeFilter({
           size="sm"
           className={cn(
             "w-[120px] h-9 justify-between text-sm font-medium",
-            typeList.length > 0 
-              ? "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100" 
-              : "border-gray-300 bg-white hover:bg-gray-50 text-gray-700",
+            "border-gray-300 bg-white hover:bg-gray-50 text-gray-700",
             "rounded-lg shadow-sm transition-all duration-200",
             "focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500",
             className
