@@ -1,8 +1,7 @@
-'use client'
-
 import { ProblemSummary } from '@/types/problem.type';
 import { ProblemLevelChip } from '@/components/shared/ProblemLevelChip';
 import { ProblemStateIcon } from '@/components/shared/ProblemStateIcon';
+import { ProblemSourceCell } from './ProblemSourceCell';
 
 export interface ProblemTableProps {
   problems: ProblemSummary[];
@@ -146,14 +145,11 @@ export function ProblemTable({ problems, onProblemClick }: ProblemTableProps) {
                 </td>
                 <td className="px-5 py-5 w-28 min-w-28">
                   <div className="flex items-center justify-center h-full">
-                    <div className="flex flex-col items-center justify-center space-y-1">
-                      <span className="text-xs font-normal text-slate-600 truncate max-w-full">
-                        {problem.source}
-                      </span>
-                      <span className="text-xs text-slate-500 font-mono bg-slate-100 px-2 py-0.5 rounded-md">
-                        #{problem.sourceId}
-                      </span>
-                    </div>
+                    <ProblemSourceCell 
+                      source={problem.source}
+                      sourceId={problem.sourceId}
+                      sourceUrl={problem.sourceUrl}
+                    />
                   </div>
                 </td>
               </tr>
