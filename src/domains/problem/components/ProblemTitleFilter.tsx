@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { MaterialInput } from "@/components/ui/MaterialInput"
 import { useDebounce } from "@/hooks/useDebounce"
@@ -14,14 +14,13 @@ export function ProblemTitleFilter({ title = "" }: ProblemTitleFilterProps) {
   const pathname = usePathname()
   const [searchValue, setSearchValue] = useState(title)
   const debouncedSearchValue = useDebounce(searchValue, 500)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     setSearchValue(title)
   }, [title])
 
   useEffect(() => {
-    if (debouncedSearchValue === title) return
-
     const currentUrl = new URL(window.location.href)
     const newSearchParams = new URLSearchParams(currentUrl.search)
     
@@ -36,11 +35,26 @@ export function ProblemTitleFilter({ title = "" }: ProblemTitleFilterProps) {
       : pathname
     
     router.push(newUrl, { scroll: false })
-  }, [debouncedSearchValue, pathname, router, title])
+  }, [debouncedSearchValue, pathname, router])
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
-  }
+  }, [])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault()
+        inputRef.current?.focus()
+      }
+      if (e.key === 'Escape') {
+        inputRef.current?.blur()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   return (
     <MaterialInput
@@ -51,6 +65,7 @@ export function ProblemTitleFilter({ title = "" }: ProblemTitleFilterProps) {
       variant="outlined"
       size="small"
       className="w-full"
+      inputRef={inputRef}
     />
   )
 }
