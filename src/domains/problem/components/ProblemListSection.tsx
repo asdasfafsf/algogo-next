@@ -1,6 +1,6 @@
 import { Typography } from "@/components/ui/Typography";
-import { ProblemFilter } from "./ProblemFilter";
-import { ProblemTable } from "./ProblemTable";
+import { ProblemFilter } from "./filters";
+import { ProblemTable } from "./table";
 import type { IquiryProblemsSummary, ProblemSummary } from '@/types/problem.type';
 import { PROBLEM_TYPE, PROBLEM_STATE, PROBLEM_SORT } from '@/constants/problem.constant';
 
