@@ -2,35 +2,57 @@
 
 import { Typography } from "@/components/ui/Typography";
 import { ProblemFilter } from "./ProblemFilter";
-import { ProblemTable, type Problem } from "./ProblemTable";
+import { ProblemTable } from "./ProblemTable";
 import { ProblemPagination } from "./ProblemPagination";
-import type { IquiryProblemsSummary } from '@/types/problem.type';
+import type { IquiryProblemsSummary, ProblemSummary } from '@/types/problem.type';
+import { PROBLEM_TYPE, PROBLEM_STATE } from '@/constants/problem.constant';
 
 // 샘플 데이터
-const sampleProblems: Problem[] = [
+const sampleProblems: ProblemSummary[] = [
   {
-    id: 1,
+    uuid: "problem-001",
     title: "Two Sum",
-    difficulty: "Easy",
-    type: "배열",
-    solveRate: 85.2,
-    status: "solved"
+    levelText: "브론즈 II",
+    level: 4,
+    answerCount: 1523,
+    answerRate: 85.2,
+    submitCount: 1789,
+    answerPeopleCount: 1432,
+    source: "백준",
+    sourceId: "1001",
+    sourceUrl: "https://www.acmicpc.net/problem/1001",
+    typeList: [PROBLEM_TYPE.구현, PROBLEM_TYPE.수학],
+    state: PROBLEM_STATE.SOLVED
   },
   {
-    id: 2,
+    uuid: "problem-002",
     title: "Add Two Numbers",
-    difficulty: "Medium",
-    type: "연결 리스트",
-    solveRate: 42.1,
-    status: "attempted"
+    levelText: "실버 III",
+    level: 8,
+    answerCount: 892,
+    answerRate: 42.1,
+    submitCount: 2119,
+    answerPeopleCount: 823,
+    source: "백준",
+    sourceId: "2042",
+    sourceUrl: "https://www.acmicpc.net/problem/2042",
+    typeList: [PROBLEM_TYPE.자료_구조, PROBLEM_TYPE.세그먼트_트리],
+    state: PROBLEM_STATE.FAILED
   },
   {
-    id: 3,
+    uuid: "problem-003",
     title: "Median of Two Sorted Arrays",
-    difficulty: "Hard",
-    type: "이진 탐색",
-    solveRate: 28.7,
-    status: "unsolved"
+    levelText: "골드 I",
+    level: 16,
+    answerCount: 234,
+    answerRate: 28.7,
+    submitCount: 815,
+    answerPeopleCount: 201,
+    source: "백준",
+    sourceId: "1300",
+    sourceUrl: "https://www.acmicpc.net/problem/1300",
+    typeList: [PROBLEM_TYPE.이분_탐색, PROBLEM_TYPE.매개_변수_탐색],
+    state: PROBLEM_STATE.NONE
   }
 ];
 
@@ -39,8 +61,8 @@ interface ProblemListSectionProps {
 }
 
 export function ProblemListSection({ filters }: ProblemListSectionProps) {
-    const handleProblemClick = (problemId: number) => {
-        console.log(`Problem ${problemId} clicked`);
+    const handleProblemClick = (problemUuid: string) => {
+        console.log(`Problem ${problemUuid} clicked`);
     };
 
     const handlePageChange = (page: number) => {
