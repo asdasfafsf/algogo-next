@@ -17,3 +17,5 @@ export * from "./ui/Chip";
 export * from "./ui/Popover";
 export * from "./ui/Select";
 export * from "./shared/ProblemLevelChip";
+export * from "./shared/ProblemTypeChip";
+export * from "./ui/Checkbox";

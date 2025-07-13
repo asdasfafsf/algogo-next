@@ -3,6 +3,7 @@
 import { Typography } from "@/components/ui/Typography";
 import { ProblemLevelFilter } from "./ProblemLevelFilter";
 import { ProblemTypeFilter } from "./ProblemTypeFilter";
+import { ProblemStateFilter } from "./ProblemStateFilter";
 import { AppliedFilters } from "./AppliedFilters";
 import type { IquiryProblemsSummary } from '@/types/problem.type';
 
@@ -29,12 +30,19 @@ export function ProblemFilter({ filters }: ProblemFilterProps) {
           </Typography>
           <ProblemTypeFilter typeList={filters?.typeList || []} />
         </div>
+        <div className="flex items-center gap-3">
+          <Typography variant="small" className="font-semibold text-gray-800 min-w-fit">
+            상태
+          </Typography>
+          <ProblemStateFilter states={filters?.states || []} />
+        </div>
       </div>
       
       {/* 적용된 필터 표시 */}
       <AppliedFilters 
         levelList={filters?.levelList || []} 
         typeList={filters?.typeList || []} 
+        states={filters?.states || []} 
       />
     </div>
   );
