@@ -110,62 +110,52 @@ export function AppliedFilters({ levelList, typeList = [], states = [] }: Applie
   }
   
   return (
-    <div className="mt-4 pt-4 border-t border-gray-100">
-      <div className="flex flex-wrap items-center gap-3">
+    <div className="mt-4">
+      <div className="flex flex-wrap items-center gap-1">
         {/* 전체 초기화 버튼 */}
         <Button
           variant="ghost"
           size="sm"
           onClick={handleClearAll}
+          className="text-gray-600 hover:text-gray-800 hover:bg-gray-100/80 px-2.5 py-1.5 rounded-md text-xs font-medium h-7"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          전체 초기화
+          초기화
         </Button>
         
         {/* 적용된 난이도 필터 */}
-        {selectedLevels.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {selectedLevels.map((level) => (
+        {(selectedLevels.length || selectedTypes.length || selectedStates.length) && (
+          <div className="flex flex-wrap gap-1">
+            {selectedLevels?.map((level) => (
               <ProblemLevelChip
                 key={level}
                 level={level}
-                variant="filled"
+                variant="outlined"
                 onRemove={handleRemoveLevel}
                 className="font-bold"
               />
             ))}
-          </div>
-        )}
-        
-        {/* 적용된 유형 필터 */}
-        {selectedTypes.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {selectedTypes.map((type) => (
+            {selectedTypes?.map((type) => (
               <ProblemTypeChip
                 key={type}
                 type={type}
-                variant="filled"
+                variant="outlined"
                 onRemove={handleRemoveType}
                 className="font-bold"
               />
             ))}
-          </div>
-        )}
-        
-        {/* 적용된 상태 필터 */}
-        {selectedStates.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {selectedStates.map((state) => (
+            {selectedStates?.map((state) => (
               <ProblemStateChip
                 key={state}
                 state={state}
-                variant="filled"
+                variant="outlined"
                 onRemove={handleRemoveState}
                 className="font-bold"
               />
             ))}
           </div>
         )}
+       
       </div>
     </div>
   )

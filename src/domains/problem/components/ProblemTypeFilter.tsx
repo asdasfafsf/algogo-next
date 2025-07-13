@@ -307,17 +307,18 @@ export function ProblemTypeFilter({
           aria-expanded={isOpen}
           size="sm"
           className={cn(
-            "w-[140px] h-10 justify-between text-sm font-medium",
-            "border-gray-200 hover:border-gray-300 hover:bg-gray-50",
-            "rounded-xl shadow-sm transition-all duration-200",
+            "w-[120px] h-9 justify-between text-sm font-medium",
+            typeList.length > 0 
+              ? "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100" 
+              : "border-gray-300 bg-white hover:bg-gray-50 text-gray-700",
+            "rounded-lg shadow-sm transition-all duration-200",
             "focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500",
-            "bg-white",
             className
           )}
           disabled={disabled}
         >
-          <span className="text-gray-700 truncate">{buttonText}</span>
-          <ChevronDown className="ml-2 h-4 w-4 shrink-0 text-gray-400" />
+          <span className="truncate">{buttonText}</span>
+          <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-60" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[600px] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={8}>

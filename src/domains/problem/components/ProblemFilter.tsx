@@ -1,9 +1,9 @@
 'use client'
 
-import { Typography } from "@/components/ui/Typography";
 import { ProblemLevelFilter } from "./ProblemLevelFilter";
 import { ProblemTypeFilter } from "./ProblemTypeFilter";
 import { ProblemStateFilter } from "./ProblemStateFilter";
+import { ProblemTitleFilter } from "./ProblemTitleFilter";
 import { AppliedFilters } from "./AppliedFilters";
 import type { IquiryProblemsSummary } from '@/types/problem.type';
 
@@ -16,25 +16,28 @@ export interface ProblemFilterProps {
 
 export function ProblemFilter({ filters }: ProblemFilterProps) {
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-      <div className="flex flex-wrap gap-6 items-center">
-        <div className="flex items-center gap-3">
-          <Typography variant="small" className="font-semibold text-gray-800 min-w-fit">
-            난이도
-          </Typography>
-          <ProblemLevelFilter levelList={filters?.levelList || []} />
+    <div>
+      {/* 메인 필터 영역 */}
+      <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+        {/* 필터 버튼들 */}
+        <div className="flex flex-wrap gap-2">
+          <ProblemLevelFilter 
+            levelList={filters?.levelList || []} 
+            placeholder="난이도"
+          />
+          <ProblemTypeFilter 
+            typeList={filters?.typeList || []} 
+            placeholder="유형"
+          />
+          <ProblemStateFilter 
+            states={filters?.states || []} 
+            placeholder="상태"
+          />
         </div>
-        <div className="flex items-center gap-3">
-          <Typography variant="small" className="font-semibold text-gray-800 min-w-fit">
-            유형
-          </Typography>
-          <ProblemTypeFilter typeList={filters?.typeList || []} />
-        </div>
-        <div className="flex items-center gap-3">
-          <Typography variant="small" className="font-semibold text-gray-800 min-w-fit">
-            상태
-          </Typography>
-          <ProblemStateFilter states={filters?.states || []} />
+        
+        {/* 검색 영역 */}
+        <div className="w-full sm:w-72">
+          <ProblemTitleFilter title={filters?.title || ""} />
         </div>
       </div>
       

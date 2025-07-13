@@ -14,11 +14,11 @@ interface ProblemStateChipProps {
 const getStateDisplay = (state: ProblemState) => {
   switch (state) {
     case PROBLEM_STATE.SOLVED:
-      return { label: "맞힌 문제", color: "emerald" as const }
+      return { label: "맞힌 문제", color: "green" as const }
     case PROBLEM_STATE.FAILED:
-      return { label: "틀린 문제", color: "rose" as const }
+      return { label: "틀린 문제", color: "red" as const }
     case PROBLEM_STATE.NONE:
-      return { label: "안 푼 문제", color: "indigo" as const }
+      return { label: "안 푼 문제", color: "gray" as const }
     default:
       return { label: state, color: "gray" as const }
   }
