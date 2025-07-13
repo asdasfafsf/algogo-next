@@ -3,6 +3,7 @@ import { MainLayout } from '@/components/layout/main'
 import { ProblemListBanner, ProblemListSection } from '@/domains/problem'
 import { ProblemTrainingSection } from '@/domains/problem'
 import type { IquiryProblemsSummary, ProblemState, ProblemType } from '@/types/problem.type'
+import { PROBLEM_SORT } from '@/constants/problem.constant'
 
 export const metadata: Metadata = {
   title: '알고고 - 알고리즘 학습 플랫폼',
@@ -63,13 +64,18 @@ function parseSearchParams(searchParams: HomePageProps['searchParams']): Partial
 export default function Home({ searchParams }: HomePageProps) {
   const filters = parseSearchParams(searchParams)
   
+  // sort 파라미터 파싱
+  const sort = searchParams.sort && typeof searchParams.sort === 'string' 
+    ? parseInt(searchParams.sort, 10) 
+    : PROBLEM_SORT.DEFAULT
+  
   return (
     <MainLayout>
       <ProblemListBanner />
       
       <div className="space-y-6">
         <ProblemTrainingSection />
-        <ProblemListSection filters={filters} />
+        <ProblemListSection filters={filters} sort={sort} />
       </div>
     </MainLayout>
   )
