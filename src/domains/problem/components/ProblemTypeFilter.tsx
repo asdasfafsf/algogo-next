@@ -320,34 +320,37 @@ export function ProblemTypeFilter({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[600px] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={8}>
-        <div className="p-6 bg-white rounded-xl">
-          <div className="space-y-6 max-h-80 overflow-y-auto overflow-x-hidden overscroll-contain">
-            {PROBLEM_TYPE_GROUPS.map((group) => (
-              <div key={group.name} className="space-y-3">
-                <h4 className="text-sm font-semibold text-gray-800">{group.name}</h4>
-                <div className="flex flex-wrap gap-2">
-                  {group.types.map((type) => {
-                    const isSelected = tempSelectedTypes.includes(type)
-                    return (
-                      <Chip
-                        key={type}
-                        variant={isSelected ? "filled" : "outlined"}
-                        color="blue"
-                        size="small"
-                        onClick={() => handleChipClick(type)}
-                        className="cursor-pointer transition-all font-medium"
-                      >
-                        {type}
-                      </Chip>
-                    )
-                  })}
+        <div className="bg-white rounded-xl">
+          {/* 스크롤 영역 - 패딩을 제외하고 순수 콘텐츠만 */}
+          <div className="max-h-80 overflow-y-auto overflow-x-hidden overscroll-contain">
+            <div className="p-6 space-y-6">
+              {PROBLEM_TYPE_GROUPS.map((group) => (
+                <div key={group.name} className="space-y-3">
+                  <h4 className="text-sm font-semibold text-gray-800">{group.name}</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {group.types.map((type) => {
+                      const isSelected = tempSelectedTypes.includes(type)
+                      return (
+                        <Chip
+                          key={type}
+                          variant={isSelected ? "filled" : "outlined"}
+                          color="blue"
+                          size="small"
+                          onClick={() => handleChipClick(type)}
+                          className="cursor-pointer transition-all font-medium"
+                        >
+                          {type}
+                        </Chip>
+                      )
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           
-          {/* 확인/취소 버튼 */}
-          <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-gray-100">
+          {/* 확인/취소 버튼 - 스크롤 영역 외부에 고정 */}
+          <div className="flex justify-end gap-2 p-6 pt-4 border-t border-gray-100">
             <Button
               variant="ghost"
               size="sm"
