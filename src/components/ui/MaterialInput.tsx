@@ -11,6 +11,7 @@ export interface MaterialInputProps extends Omit<React.InputHTMLAttributes<HTMLI
   color?: 'black' | 'blue' | 'purple' | 'green' | 'amber' | 'rose' | 'emerald' | 'indigo' | 'teal' | 'orange' | 'red'
   startIcon?: React.ReactNode
   endIcon?: React.ReactNode
+  inputRef?: React.RefObject<HTMLInputElement | null>
 }
 
 export function MaterialInput({
@@ -28,14 +29,16 @@ export function MaterialInput({
   onFocus,
   onBlur,
   onChange,
+  inputRef,
   ...props
 }: MaterialInputProps) {
   const [isFocused, setIsFocused] = useState(false)
   const [hasValue, setHasValue] = useState(!!defaultValue || !!value)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const internalInputRef = useRef<HTMLInputElement>(null)
+  const finalInputRef = inputRef || internalInputRef
 
   useEffect(() => {
-    setHasValue(!!value || !!inputRef.current?.value)
+    setHasValue(!!value || !!finalInputRef.current?.value)
   }, [value])
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -168,7 +171,7 @@ export function MaterialInput({
 
           {/* Input */}
           <input
-            ref={inputRef}
+            ref={finalInputRef}
             className={`
               ${baseInputClasses}
               bg-gray-50 hover:bg-gray-100 focus:bg-gray-100 
