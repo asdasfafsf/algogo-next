@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/Button"
 import { Chip } from "@/components/ui/Chip"
 import { cn } from "@/lib/utils"
-import { useProblemTypeFilter } from "../hooks/useProblemTypeFilter"
+import { useProblemTypeFilter } from "@/domains/problem/hooks/useProblemTypeFilter"
 import type { ProblemType } from "@/types/problem.type"
 import { PROBLEM_TYPE } from "@/constants/problem.constant"
 

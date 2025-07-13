@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/Button"
 import { Checkbox } from "@/components/ui/Checkbox"
 import { cn } from "@/lib/utils"
-import { useProblemStateFilter } from "../hooks/useProblemStateFilter"
+import { useProblemStateFilter } from "@/domains/problem/hooks/useProblemStateFilter"
 import type { ProblemState } from "@/types/problem.type"
 import { PROBLEM_STATE } from "@/constants/problem.constant"
 
