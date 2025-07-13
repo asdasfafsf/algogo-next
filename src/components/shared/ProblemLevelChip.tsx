@@ -5,6 +5,7 @@ interface ProblemLevelChipProps {
   onRemove?: (level: number) => void
   variant?: 'filled' | 'outlined' | 'soft-outlined'
   size?: 'small' | 'medium' | 'large'
+  className?: string
 }
 
 // 레벨 값을 한글 라벨로 변환
@@ -33,7 +34,8 @@ export function ProblemLevelChip({
   level, 
   onRemove, 
   variant = 'soft-outlined',
-  size = 'small'
+  size = 'small',
+  className
 }: ProblemLevelChipProps) {
   const handleClick = onRemove ? () => onRemove(level) : undefined
 
@@ -43,6 +45,7 @@ export function ProblemLevelChip({
       color={getLevelColor(level)}
       size={size}
       onClick={handleClick}
+      className={className}
     >
       {getLevelLabel(level)}
     </Chip>
