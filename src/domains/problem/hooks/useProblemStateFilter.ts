@@ -52,8 +52,8 @@ export function useProblemStateFilter({
 
   const selectedCount = states.length
   const buttonText = selectedCount > 0 
-    ? `상태 (${selectedCount}개 선택됨)`
-    : "상태 선택"
+    ? "상태"
+    : "상태"
 
   return {
     isOpen,

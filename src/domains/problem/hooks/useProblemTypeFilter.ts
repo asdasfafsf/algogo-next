@@ -75,8 +75,8 @@ export function useProblemTypeFilter({
 
   const selectedCount = typeList.length
   const buttonText = selectedCount > 0 
-    ? `유형 (${selectedCount}개 선택됨)`
-    : "유형 선택"
+    ? "유형"
+    : "유형"
 
   return {
     isOpen,

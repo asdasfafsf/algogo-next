@@ -74,8 +74,8 @@ export function useProblemLevelFilter({
 
   const selectedCount = levelList.length
   const buttonText = selectedCount > 0 
-    ? `난이도 (${selectedCount}개 선택됨)`
-    : "난이도 선택"
+    ? "난이도"
+    : "난이도"
 
   return {
     isOpen,
