@@ -130,7 +130,7 @@ export function AppliedFilters({ levelList, typeList = [], states = [] }: Applie
               <ProblemLevelChip
                 key={level}
                 level={level}
-                variant="outlined"
+                variant="soft-outlined"
                 onRemove={handleRemoveLevel}
                 className="font-bold"
               />
@@ -139,7 +139,7 @@ export function AppliedFilters({ levelList, typeList = [], states = [] }: Applie
               <ProblemTypeChip
                 key={type}
                 type={type}
-                variant="outlined"
+                variant="soft-outlined"
                 onRemove={handleRemoveType}
                 className="font-bold"
               />
@@ -148,7 +148,7 @@ export function AppliedFilters({ levelList, typeList = [], states = [] }: Applie
               <ProblemStateChip
                 key={state}
                 state={state}
-                variant="outlined"
+                variant="soft-outlined"
                 onRemove={handleRemoveState}
                 className="font-bold"
               />

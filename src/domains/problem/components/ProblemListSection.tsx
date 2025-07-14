@@ -1,56 +1,29 @@
-'use client'
-
 import { Typography } from "@/components/ui/Typography";
-import { ProblemFilter } from "./ProblemFilter";
-import { ProblemTable, type Problem } from "./ProblemTable";
+import { ProblemFilter } from "./filters";
+import { ProblemTable } from "./table";
+import type { IquiryProblemsSummary, ProblemSummary } from '@/types/problem.type';
+import { PROBLEM_SORT } from '@/constants/problem.constant';
 import { ProblemPagination } from "./ProblemPagination";
-import type { IquiryProblemsSummary } from '@/types/problem.type';
 
-// 샘플 데이터
-const sampleProblems: Problem[] = [
-  {
-    id: 1,
-    title: "Two Sum",
-    difficulty: "Easy",
-    type: "배열",
-    solveRate: 85.2,
-    status: "solved"
-  },
-  {
-    id: 2,
-    title: "Add Two Numbers",
-    difficulty: "Medium",
-    type: "연결 리스트",
-    solveRate: 42.1,
-    status: "attempted"
-  },
-  {
-    id: 3,
-    title: "Median of Two Sorted Arrays",
-    difficulty: "Hard",
-    type: "이진 탐색",
-    solveRate: 28.7,
-    status: "unsolved"
-  }
-];
+
 
 interface ProblemListSectionProps {
-    filters?: Partial<IquiryProblemsSummary>
+    filters?: Partial<IquiryProblemsSummary>;
+    sort?: number;
+    pageNo?: number;
+    pageSize?: number;
+    totalCount?: number;
+    problems?: ProblemSummary[];
 }
 
-export function ProblemListSection({ filters }: ProblemListSectionProps) {
-    const handleProblemClick = (problemId: number) => {
-        console.log(`Problem ${problemId} clicked`);
-    };
-
-    const handlePageChange = (page: number) => {
-        console.log(`Page changed to ${page}`);
-    };
-
-    const handleItemsPerPageChange = (itemsPerPage: number) => {
-        console.log(`Items per page changed to ${itemsPerPage}`);
-    };
-
+export function ProblemListSection({
+  filters,
+  sort = PROBLEM_SORT.DEFAULT,
+  pageNo = 1,
+  pageSize = 20,
+  totalCount = 0,
+  problems = []
+}: ProblemListSectionProps) {
     return (
         <section className="space-y-6">
             {/* 섹션 헤더 */}
@@ -74,19 +47,16 @@ export function ProblemListSection({ filters }: ProblemListSectionProps) {
 
             {/* 테이블 섹션 */}
             <ProblemTable 
-                problems={sampleProblems}
-                onProblemClick={handleProblemClick}
+                problems={problems}
+                sort={sort}
             />
 
-            {/* 페이지네이션 섹션 */}
             <ProblemPagination
-                currentPage={1}
-                totalPages={16}
-                itemsPerPage={10}
-                totalItems={156}
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange}
+                pageNo={pageNo}
+                pageSize={pageSize}
+                totalCount={totalCount}
             />
+
         </section>
     )
 }

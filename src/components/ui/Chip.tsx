@@ -166,12 +166,12 @@ export function Chip({
       yellow: 'bg-yellow-100 border border-yellow-300 text-yellow-700 hover:bg-yellow-200 hover:border-yellow-400',
       // Brand & Rank Colors
       kakao: 'bg-kakao/10 border border-kakao/30 text-kakao hover:bg-kakao/20 hover:border-kakao/40',
-      ruby: 'bg-ruby/10 border border-ruby/30 text-ruby hover:bg-ruby/20 hover:border-ruby/40',
-      diamond: 'bg-diamond/10 border border-diamond/30 text-diamond hover:bg-diamond/20 hover:border-diamond/40',
-      platinum: 'bg-platinum/10 border border-platinum/30 text-platinum hover:bg-platinum/20 hover:border-platinum/40',
-      gold: 'bg-gold/10 border border-gold/30 text-gold hover:bg-gold/20 hover:border-gold/40',
-      silver: 'bg-silver/10 border border-silver/30 text-silver hover:bg-silver/20 hover:border-silver/40',
-      bronze: 'bg-bronze/10 border border-bronze/30 text-bronze hover:bg-bronze/20 hover:border-bronze/40',
+      ruby: 'bg-ruby/15 border border-ruby/40 text-ruby/90 hover:bg-ruby/25 hover:border-ruby/50',
+      diamond: 'bg-diamond/15 border border-diamond/40 text-diamond/90 hover:bg-diamond/25 hover:border-diamond/50',
+      platinum: 'bg-platinum/15 border border-platinum/40 text-platinum/90 hover:bg-platinum/25 hover:border-platinum/50',
+      gold: 'bg-gold/15 border border-gold/40 text-gold/90 hover:bg-gold/25 hover:border-gold/50',
+      silver: 'bg-silver/15 border border-silver/40 text-silver/90 hover:bg-silver/25 hover:border-silver/50',
+      bronze: 'bg-bronze/15 border border-bronze/40 text-bronze/90 hover:bg-bronze/25 hover:border-bronze/50',
     },
   }
 

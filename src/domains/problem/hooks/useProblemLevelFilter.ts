@@ -63,7 +63,7 @@ export function useProblemLevelFilter({
       ? `${pathname}?${newSearchParams.toString()}`
       : pathname
     
-    router.push(newUrl)
+    router.push(newUrl, { scroll: false })
     setIsOpen(false)
   }
 
