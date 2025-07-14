@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/Button"
 import { Checkbox } from "@/components/ui/Checkbox"
 import { cn } from "@/lib/utils"
-import { useProblemStateFilter } from "../hooks/useProblemStateFilter"
+import { useProblemStateFilter } from "@/domains/problem/hooks/useProblemStateFilter"
 import type { ProblemState } from "@/types/problem.type"
 import { PROBLEM_STATE } from "@/constants/problem.constant"
 
@@ -65,22 +65,21 @@ export function ProblemStateFilter({
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-60" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] max-w-[90vw] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={8}>
-        <div className="p-3 bg-white rounded-xl">
-          <div className="space-y-1">
+      <PopoverContent className="w-[180px] max-w-[90vw] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={6}>
+        <div className="p-2 bg-white rounded-xl">
+          <div className="space-y-0.5">
             {PROBLEM_STATES.map((state) => {
               const isSelected = selectedStates.includes(state.value)
               return (
                 <div
                   key={state.value}
-                  className="flex items-center space-x-2.5 cursor-pointer hover:bg-gray-50 p-1.5 rounded-md transition-colors"
+                  className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-1.5 rounded-md transition-colors"
                   onClick={() => handleStateChange(state.value)}
                 >
                   <Checkbox
                     id={state.value}
                     checked={isSelected}
                     onCheckedChange={() => handleStateChange(state.value)}
-                    size="lg"
                     className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
                   />
                   <label

@@ -2,7 +2,9 @@ import { Metadata } from 'next'
 import { MainLayout } from '@/components/layout/main'
 import { ProblemListBanner, ProblemListSection } from '@/domains/problem'
 import { ProblemTrainingSection } from '@/domains/problem'
-import type { IquiryProblemsSummary, ProblemState, ProblemType } from '@/types/problem.type'
+import type { IquiryProblemsSummary, ProblemSort, ProblemState, ProblemType } from '@/types/problem.type'
+import { PROBLEM_SORT } from '@/constants/problem.constant'
+import { getProblemList } from '@/lib/api/problem.api'
 
 export const metadata: Metadata = {
   title: '알고고 - 알고리즘 학습 플랫폼',
@@ -22,6 +24,14 @@ interface HomePageProps {
 // URL searchParams를 IquiryProblemsSummary 타입으로 변환
 function parseSearchParams(searchParams: HomePageProps['searchParams']): Partial<IquiryProblemsSummary> {
   const parsed: Partial<IquiryProblemsSummary> = {}
+  
+  // title 파싱
+  if (searchParams.title && typeof searchParams.title === 'string') {
+    const title = searchParams.title.trim()
+    if (title !== '') {
+      parsed.title = title
+    }
+  }
   
   // levelList 파싱
   if (searchParams.levelList && typeof searchParams.levelList === 'string') {
@@ -60,8 +70,33 @@ function parseSearchParams(searchParams: HomePageProps['searchParams']): Partial
   return parsed
 }
 
-export default function Home({ searchParams }: HomePageProps) {
+
+export default async function Home({ searchParams }: HomePageProps) {
   const filters = parseSearchParams(searchParams)
+  
+  // sort 파라미터 파싱
+  const sort = searchParams.sort && typeof searchParams.sort === 'string' 
+    ? parseInt(searchParams.sort, 10) 
+    : PROBLEM_SORT.DEFAULT
+  
+  const pageNo = searchParams.pageNo && typeof searchParams.pageNo === 'string' 
+    ? parseInt(searchParams.pageNo, 10) 
+    : 1
+
+  const pageSize = searchParams.pageSize && typeof searchParams.pageSize === 'string' 
+    ? parseInt(searchParams.pageSize, 10) 
+    : 20
+
+
+  const problemsResponse = await getProblemList({
+    ...filters,
+    sort: sort as ProblemSort,
+    pageNo: pageNo,
+    pageSize: pageSize
+  })
+
+  const { data } = problemsResponse;
+  const { totalCount, problemList } = data;
   
   return (
     <MainLayout>
@@ -69,7 +104,14 @@ export default function Home({ searchParams }: HomePageProps) {
       
       <div className="space-y-6">
         <ProblemTrainingSection />
-        <ProblemListSection filters={filters} />
+        <ProblemListSection 
+          filters={filters} 
+          sort={sort} 
+          pageNo={pageNo} 
+          pageSize={pageSize} 
+          totalCount={totalCount} 
+          problems={problemList}
+        />
       </div>
     </MainLayout>
   )

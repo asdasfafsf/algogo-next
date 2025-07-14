@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/Button"
 import { Chip } from "@/components/ui/Chip"
 import { cn } from "@/lib/utils"
-import { useProblemLevelFilter } from "../hooks/useProblemLevelFilter"
+import { useProblemLevelFilter } from "@/domains/problem/hooks/useProblemLevelFilter"
 
 interface ProblemLevel {
   value: number
