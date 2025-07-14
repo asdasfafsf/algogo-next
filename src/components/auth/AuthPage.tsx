@@ -25,7 +25,7 @@ export default function AuthPage() {
   };
 
   return (
-    <section className="grid items-center min-h-screen p-8">
+    <section className="grid items-center min-h-screen p-8 bg-gradient-to-br from-gray-50 via-white to-blue-50">
       <div className="text-center">
         <Typography variant="h2" className="mb-8 font-bold">
           시작하기
@@ -60,7 +60,7 @@ export default function AuthPage() {
             ripple
           >
             <Image
-              src="/images/kakao-mark.png"
+              src="/images/kakao-mark.jpg"
               alt="Kakao"
               width={20}
               height={20}
