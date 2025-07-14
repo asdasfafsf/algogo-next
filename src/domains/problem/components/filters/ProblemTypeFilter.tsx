@@ -319,15 +319,16 @@ export function ProblemTypeFilter({
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-60" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[600px] max-w-[90vw] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={8}>
+      <PopoverContent className="w-[520px] max-w-[90vw] p-0 border-0 shadow-lg rounded-xl" align="start" sideOffset={6}>
         <div className="bg-white rounded-xl">
           {/* 스크롤 영역 - 패딩을 제외하고 순수 콘텐츠만 */}
-          <div className="max-h-80 overflow-y-auto overflow-x-hidden overscroll-contain">
-            <div className="p-6 space-y-6">
-              {PROBLEM_TYPE_GROUPS.map((group) => (
-                <div key={group.name} className="space-y-3">
+          <div className="max-h-[420px] overflow-y-auto overflow-x-hidden overscroll-contain scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+            <div className="p-4 space-y-4">
+              {PROBLEM_TYPE_GROUPS.map((group, index) => (
+                <div key={group.name} className="space-y-2">
+                  {index > 0 && <div className="border-t border-gray-100 pt-4 -mt-2" />}
                   <h4 className="text-sm font-semibold text-gray-800">{group.name}</h4>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {group.types.map((type) => {
                       const isSelected = tempSelectedTypes.includes(type)
                       return (
@@ -350,19 +351,19 @@ export function ProblemTypeFilter({
           </div>
           
           {/* 확인/취소 버튼 - 스크롤 영역 외부에 고정 */}
-          <div className="flex justify-end gap-2 p-6 pt-4 border-t border-gray-100">
+          <div className="flex justify-end gap-2 p-3 border-t border-gray-100">
             <Button
               variant="ghost"
               size="sm"
               onClick={handleCancel}
-              className="text-xs text-gray-600 hover:text-gray-800 hover:bg-gray-100 px-3 py-1.5 h-7 rounded-md font-medium"
+              className="text-xs text-gray-600 hover:text-gray-800 hover:bg-gray-100 px-3 py-1 h-7 rounded-md font-medium"
             >
               취소
             </Button>
             <Button
               size="sm"
               onClick={handleConfirm}
-              className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 h-7 rounded-md font-medium shadow-sm"
+              className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 h-7 rounded-md font-medium shadow-sm"
             >
               확인
             </Button>
