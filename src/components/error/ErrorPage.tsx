@@ -67,8 +67,35 @@ export function ErrorPage({
   const finalTitle = title || defaultContent.title;
   const finalMessage = message || defaultContent.message;
 
-  const shouldShowRetry = onRetry && statusCode !== 400; // 400에서는 다시시도 버튼 숨김
-  const shouldShowBack = showBackButton && (statusCode === 400 || statusCode === 404); // 400, 404에서 뒤로가기 우선
+  const shouldShowRetry = onRetry && statusCode === 500; // 500에러에서만 다시시도 제공
+  const shouldShowBack = showBackButton; // 모든 에러에서 뒤로가기 우선
+
+  const getButtonVariant = (statusCode: number) => {
+    switch (statusCode) {
+      case 400:
+        return {
+          outline: "border-red-300 text-red-700 hover:bg-red-50",
+          solid: "bg-red-600 hover:bg-red-700 text-white"
+        };
+      case 404:
+        return {
+          outline: "border-red-200 text-red-600 hover:bg-red-50",
+          solid: "bg-red-500 hover:bg-red-600 text-white"
+        };
+      case 500:
+        return {
+          outline: "border-red-400 text-red-800 hover:bg-red-50",
+          solid: "bg-red-700 hover:bg-red-800 text-white"
+        };
+      default:
+        return {
+          outline: "border-red-300 text-red-700 hover:bg-red-50",
+          solid: "bg-red-600 hover:bg-red-700 text-white"
+        };
+    }
+  };
+
+  const buttonStyles = getButtonVariant(statusCode);
 
   const actions = (
     <div className="flex flex-col sm:flex-row gap-3 mt-6">
@@ -76,7 +103,7 @@ export function ErrorPage({
         <Button 
           variant="outline" 
           onClick={onRetry}
-          className="order-2 sm:order-1"
+          className={`order-2 sm:order-1 ${buttonStyles.outline}`}
         >
           다시 시도
         </Button>
@@ -85,7 +112,7 @@ export function ErrorPage({
         <Button 
           variant="outline"
           onClick={() => window.history.back()}
-          className="order-1 sm:order-2"
+          className={`order-1 sm:order-2 ${buttonStyles.outline}`}
         >
           이전 페이지
         </Button>
@@ -93,7 +120,7 @@ export function ErrorPage({
       {showHomeButton && (
         <Button 
           onClick={() => window.location.href = '/'}
-          className={shouldShowBack ? "order-2 sm:order-3" : "order-1 sm:order-2"}
+          className={`${shouldShowBack ? "order-2 sm:order-3" : "order-1 sm:order-2"} ${buttonStyles.solid}`}
         >
           홈으로 이동
         </Button>
