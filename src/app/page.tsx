@@ -25,6 +25,14 @@ interface HomePageProps {
 function parseSearchParams(searchParams: HomePageProps['searchParams']): Partial<IquiryProblemsSummary> {
   const parsed: Partial<IquiryProblemsSummary> = {}
   
+  // title 파싱
+  if (searchParams.title && typeof searchParams.title === 'string') {
+    const title = searchParams.title.trim()
+    if (title !== '') {
+      parsed.title = title
+    }
+  }
+  
   // levelList 파싱
   if (searchParams.levelList && typeof searchParams.levelList === 'string') {
     const levels = searchParams.levelList
