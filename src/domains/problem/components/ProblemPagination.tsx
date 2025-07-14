@@ -57,6 +57,32 @@ export function ProblemPagination({
     return rangeWithDots
   }
 
+  const getMobileVisiblePages = () => {
+    const delta = 1
+    const range = []
+    const rangeWithDots = []
+
+    for (let i = Math.max(2, pageNo - delta); i <= Math.min(totalPages - 1, pageNo + delta); i++) {
+      range.push(i)
+    }
+
+    if (pageNo - delta > 2) {
+      rangeWithDots.push(1, '...')
+    } else {
+      rangeWithDots.push(1)
+    }
+
+    rangeWithDots.push(...range)
+
+    if (pageNo + delta < totalPages - 1) {
+      rangeWithDots.push('...', totalPages)
+    } else if (totalPages > 1) {
+      rangeWithDots.push(totalPages)
+    }
+
+    return rangeWithDots
+  }
+
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString())
     params.set('pageNo', page.toString())
@@ -71,9 +97,9 @@ export function ProblemPagination({
   }
 
   return (
-    <div className={cn("flex items-center justify-between", className)}>
+    <div className={cn("relative flex flex-col sm:flex-row items-center justify-center gap-4", className)}>
       <Pagination>
-        <PaginationContent>
+        <PaginationContent className="flex-wrap justify-center">
           <PaginationItem>
             <PaginationPrevious
               href="#"
@@ -85,24 +111,48 @@ export function ProblemPagination({
             />
           </PaginationItem>
 
-          {getVisiblePages().map((page, index) => (
-            <PaginationItem key={index}>
-              {page === '...' ? (
-                <PaginationEllipsis />
-              ) : (
-                <PaginationLink
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    handlePageChange(page as number)
-                  }}
-                  isActive={page === pageNo}
-                >
-                  {page}
-                </PaginationLink>
-              )}
-            </PaginationItem>
-          ))}
+          <div className="hidden sm:contents">
+            {getVisiblePages().map((page, index) => (
+              <PaginationItem key={index}>
+                {page === '...' ? (
+                  <PaginationEllipsis />
+                ) : (
+                  <PaginationLink
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handlePageChange(page as number)
+                    }}
+                    isActive={page === pageNo}
+                  >
+                    {page}
+                  </PaginationLink>
+                )}
+              </PaginationItem>
+            ))}
+          </div>
+
+          <div className="sm:hidden flex items-center gap-1">
+            {getMobileVisiblePages().map((page, index) => (
+              <PaginationItem key={index}>
+                {page === '...' ? (
+                  <PaginationEllipsis />
+                ) : (
+                  <PaginationLink
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handlePageChange(page as number)
+                    }}
+                    isActive={page === pageNo}
+                    className="min-w-[2.5rem]"
+                  >
+                    {page}
+                  </PaginationLink>
+                )}
+              </PaginationItem>
+            ))}
+          </div>
 
           <PaginationItem>
             <PaginationNext
@@ -117,18 +167,21 @@ export function ProblemPagination({
         </PaginationContent>
       </Pagination>
 
-      <Select value={pageSize.toString()} onValueChange={handlePageSizeChange}>
-        <SelectTrigger className="w-24 h-9">
-          <SelectValue>
-            {pageSize}개씩
-          </SelectValue>
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="10">10개씩</SelectItem>
-          <SelectItem value="20">20개씩</SelectItem>
-          <SelectItem value="50">50개씩</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="sm:absolute sm:right-0 sm:top-1/2 sm:-translate-y-1/2 order-1 sm:order-2">
+        <Select value={pageSize.toString()} onValueChange={handlePageSizeChange}>
+          <SelectTrigger className="w-20 sm:w-24 h-9">
+            <SelectValue>
+              <span className="sm:hidden">{pageSize}</span>
+              <span className="hidden sm:inline">{pageSize}개씩</span>
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="10">10개씩</SelectItem>
+            <SelectItem value="20">20개씩</SelectItem>
+            <SelectItem value="50">50개씩</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   )
 }
