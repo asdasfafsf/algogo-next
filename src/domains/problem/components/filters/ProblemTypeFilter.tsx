@@ -338,7 +338,7 @@ export function ProblemTypeFilter({
                           color="blue"
                           size="small"
                           onClick={() => handleChipClick(type)}
-                          className="cursor-pointer transition-all font-medium"
+                          className="cursor-pointer transition-all font-medium hover:shadow-sm"
                         >
                           {type}
                         </Chip>
