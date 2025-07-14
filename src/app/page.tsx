@@ -2,8 +2,9 @@ import { Metadata } from 'next'
 import { MainLayout } from '@/components/layout/main'
 import { ProblemListBanner, ProblemListSection } from '@/domains/problem'
 import { ProblemTrainingSection } from '@/domains/problem'
-import type { IquiryProblemsSummary, ProblemState, ProblemType } from '@/types/problem.type'
+import type { IquiryProblemsSummary, ProblemSort, ProblemState, ProblemType } from '@/types/problem.type'
 import { PROBLEM_SORT } from '@/constants/problem.constant'
+import { getProblemList } from '@/lib/api/problem.api'
 
 export const metadata: Metadata = {
   title: '알고고 - 알고리즘 학습 플랫폼',
@@ -61,7 +62,8 @@ function parseSearchParams(searchParams: HomePageProps['searchParams']): Partial
   return parsed
 }
 
-export default function Home({ searchParams }: HomePageProps) {
+
+export default async function Home({ searchParams }: HomePageProps) {
   const filters = parseSearchParams(searchParams)
   
   // sort 파라미터 파싱
@@ -77,6 +79,17 @@ export default function Home({ searchParams }: HomePageProps) {
     ? parseInt(searchParams.pageSize, 10) 
     : 20
 
+
+  const problemsResponse = await getProblemList({
+    ...filters,
+    sort: sort as ProblemSort,
+    pageNo: pageNo,
+    pageSize: pageSize
+  })
+
+  const { data } = problemsResponse;
+  const { totalCount, problemList } = data;
+  
   return (
     <MainLayout>
       <ProblemListBanner />
@@ -88,7 +101,8 @@ export default function Home({ searchParams }: HomePageProps) {
           sort={sort} 
           pageNo={pageNo} 
           pageSize={pageSize} 
-          totalCount={0} 
+          totalCount={totalCount} 
+          problems={problemList}
         />
       </div>
     </MainLayout>

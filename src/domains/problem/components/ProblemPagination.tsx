@@ -60,7 +60,7 @@ export function ProblemPagination({
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString())
     params.set('pageNo', page.toString())
-    router.push(`?${params.toString()}`)
+    router.push(`?${params.toString()}`, { scroll: false })
   }
 
   const handlePageSizeChange = (value: string) => {
