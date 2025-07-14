@@ -99,28 +99,28 @@ export function ErrorPage({
 
   const actions = (
     <div className="flex flex-col sm:flex-row gap-3 mt-6">
-      {shouldShowRetry && (
-        <Button 
-          variant="outline" 
-          onClick={onRetry}
-          className={`order-2 sm:order-1 ${buttonStyles.outline}`}
-        >
-          다시 시도
-        </Button>
-      )}
       {shouldShowBack && (
         <Button 
           variant="outline"
           onClick={() => window.history.back()}
-          className={`order-1 sm:order-2 ${buttonStyles.outline}`}
+          className={`order-1 ${buttonStyles.outline}`}
         >
-          이전 페이지
+          뒤로가기
+        </Button>
+      )}
+      {shouldShowRetry && (
+        <Button 
+          variant="outline" 
+          onClick={onRetry}
+          className={`order-2 ${buttonStyles.outline}`}
+        >
+          다시 시도
         </Button>
       )}
       {showHomeButton && (
         <Button 
           onClick={() => window.location.href = '/'}
-          className={`${shouldShowBack ? "order-2 sm:order-3" : "order-1 sm:order-2"} ${buttonStyles.solid}`}
+          className={`order-3 ${buttonStyles.solid}`}
         >
           홈으로 이동
         </Button>

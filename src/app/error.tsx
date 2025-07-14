@@ -11,8 +11,8 @@ export default function Error({
   reset: () => void;
 }) {
   // Axios 에러인지 확인하는 타입 가드
-  const isAxiosError = (error: any): error is AxiosError => {
-    return error?.isAxiosError === true;
+  const isAxiosError = (error: unknown): error is AxiosError => {
+    return typeof error === 'object' && error !== null && 'isAxiosError' in error && (error as AxiosError).isAxiosError === true;
   };
 
   // 에러에서 status code 추출
