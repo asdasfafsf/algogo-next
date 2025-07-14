@@ -124,9 +124,9 @@ export function ProblemPagination({
           </SelectValue>
         </SelectTrigger>
         <SelectContent>
+          <SelectItem value="10">10개씩</SelectItem>
           <SelectItem value="20">20개씩</SelectItem>
           <SelectItem value="50">50개씩</SelectItem>
-          <SelectItem value="100">100개씩</SelectItem>
         </SelectContent>
       </Select>
     </div>

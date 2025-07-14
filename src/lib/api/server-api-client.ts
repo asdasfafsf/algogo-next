@@ -2,7 +2,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 
 export const serverApiClient = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_SERVER_API_URL,
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
