@@ -1,27 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { navigationConfig } from './config'
 import { DropdownMenu } from './DropdownMenu'
 import { MobileMenu } from './MobileMenu'
 import { ProfileDropdown } from './ProfileDropdown'
-import { Me } from '@/types/me.type'
+import { useAuthStore } from '@/lib/stores/useAuthStore'
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [me, setMe] = useState<Me | null>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-    try {
-      const meData = localStorage.getItem('me');
-      setMe(meData ? JSON.parse(meData) as Me : null);
-    } catch {
-      setMe(null);
-    }
-  }, []);
+  const { me } = useAuthStore();
 
   return (
     <>
@@ -67,7 +56,7 @@ export function Navigation() {
 
       {/* Desktop User Actions */}
       <div className="hidden md:flex items-center ml-auto">
-        {isClient && me ? (
+        {me ? (
           <ProfileDropdown me={me} />
         ) : (
           <Link 
@@ -84,7 +73,7 @@ export function Navigation() {
         items={navigationConfig.items}
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
-        me={isClient ? me : null}
+        me={me}
       />
     </>
   )

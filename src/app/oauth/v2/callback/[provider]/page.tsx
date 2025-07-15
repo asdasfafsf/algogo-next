@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { oauthLoginV2 } from '@/lib/api/oauth-v2.api';
 import { OAuthProvider } from '@/types/auth.type';
 import { getMe } from '@/lib/api/me.api';
+import { useAuthStore } from '@/lib/stores/useAuthStore';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
 interface CallbackPageProps {
@@ -14,6 +15,7 @@ interface CallbackPageProps {
 export default function OAuthCallback({ params }: CallbackPageProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { setMe } = useAuthStore()
   
   useEffect(() => {
     const handleCallback = async () => {
@@ -35,13 +37,11 @@ export default function OAuthCallback({ params }: CallbackPageProps) {
       }
       
       try {
-        const oauthResponse = await oauthLoginV2({ provider: provider as OAuthProvider, code })
-        const { accessToken, refreshToken } = oauthResponse.data
-        localStorage.setItem('accessToken', accessToken)
-        localStorage.setItem('refreshToken', refreshToken);
-
+        await oauthLoginV2({ provider: provider as OAuthProvider, code })
         const meResponse = await getMe()
-        localStorage.setItem('me', JSON.stringify(meResponse.data));
+        const userData = meResponse.data
+        setMe(userData)
+        
         const destination = state ? decodeURIComponent(state) : '/'
         router.push(destination, { scroll: false })
       } catch (error) {
@@ -50,7 +50,7 @@ export default function OAuthCallback({ params }: CallbackPageProps) {
     }
     
     handleCallback()
-  }, [params, searchParams, router])
+  }, [params, searchParams, router, setMe])
   
   return <LoadingScreen title="로그인 처리 중" description="알고고에 안전하게 연결하고 있습니다" loadingMessage="Authenticating" />
 }

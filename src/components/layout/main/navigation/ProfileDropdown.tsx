@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -10,21 +10,32 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/Popover
 import { Button } from '@/components/ui/Button'
 import { Typography } from '@/components/ui/Typography'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/Tooltip'
-
+import { useAuthStore } from '@/lib/stores'
 interface ProfileDropdownProps {
   me: Me
 }
 
-export function ProfileDropdown({ me }: ProfileDropdownProps) {
+export function ProfileDropdown({ me: initialMe }: ProfileDropdownProps) {
+  const { me, setMe, clearAuth } = useAuthStore()
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
-  const displayName = me.name || '사용자'
+  const displayName = me?.name || '사용자'
 
-  const handleLogout = () => {
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    localStorage.removeItem('me')
-    router.push('/', { scroll: false })
+  // 초기 데이터 설정
+  useEffect(() => {
+    if (initialMe && !me) {
+      setMe(initialMe)
+    }
+  }, [initialMe, me, setMe])
+
+  const handleLogout = async () => {
+    try {
+      await clearAuth()
+      router.push('/', { scroll: false })
+      router.refresh()
+    } catch {
+      router.push('/', { scroll: false })
+    }
   }
 
   return (
@@ -35,7 +46,7 @@ export function ProfileDropdown({ me }: ProfileDropdownProps) {
           aria-label="프로필 메뉴"
         >
           <Image 
-            src={me.profilePhoto} 
+            src={me?.profilePhoto || '/images/default-avatar.png'} 
             alt={displayName}
             width={40}
             height={40}
@@ -48,7 +59,7 @@ export function ProfileDropdown({ me }: ProfileDropdownProps) {
         <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
           <div className="flex items-center space-x-3">
             <Image 
-              src={me.profilePhoto} 
+              src={me?.profilePhoto || ''} 
               alt={displayName}
               width={40}
               height={40}
