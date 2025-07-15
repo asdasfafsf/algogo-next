@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Typography } from '@/components/ui/Typography';
 import { Chip } from '@/components/ui/Chip';
 import { Problem } from '@/types/problem.type';
@@ -7,6 +6,7 @@ import { ProblemLevel } from './ProblemLevel';
 import { ProblemTypeList } from './ProblemTypeList';
 import { ProblemContent } from './ProblemContent';
 import { ProblemContentTitle } from './ProblemContentTitle';
+import { ProblemInputOutputList } from './ProblemInputOutputList';
 
 interface ProblemDescriptionProps {
   problem: Problem;
@@ -49,74 +49,90 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
         <ProblemContentTitle title="문제 설명" />
         <ProblemContent content={problem.content} />
 
-        {problem.input && (
-          <Card className="bg-white text-gray-900 border-gray-200 mt-6">
-            <CardHeader>
-              <Typography as="h3" variant="h4" className="text-gray-900">입력</Typography>
-            </CardHeader>
-            <CardContent>
-              <div 
-                className="prose prose-sm max-w-none text-gray-900"
-                dangerouslySetInnerHTML={{ __html: problem.input }}
-              />
-            </CardContent>
-          </Card>
+        {problem.customExample && (
+          <>
+            <ProblemContentTitle title="예시" />
+            <ProblemContent content={problem.customExample} />
+          </>
         )}
 
-        {problem.output && (
-          <Card className="bg-white text-gray-900 border-gray-200 mt-6">
-            <CardHeader>
-              <Typography as="h3" variant="h4" className="text-gray-900">출력</Typography>
-            </CardHeader>
-            <CardContent>
-              <div 
-                className="prose prose-sm max-w-none text-gray-900"
-                dangerouslySetInnerHTML={{ __html: problem.output }}
-              />
-            </CardContent>
-          </Card>
+        {problem.customImplementation && (
+          <>
+            <ProblemContentTitle title="구현" />
+            <ProblemContent content={problem.customImplementation} />
+          </>
         )}
 
-        {problem.inputOutputList.length > 0 && (
-          <Card className="bg-white text-gray-900 border-gray-200 mt-6">
-            <CardHeader>
-              <Typography as="h3" variant="h4" className="text-gray-900">예제</Typography>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {problem.inputOutputList.map((example, index) => (
-                  <div key={index} className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Typography variant="small" className="mb-2 text-gray-700">입력 {index + 1}</Typography>
-                      <pre className="bg-gray-50 p-3 rounded-lg text-sm overflow-x-auto text-gray-900">
-                        {example.input}
-                      </pre>
-                    </div>
-                    <div>
-                      <Typography variant="small" className="mb-2 text-gray-700">출력 {index + 1}</Typography>
-                      <pre className="bg-gray-50 p-3 rounded-lg text-sm overflow-x-auto text-gray-900">
-                        {example.output}
-                      </pre>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+        {problem.customGrader && (
+          <>
+            <ProblemContentTitle title="예제" />
+            <ProblemContent content={problem.customGrader} />
+          </>
+        )}
+
+        {problem.limit && (
+          <>
+            <ProblemContentTitle title="제한" />
+            <ProblemContent content={problem.limit} />
+          </>
+        )}
+
+        {(problem.input || problem.output) && (
+          <>
+            {problem.input && (
+              <>
+                <ProblemContentTitle title="입력" />
+                <ProblemContent content={problem.input} />
+              </>
+            )}
+            {problem.output && (
+              <>
+                <ProblemContentTitle title="출력" />
+                <ProblemContent content={problem.output} />
+              </>
+            )}
+          </>
+        )}
+
+        <ProblemInputOutputList inputOutputList={problem.inputOutputList} />
+
+        {problem.subTaskList.map((subTask) => (
+          <div key={subTask.order}>
+            <ProblemContentTitle title={subTask.title} />
+            <ProblemContent content={subTask.content} />
+          </div>
+        ))}
+
+        {problem.customNotes && (
+          <>
+            <ProblemContentTitle title="테스트용 입력 형식" />
+            <ProblemContent content={problem.customNotes} />
+          </>
+        )}
+
+        {problem.customAttachment && (
+          <>
+            <ProblemContentTitle title="첨부파일" />
+            <ProblemContent content={problem.customAttachment} />
+          </>
         )}
 
         {problem.hint && (
-          <Card className="bg-white text-gray-900 border-gray-200 mt-6">
-            <CardHeader>
-              <Typography as="h3" variant="h4" className="text-gray-900">힌트</Typography>
-            </CardHeader>
-            <CardContent>
-              <div 
-                className="prose prose-sm max-w-none text-gray-900"
-                dangerouslySetInnerHTML={{ __html: problem.hint }}
-              />
-            </CardContent>
-          </Card>
+          <>
+            <ProblemContentTitle title="힌트" />
+            <ProblemContent content={problem.hint} />
+          </>
+        )}
+
+        {problem.problemSource ? (
+          <>
+            <ProblemContentTitle title="출처" />
+            <ProblemContent content={problem.problemSource} />
+          </>
+        ) : (
+          <div className="mt-8">
+            {/* 출처 정보 컴포넌트 */}
+          </div>
         )}
       </div>
     </div>
