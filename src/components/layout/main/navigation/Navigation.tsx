@@ -7,7 +7,7 @@ import { DropdownMenu } from './DropdownMenu'
 import { MobileMenu } from './MobileMenu'
 
 export function Navigation() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <>
