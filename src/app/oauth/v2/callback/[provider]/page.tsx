@@ -42,7 +42,19 @@ export default function OAuthCallback({ params }: CallbackPageProps) {
         const userData = meResponse.data
         setMe(userData)
         
-        const destination = state ? decodeURIComponent(state) : '/'
+        let parsedState: { destination: string } = {
+          destination: '/',
+        };
+        try {
+          parsedState = state ? JSON.parse(state) : {
+            destination: '/',
+          };
+        } catch {
+          parsedState = {
+            destination: '/',
+          };
+        }
+        const { destination } = parsedState;
         router.push(destination, { scroll: false })
       } catch (error) {
         throw error;
