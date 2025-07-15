@@ -10,3 +10,11 @@ export const refresh = async (): Promise<ApiResponse<Token>> => {
   );
   return response.data;
 };
+
+export const logout = async (): Promise<ApiResponse<void>> => {
+  const response: AxiosResponse<ApiResponse<void>> = await apiClient.post(
+    '/api/v2/auth/logout',
+    {},
+  );
+  return response.data;
+};
