@@ -5,9 +5,12 @@ import { useState } from 'react'
 import { navigationConfig } from './config'
 import { DropdownMenu } from './DropdownMenu'
 import { MobileMenu } from './MobileMenu'
+import { ProfileDropdown } from './ProfileDropdown'
+import { useAuthStore } from '@/lib/stores/useAuthStore'
 
 export function Navigation() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { me } = useAuthStore();
 
   return (
     <>
@@ -53,12 +56,16 @@ export function Navigation() {
 
       {/* Desktop User Actions */}
       <div className="hidden md:flex items-center ml-auto">
-        <Link 
-          href="/login"
-          className="bg-gray-900 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-200 hover:scale-105"
-        >
-          시작하기
-        </Link>
+        {me ? (
+          <ProfileDropdown me={me} />
+        ) : (
+          <Link 
+            href="/login"
+            className="bg-gray-900 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-200 hover:scale-105"
+          >
+            시작하기
+          </Link>
+        )}
       </div>
 
       {/* Mobile Menu */}
@@ -66,6 +73,7 @@ export function Navigation() {
         items={navigationConfig.items}
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
+        me={me}
       />
     </>
   )
