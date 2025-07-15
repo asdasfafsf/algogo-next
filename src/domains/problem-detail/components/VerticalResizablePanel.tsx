@@ -62,27 +62,27 @@ export function VerticalResizablePanel({
       {/* 상단 패널 */}
       <div
         style={{ height: `${topHeight}%` }}
-        className="bg-white border-b border-gray-200"
+        className="bg-editor-page-bg border-b border-editor-page-border"
       >
         {topPanel}
       </div>
       
       {/* 리사이저 */}
       <div
-        className={`h-2 bg-gray-50 border-t border-b border-gray-300 cursor-row-resize hover:bg-gray-100 transition-colors ${
-          isDragging ? 'bg-gray-200' : ''
+        className={`h-2 bg-editor-page-surface border-t border-b border-editor-page-border cursor-row-resize hover:bg-editor-page-bg transition-colors ${
+          isDragging ? 'bg-editor-page-border' : ''
         }`}
         onMouseDown={handleMouseDown}
       >
         <div className="w-full h-full flex items-center justify-center">
-          <GripHorizontal className="w-3 h-3 text-gray-400" />
+          <GripHorizontal className="w-3 h-3 text-editor-page-text-muted" />
         </div>
       </div>
       
       {/* 하단 패널 */}
       <div
         style={{ height: `${100 - topHeight}%` }}
-        className="bg-white"
+        className="bg-editor-page-bg"
       >
         {bottomPanel}
       </div>
