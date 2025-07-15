@@ -543,4 +543,22 @@
   .theme-editor-text {
     color: var(--theme-editor-foreground);
   }
+  
+  /* 탭 활성화 스타일 */
+  .editor-tab-active {
+    color: var(--color-editor-ui-primary);
+    border-bottom: 2px solid var(--color-editor-ui-primary);
+    background-color: var(--color-editor-page-surface);
+  }
+  
+  /* 테마 미리보기 스타일 */
+  .theme-preview-light {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+  }
+  
+  .theme-preview-dark {
+    background-color: #1a1a1a;
+    border-color: #666;
+  }
 }

@@ -38,16 +38,9 @@ export function MobileLayout({
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 justify-center gap-2 py-3 text-sm font-medium transition-colors rounded-none ${
                 activeTab === tab.id
-                  ? 'text-editor-page-text'
+                  ? 'text-editor-page-text editor-tab-active'
                   : 'text-editor-page-text-secondary hover:text-editor-page-text'
               }`}
-              style={{
-                ...(activeTab === tab.id && {
-                  color: 'var(--color-editor-ui-primary)',
-                  borderBottom: '2px solid var(--color-editor-ui-primary)',
-                  backgroundColor: 'var(--color-editor-page-surface)'
-                })
-              }}
             >
               <Icon className="w-4 h-4" />
               {tab.label}

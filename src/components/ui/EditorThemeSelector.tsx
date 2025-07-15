@@ -56,11 +56,9 @@ export function EditorThemeSelector({ variant = 'compact', className = '' }: Edi
                 <SelectItem key={theme} value={theme}>
                   <div className="flex items-center gap-2">
                     <div 
-                      className="w-3 h-3 rounded-full border"
-                      style={{ 
-                        backgroundColor: theme.includes('dark') ? '#1a1a1a' : '#f0f0f0',
-                        borderColor: theme.includes('dark') ? '#666' : '#ccc'
-                      }}
+                      className={`w-3 h-3 rounded-full border ${
+                        theme.includes('dark') ? 'theme-preview-dark' : 'theme-preview-light'
+                      }`}
                     />
                     {label}
                   </div>
@@ -109,11 +107,9 @@ export function EditorThemeSelector({ variant = 'compact', className = '' }: Edi
                 <SelectItem key={theme} value={theme}>
                   <div className="flex items-center gap-3">
                     <div 
-                      className="w-4 h-4 rounded border"
-                      style={{ 
-                        backgroundColor: theme.includes('dark') ? '#1a1a1a' : '#f0f0f0',
-                        borderColor: theme.includes('dark') ? '#666' : '#ccc'
-                      }}
+                      className={`w-4 h-4 rounded border ${
+                        theme.includes('dark') ? 'theme-preview-dark' : 'theme-preview-light'
+                      }`}
                     />
                     <span>{label}</span>
                   </div>
