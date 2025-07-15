@@ -1,3 +1,5 @@
+'use client';
+
 import { ProblemSummary } from '@/types/problem.type';
 import { ProblemLevelChip } from '@/components/shared/ProblemLevelChip';
 import { ProblemStateIcon } from '@/components/shared/ProblemStateIcon';
@@ -14,6 +16,10 @@ export function ProblemTable({ problems, sort = PROBLEM_SORT.DEFAULT }: ProblemT
 
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat('ko-KR').format(num);
+  };
+
+  const handleRowClick = (uuid: string) => {
+    window.open(`/problem/${uuid}`, '_blank');
   };
 
   if (problems.length === 0) {
@@ -83,6 +89,7 @@ export function ProblemTable({ problems, sort = PROBLEM_SORT.DEFAULT }: ProblemT
               <tr 
                 key={problem.uuid} 
                 className="group transition-all duration-200 hover:bg-slate-100 cursor-pointer"
+                onClick={() => handleRowClick(problem.uuid)}
               >
                 <td className="px-5 py-5 w-20 min-w-20">
                   <div className="flex items-center justify-center h-full">
@@ -91,13 +98,9 @@ export function ProblemTable({ problems, sort = PROBLEM_SORT.DEFAULT }: ProblemT
                 </td>
                 <td className="px-6 py-5 min-w-[320px] max-w-none">
                   <div className="flex items-center h-full">
-                    <button 
-                      className="text-left w-full focus:outline-none cursor-pointer"
-                    >
-                      <span className="text-sm font-normal text-slate-800 group-hover:text-blue-700 truncate block transition-colors duration-200">
-                        {problem.title}
-                      </span>
-                    </button>
+                    <span className="text-sm font-normal text-slate-800 group-hover:text-blue-700 truncate block transition-colors duration-200">
+                      {problem.title}
+                    </span>
                   </div>
                 </td>
                 <td className="px-5 py-5 w-36 min-w-36">
