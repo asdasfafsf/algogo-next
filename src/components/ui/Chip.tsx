@@ -182,6 +182,7 @@ export function Chip({
   const baseClasses = `
     inline-flex items-center justify-center font-medium
     transition-all duration-200 ease-in-out
+    whitespace-nowrap flex-shrink-0
     ${currentSize.base}
     ${currentColor}
     ${currentRounded}
