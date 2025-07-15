@@ -32,10 +32,13 @@ export function EditorThemeProvider({ children }: EditorThemeProviderProps) {
 
   // 에디터 테마 변경 함수
   const setEditorTheme = (newTheme: EditorTheme) => {
-    setEditorThemeState(newTheme);
+    // 유효하지 않은 테마인 경우 vs-dark로 강제 설정
+    const validTheme = EDITOR_THEME_CONFIG[newTheme] ? newTheme : DEFAULT_EDITOR_THEME;
+    
+    setEditorThemeState(validTheme);
     if (typeof window !== 'undefined') {
-      localStorage.setItem(EDITOR_THEME_STORAGE_KEY, newTheme);
-      updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[newTheme]);
+      localStorage.setItem(EDITOR_THEME_STORAGE_KEY, validTheme);
+      updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[validTheme]);
     }
   };
 
@@ -127,14 +130,22 @@ export function EditorThemeProvider({ children }: EditorThemeProviderProps) {
       const savedTheme = localStorage.getItem(EDITOR_THEME_STORAGE_KEY) as EditorTheme;
       const savedActive = localStorage.getItem(`${EDITOR_THEME_STORAGE_KEY}-active`) === 'true';
       
-      if (savedTheme && EDITOR_THEME_CONFIG[savedTheme]) {
-        setEditorThemeState(savedTheme);
-      }
+      // 저장된 테마가 유효하지 않은 경우 vs-dark로 강제 설정
+      const validTheme = savedTheme && EDITOR_THEME_CONFIG[savedTheme] ? savedTheme : DEFAULT_EDITOR_THEME;
       
+      setEditorThemeState(validTheme);
       setIsEditorThemeActive(savedActive);
       
-      if (savedActive && savedTheme && EDITOR_THEME_CONFIG[savedTheme]) {
-        updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[savedTheme]);
+      // 유효하지 않은 테마가 저장되어 있다면 올바른 테마로 업데이트
+      if (savedTheme !== validTheme) {
+        localStorage.setItem(EDITOR_THEME_STORAGE_KEY, validTheme);
+      }
+      
+      if (savedActive) {
+        updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[validTheme]);
+      } else {
+        // 테마가 비활성화 상태일 때도 vs-dark 색상을 기본으로 설정
+        updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[DEFAULT_EDITOR_THEME]);
       }
     }
     setMounted(true);
@@ -148,7 +159,8 @@ export function EditorThemeProvider({ children }: EditorThemeProviderProps) {
       if (isEditorThemeActive) {
         updateEditorThemeCSSVariables(currentEditorColors);
       } else {
-        removeEditorThemeCSSVariables();
+        // 테마가 비활성화 상태일 때도 vs-dark 색상을 기본으로 설정
+        updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[DEFAULT_EDITOR_THEME]);
       }
     }
   }, [isEditorThemeActive, currentEditorColors]);
