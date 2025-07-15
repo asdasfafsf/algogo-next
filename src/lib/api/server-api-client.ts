@@ -19,8 +19,6 @@ serverApiClient.interceptors.request.use(
         const cookieStore = await cookies();
         const cookieString = cookieStore.toString();
 
-        console.log('cookieString', cookieString)
-        
         if (cookieString) {
             config.headers.Cookie = cookieString;
         }
