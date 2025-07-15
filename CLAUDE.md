@@ -82,6 +82,13 @@ The project follows comprehensive frontend design guidelines defined in `cursorr
 - Abstract complex interactions into dedicated components
 - Use IIFE for complex conditional logic
 
+### Server Component Rules (CRITICAL)
+- **ALWAYS maintain Server Components when possible** - This is essential for MathJax rendering
+- Problem description components MUST remain as Server Components for proper MathJax integration
+- Only create Client Components when absolutely necessary for interactivity
+- Use CSS variables and minimal Client Components for features like font size control
+- MathJax requires server-rendered HTML to function properly with SEO and performance
+
 ## Development Notes
 
 ### Fonts
