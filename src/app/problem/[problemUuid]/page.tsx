@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { ProblemHeader } from '@/components/layout/problem/ProblemHeader';
-import { ProblemDescription } from '@/domains/problem-detail/components/ProblemDescription';
+import { ProblemDescription } from '@/domains/problem-detail/components/problem/ProblemDescription';
 import { CodeEditor } from '@/domains/problem-detail/components/CodeEditor';
 import { CodeResult } from '@/domains/problem-detail/components/CodeResult';
 import { ResizablePanel } from '@/domains/problem-detail/components/ResizablePanel';
