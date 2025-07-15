@@ -18,14 +18,14 @@ export function CodeEditor({ initialCode = '# 여기에 코드를 작성하세�
 
   return (
     <div className="h-full flex flex-col bg-editor-page-surface">
-      <div className="flex items-center justify-between p-4 border-b border-editor-page-border">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-editor-page-text">언어 선택</span>
-          <div className="px-3 py-2 text-sm bg-editor-page-bg rounded-md border border-editor-page-border min-w-32 text-editor-page-text">
+      <div className="flex items-center justify-between p-4 border-b border-editor-page-border min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-sm font-medium text-editor-page-text whitespace-nowrap">언어 선택</span>
+          <div className="px-3 py-2 text-sm bg-editor-page-bg rounded-md border border-editor-page-border min-w-20 text-editor-page-text">
             {selectedLang.label}
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-shrink-0">
           <Button variant="outline" size="sm" disabled>
             <RotateCcw className="h-4 w-4 mr-1" />
             초기화

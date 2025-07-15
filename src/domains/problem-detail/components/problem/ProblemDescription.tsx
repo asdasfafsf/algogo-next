@@ -5,6 +5,8 @@ import { Problem } from '@/types/problem.type';
 import { ProblemStats } from './ProblemStats';
 import { ProblemLevel } from './ProblemLevel';
 import { ProblemTypeList } from './ProblemTypeList';
+import { ProblemContent } from './ProblemContent';
+import { ProblemContentTitle } from './ProblemContentTitle';
 
 interface ProblemDescriptionProps {
   problem: Problem;
@@ -14,7 +16,12 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
   return (
     <div className="h-full overflow-y-auto bg-white">
       <div className="p-6">
-        <Typography variant="h1" size="sm" className="text-gray-900 mb-4">{problem.title}</Typography>
+        <div className="mb-4">
+          <Typography variant="h2" size="lg" className="font-bold text-gray-900 pb-3">
+            {problem.title}
+          </Typography>
+          <div className="border-b border-gray-200"></div>
+        </div>
         
         <div className="flex items-center gap-2 flex-wrap mb-6">
           <ProblemLevel level={problem.level} />
@@ -23,7 +30,7 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
           <ProblemTypeList typeList={problem.typeList} />
           {problem.isSpecialJudge && (
             <>
-            <Chip variant="soft-outlined" color="orange" size="small">
+            <Chip variant="soft-outlined" color="amber" size="small">
               스페셜 저지
             </Chip>
             </>
@@ -39,17 +46,8 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
 
         <ProblemStats problem={problem} />
 
-        <Card className="bg-white text-gray-900 border-gray-200 mt-6">
-          <CardHeader>
-            <Typography as="h3" variant="h4" className="text-gray-900">문제 설명</Typography>
-          </CardHeader>
-          <CardContent>
-            <div 
-              className="prose prose-sm max-w-none text-gray-900"
-              dangerouslySetInnerHTML={{ __html: problem.content }}
-            />
-          </CardContent>
-        </Card>
+        <ProblemContentTitle title="문제 설명" />
+        <ProblemContent content={problem.content} />
 
         {problem.input && (
           <Card className="bg-white text-gray-900 border-gray-200 mt-6">

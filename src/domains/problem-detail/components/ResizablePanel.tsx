@@ -75,7 +75,7 @@ export function ResizablePanel({
       {/* 좌측 패널 */}
       {!isLeftCollapsed && (
         <div
-          style={{ width: `${leftWidth}%` }}
+          style={{ width: `calc(${leftWidth}% - 4px)` }}
           className="bg-white border-r border-gray-200 relative"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
@@ -122,7 +122,7 @@ export function ResizablePanel({
       
       {/* 우측 패널 */}
       <div
-        style={{ width: `${isLeftCollapsed ? '100%' : `${100 - leftWidth}%`}` }}
+        style={{ width: `${isLeftCollapsed ? 'calc(100% - 8px)' : `calc(${100 - leftWidth}% - 4px)`}` }}
         className="flex flex-col"
       >
         {rightPanel}
