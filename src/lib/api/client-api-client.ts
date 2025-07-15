@@ -1,40 +1,103 @@
-import axios from "axios";
+import axios from 'axios';
+import { ApiResponse } from '@/types/api.type';
 
 export const clientApiClient = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true, // withCredentials는 config에 설정
+    withCredentials: true,
 });
 
-// Request interceptor for client-side
-clientApiClient.interceptors.request.use(
-    (config) => {
-        // Client-side에서 localStorage나 쿠키에서 토큰 가져오기
-        const token = localStorage.getItem('token');
-        
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        
-        // 추가 헤더 설정 가능
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
-);
+let isRefreshing = false;
+const failedQueue: {
+  resolve: (value?: unknown) => void;
+  reject: (reason?: ApiResponse<unknown>) => void;
+}[] = [];
 
-// Response interceptor for common error handling
+clientApiClient.interceptors.request.use((config) => {
+  if (config.url?.includes('/api/v2/auth/refresh')) {
+    return config;
+  }
+
+  const token = localStorage.getItem('accessToken');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  } else {
+    config.headers.Authorization = undefined;
+  }
+
+  return config;
+});
+
 clientApiClient.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        // 공통 에러 처리
-        if (error.response?.status === 401) {
-            // 인증 에러 처리 - 로그인 페이지로 리다이렉트 등
-            window.location.href = '/login';
-        }
-        return Promise.reject(error);
+  (response) => response,
+  async (error) => {
+    const data = error.response?.data;
+    const { config } = error;
+
+    if (data?.statusCode === 401 && (data?.errorCode === 'JWT_EXPIRED' || data?.errorMessage?.includes('만료'))) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then(() => clientApiClient.request(config))
+          .catch((err) => Promise.reject(err));
+      }
+
+      isRefreshing = true;
+
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (!refreshToken) {
+        failedQueue.forEach(({ reject }) => reject(error));
+        failedQueue.length = 0;
+        isRefreshing = false;
+        return Promise.resolve({
+          status: 401,
+          errorCode: 'UNAUTHORIZED',
+          errorMessage: 'refreshToken이 없습니다.',
+          data: null,
+        });
+      }
+
+      try {
+        const { data: refreshResponse } = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/v2/auth/refresh`,
+          {},
+          { withCredentials: true },
+        );
+
+        localStorage.setItem('accessToken', refreshResponse.data.accessToken);
+        localStorage.setItem('refreshToken', refreshResponse.data.refreshToken);
+
+        failedQueue.forEach(({ resolve }) => resolve());
+        failedQueue.length = 0;
+
+        return await clientApiClient.request(config);
+      } catch (refreshError) {
+        failedQueue.forEach(({ reject }) => reject());
+        failedQueue.length = 0;
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('me');
+        
+        window.location.href = `/login?destination=${window.location.pathname}`;
+        return await Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
     }
+
+    // 로그아웃 요청의 경우 리다이렉트하지 않음
+    if (error.config?.url?.includes('/auth/logout')) {
+      return Promise.reject(error);
+    }
+
+    // 일반적인 401 에러 처리
+    if (error.response?.status === 401) {
+      window.location.href = '/login';
+    }
+
+    return error.response;
+  },
 );
