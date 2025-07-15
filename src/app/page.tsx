@@ -18,11 +18,11 @@ export const metadata: Metadata = {
 }
 
 interface HomePageProps {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 // URL searchParams를 IquiryProblemsSummary 타입으로 변환
-function parseSearchParams(searchParams: HomePageProps['searchParams']): Partial<IquiryProblemsSummary> {
+function parseSearchParams(searchParams: { [key: string]: string | string[] | undefined }): Partial<IquiryProblemsSummary> {
   const parsed: Partial<IquiryProblemsSummary> = {}
   
   // title 파싱
@@ -72,19 +72,22 @@ function parseSearchParams(searchParams: HomePageProps['searchParams']): Partial
 
 
 export default async function Home({ searchParams }: HomePageProps) {
-  const filters = parseSearchParams(searchParams)
+  // searchParams를 await로 기다림
+  const params = await searchParams
+  
+  const filters = parseSearchParams(params)
   
   // sort 파라미터 파싱
-  const sort = searchParams.sort && typeof searchParams.sort === 'string' 
-    ? parseInt(searchParams.sort, 10) 
+  const sort = params.sort && typeof params.sort === 'string' 
+    ? parseInt(params.sort, 10) 
     : PROBLEM_SORT.DEFAULT
   
-  const pageNo = searchParams.pageNo && typeof searchParams.pageNo === 'string' 
-    ? parseInt(searchParams.pageNo, 10) 
+  const pageNo = params.pageNo && typeof params.pageNo === 'string' 
+    ? parseInt(params.pageNo, 10) 
     : 1
 
-  const pageSize = searchParams.pageSize && typeof searchParams.pageSize === 'string' 
-    ? parseInt(searchParams.pageSize, 10) 
+  const pageSize = params.pageSize && typeof params.pageSize === 'string' 
+    ? parseInt(params.pageSize, 10) 
     : 20
 
 
