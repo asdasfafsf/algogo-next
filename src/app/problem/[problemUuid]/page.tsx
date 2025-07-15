@@ -54,10 +54,10 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
   );
 
   return (
-    <div className="h-screen bg-editor-page-bg flex flex-col">
+    <div className="h-screen bg-editor-page-bg flex flex-col overflow-x-hidden">
       <ProblemHeader problemTitle={problem.title} />
       
-      <div className="flex-1 min-h-0">
+      <div className="flex-1 min-h-0 overflow-x-hidden">
         {/* 데스크톱 레이아웃 (md 이상) */}
         <div className="hidden md:block h-full">
           <ResizablePanel
