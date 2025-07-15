@@ -54,8 +54,8 @@ export function ProfileDropdown({ me }: ProfileDropdownProps) {
               height={40}
               className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
             />
-            <div>
-              <Typography variant="small" className="font-semibold text-gray-900">{displayName}</Typography>
+            <div className="flex-1 min-w-0">
+              <Typography variant="small" className="font-semibold text-gray-900 truncate">{displayName}</Typography>
               <Typography variant="muted" size="sm">알고고 사용자</Typography>
             </div>
           </div>
