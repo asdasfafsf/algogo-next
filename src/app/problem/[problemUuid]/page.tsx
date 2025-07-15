@@ -5,6 +5,7 @@ import { CodeEditor } from '@/domains/problem-detail/components/CodeEditor';
 import { CodeResult } from '@/domains/problem-detail/components/CodeResult';
 import { ResizablePanel } from '@/domains/problem-detail/components/ResizablePanel';
 import { VerticalResizablePanel } from '@/domains/problem-detail/components/VerticalResizablePanel';
+import { MobileLayout } from '@/domains/problem-detail/components/MobileLayout';
 import { ProblemFooter } from '@/components/layout/problem/ProblemFooter';
 import { Problem } from '@/types/problem.type';
 
@@ -85,38 +86,54 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
   const { problemUuid } = await params;
   const problem = await getProblem(problemUuid);
 
+  const problemPanel = <ProblemDescription problem={problem} />;
+  const codePanel = (
+    <CodeEditor 
+      initialCode="# 여기에 코드를 작성하세요\n\n"
+      selectedLanguage="python"
+    />
+  );
+  const resultPanel = (
+    <CodeResult 
+      testCases={[]}
+      customInput=""
+      customOutput=""
+      activeTab="testcases"
+    />
+  );
+
   return (
-    <div className="h-screen bg-gray-50 flex flex-col">
+    <div className="h-screen bg-editor-page-surface flex flex-col">
       <ProblemHeader problemTitle={problem.title} />
       
       <div className="flex-1 min-h-0">
-        <ResizablePanel
-          leftPanel={<ProblemDescription problem={problem} />}
-          rightPanel={
-            <VerticalResizablePanel
-              topPanel={
-                <CodeEditor 
-                  initialCode="# 여기에 코드를 작성하세요\n\n"
-                  selectedLanguage="python"
-                />
-              }
-              bottomPanel={
-                <CodeResult 
-                  testCases={[]}
-                  customInput=""
-                  customOutput=""
-                  activeTab="testcases"
-                />
-              }
-              defaultTopHeight={60}
-              minTopHeight={30}
-              maxTopHeight={80}
-            />
-          }
-          defaultLeftWidth={50}
-          minLeftWidth={25}
-          maxLeftWidth={75}
-        />
+        {/* 데스크톱 레이아웃 (lg 이상) */}
+        <div className="hidden lg:block h-full">
+          <ResizablePanel
+            leftPanel={problemPanel}
+            rightPanel={
+              <VerticalResizablePanel
+                topPanel={codePanel}
+                bottomPanel={resultPanel}
+                defaultTopHeight={60}
+                minTopHeight={30}
+                maxTopHeight={80}
+              />
+            }
+            defaultLeftWidth={50}
+            minLeftWidth={25}
+            maxLeftWidth={75}
+          />
+        </div>
+
+        {/* 모바일 레이아웃 (md 이하) */}
+        <div className="block lg:hidden h-full">
+          <MobileLayout
+            problemPanel={problemPanel}
+            codePanel={codePanel}
+            resultPanel={resultPanel}
+          />
+        </div>
       </div>
       
       <ProblemFooter />

@@ -264,6 +264,59 @@
   --color-red-800: #c62828;
   --color-red-900: #b71c1c;
 
+  /* 테마 변수 */
+  --theme-background: #ffffff;
+  --theme-surface: #f9fafb;
+  --theme-primary: #2563eb;
+  --theme-secondary: #64748b;
+  --theme-accent: #0ea5e9;
+  --theme-text-primary: #1f2937;
+  --theme-text-secondary: #6b7280;
+  --theme-text-muted: #9ca3af;
+  --theme-border-primary: #e5e7eb;
+  --theme-border-secondary: #d1d5db;
+  --theme-editor-background: #ffffff;
+  --theme-editor-foreground: #1f2937;
+  --theme-editor-selection: #dbeafe;
+  --theme-editor-line-number: #9ca3af;
+  --theme-editor-comment: #6b7280;
+  --theme-editor-keyword: #7c3aed;
+  --theme-editor-string: #059669;
+  --theme-editor-number: #dc2626;
+  --theme-editor-function: #2563eb;
+  --theme-editor-variable: #1f2937;
+
+  /* 에디터 테마 변수 */
+  --editor-theme-page-background: var(--theme-background);
+  --editor-theme-page-surface: var(--theme-surface);
+  --editor-theme-page-text-primary: var(--theme-text-primary);
+  --editor-theme-page-text-secondary: var(--theme-text-secondary);
+  --editor-theme-page-text-muted: var(--theme-text-muted);
+  --editor-theme-page-border-primary: var(--theme-border-primary);
+  --editor-theme-page-border-secondary: var(--theme-border-secondary);
+  --editor-theme-editor-background: var(--theme-editor-background);
+  --editor-theme-editor-foreground: var(--theme-editor-foreground);
+  --editor-theme-ui-primary: var(--theme-primary);
+  --editor-theme-ui-secondary: var(--theme-secondary);
+  --editor-theme-ui-accent: var(--theme-accent);
+  --editor-theme-ui-success: var(--theme-primary);
+  --editor-theme-ui-warning: var(--theme-accent);
+  --editor-theme-ui-error: var(--theme-accent);
+
+  /* Tailwind 에디터 테마 색상 */
+  --color-editor-page-bg: var(--editor-theme-page-background);
+  --color-editor-page-surface: var(--editor-theme-page-surface);
+  --color-editor-page-text: var(--editor-theme-page-text-primary);
+  --color-editor-page-text-secondary: var(--editor-theme-page-text-secondary);
+  --color-editor-page-text-muted: var(--editor-theme-page-text-muted);
+  --color-editor-page-border: var(--editor-theme-page-border-primary);
+  --color-editor-page-border-secondary: var(--editor-theme-page-border-secondary);
+  --color-editor-ui-primary: var(--editor-theme-ui-primary);
+  --color-editor-ui-secondary: var(--editor-theme-ui-secondary);
+  --color-editor-ui-accent: var(--editor-theme-ui-accent);
+  --color-editor-ui-success: var(--editor-theme-ui-success);
+  --color-editor-ui-warning: var(--editor-theme-ui-warning);
+  --color-editor-ui-error: var(--editor-theme-ui-error);
 }
 
 :root {
@@ -452,5 +505,42 @@
   
   .logo-bounce-on-hover:hover .logo-bounce {
     animation: logo-bounce 0.8s ease-in-out infinite;
+  }
+  
+  /* 테마 기반 유틸리티 클래스 */
+  .theme-bg {
+    background-color: var(--theme-background);
+  }
+  
+  .theme-surface {
+    background-color: var(--theme-surface);
+  }
+  
+  .theme-text-primary {
+    color: var(--theme-text-primary);
+  }
+  
+  .theme-text-secondary {
+    color: var(--theme-text-secondary);
+  }
+  
+  .theme-text-muted {
+    color: var(--theme-text-muted);
+  }
+  
+  .theme-border-primary {
+    border-color: var(--theme-border-primary);
+  }
+  
+  .theme-border-secondary {
+    border-color: var(--theme-border-secondary);
+  }
+  
+  .theme-editor-bg {
+    background-color: var(--theme-editor-background);
+  }
+  
+  .theme-editor-text {
+    color: var(--theme-editor-foreground);
   }
 }
