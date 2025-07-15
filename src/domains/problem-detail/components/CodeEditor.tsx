@@ -17,11 +17,11 @@ export function CodeEditor({ initialCode = '# 여기에 코드를 작성하세�
   const selectedLang = LANGUAGES.find(lang => lang.value === selectedLanguage) || LANGUAGES[0];
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex items-center justify-between p-4 border-b border-gray-200">
+    <div className="h-full flex flex-col bg-editor-page-surface">
+      <div className="flex items-center justify-between p-4 border-b border-editor-page-border">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium">언어 선택</span>
-          <div className="px-3 py-2 text-sm bg-gray-50 rounded-md border min-w-32">
+          <span className="text-sm font-medium text-editor-page-text">언어 선택</span>
+          <div className="px-3 py-2 text-sm bg-editor-page-bg rounded-md border border-editor-page-border min-w-32 text-editor-page-text">
             {selectedLang.label}
           </div>
         </div>
@@ -42,7 +42,7 @@ export function CodeEditor({ initialCode = '# 여기에 코드를 작성하세�
       </div>
       
       <div className="flex-1 relative">
-        <div className="w-full h-full p-4 font-mono text-sm bg-gray-50 whitespace-pre-wrap">
+        <div className="w-full h-full p-4 font-mono text-sm bg-editor-page-bg whitespace-pre-wrap text-editor-page-text">
           {initialCode}
         </div>
       </div>

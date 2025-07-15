@@ -52,8 +52,8 @@ export function CodeResult({
   activeTab = 'testcases'
 }: CodeResultProps) {
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex border-b border-gray-200">
+    <div className="h-full flex flex-col bg-editor-page-surface">
+      <div className="flex border-b border-editor-page-border">
         <Button
           variant={activeTab === 'testcases' ? 'default' : 'ghost'}
           size="sm"
@@ -76,22 +76,22 @@ export function CodeResult({
         {activeTab === 'testcases' ? (
           <div className="p-4 space-y-4">
             {testCases.length === 0 ? (
-              <div className="text-center text-gray-500 py-8">
+              <div className="text-center text-editor-page-text-muted py-8">
                 코드를 실행하면 테스트 결과가 표시됩니다.
               </div>
             ) : (
               testCases.map((testCase, index) => (
-                <Card key={index} className="border-l-4 border-l-gray-200">
+                <Card key={index} className="border-l-4 border-l-editor-page-border bg-editor-page-bg border-editor-page-border">
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-sm flex items-center gap-2">
+                      <CardTitle className="text-sm flex items-center gap-2 text-editor-page-text">
                         {getStatusIcon(testCase.status)}
                         테스트 케이스 {index + 1}
                       </CardTitle>
                       <div className="flex items-center gap-2">
                         {getStatusBadge(testCase.status)}
                         {testCase.runtime && (
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-editor-page-text-muted">
                             {testCase.runtime}ms
                           </span>
                         )}
@@ -100,21 +100,21 @@ export function CodeResult({
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div>
-                      <h4 className="text-xs font-medium mb-1">입력</h4>
-                      <pre className="bg-gray-50 p-2 rounded text-xs overflow-x-auto">
+                      <h4 className="text-xs font-medium mb-1 text-editor-page-text">입력</h4>
+                      <pre className="bg-editor-page-surface p-2 rounded text-xs overflow-x-auto text-editor-page-text">
                         {testCase.input}
                       </pre>
                     </div>
                     <div>
-                      <h4 className="text-xs font-medium mb-1">기대 출력</h4>
-                      <pre className="bg-gray-50 p-2 rounded text-xs overflow-x-auto">
+                      <h4 className="text-xs font-medium mb-1 text-editor-page-text">기대 출력</h4>
+                      <pre className="bg-editor-page-surface p-2 rounded text-xs overflow-x-auto text-editor-page-text">
                         {testCase.expectedOutput}
                       </pre>
                     </div>
                     {testCase.actualOutput && (
                       <div>
-                        <h4 className="text-xs font-medium mb-1">실제 출력</h4>
-                        <pre className={`p-2 rounded text-xs overflow-x-auto ${
+                        <h4 className="text-xs font-medium mb-1 text-editor-page-text">실제 출력</h4>
+                        <pre className={`p-2 rounded text-xs overflow-x-auto text-editor-page-text ${
                           testCase.status === 'passed' ? 'bg-green-50' : 'bg-red-50'
                         }`}>
                           {testCase.actualOutput}
@@ -129,8 +129,8 @@ export function CodeResult({
         ) : (
           <div className="p-4 space-y-4">
             <div>
-              <h4 className="text-sm font-medium mb-2">사용자 입력</h4>
-              <div className="w-full h-32 p-3 border border-gray-200 rounded-lg font-mono text-sm bg-gray-50 whitespace-pre-wrap">
+              <h4 className="text-sm font-medium mb-2 text-editor-page-text">사용자 입력</h4>
+              <div className="w-full h-32 p-3 border border-editor-page-border rounded-lg font-mono text-sm bg-editor-page-bg whitespace-pre-wrap text-editor-page-text">
                 {customInput || "테스트할 입력을 입력하세요..."}
               </div>
             </div>
@@ -139,8 +139,8 @@ export function CodeResult({
             </Button>
             {customOutput && (
               <div>
-                <h4 className="text-sm font-medium mb-2">출력</h4>
-                <pre className="bg-gray-50 p-3 rounded-lg text-sm overflow-x-auto">
+                <h4 className="text-sm font-medium mb-2 text-editor-page-text">출력</h4>
+                <pre className="bg-editor-page-surface p-3 rounded-lg text-sm overflow-x-auto text-editor-page-text">
                   {customOutput}
                 </pre>
               </div>

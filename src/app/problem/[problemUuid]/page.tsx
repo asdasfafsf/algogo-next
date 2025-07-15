@@ -103,12 +103,12 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
   );
 
   return (
-    <div className="h-screen bg-editor-page-surface flex flex-col">
+    <div className="h-screen bg-editor-page-bg flex flex-col">
       <ProblemHeader problemTitle={problem.title} />
       
       <div className="flex-1 min-h-0">
-        {/* 데스크톱 레이아웃 (lg 이상) */}
-        <div className="hidden lg:block h-full">
+        {/* 데스크톱 레이아웃 (md 이상) */}
+        <div className="hidden md:block h-full">
           <ResizablePanel
             leftPanel={problemPanel}
             rightPanel={
@@ -126,8 +126,8 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
           />
         </div>
 
-        {/* 모바일 레이아웃 (md 이하) */}
-        <div className="block lg:hidden h-full">
+        {/* 모바일 레이아웃 (sm 이하) */}
+        <div className="block md:hidden h-full">
           <MobileLayout
             problemPanel={problemPanel}
             codePanel={codePanel}
@@ -136,7 +136,10 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
         </div>
       </div>
       
-      <ProblemFooter />
+      {/* 데스크톱에서만 푸터 표시 */}
+      <div className="hidden md:block">
+        <ProblemFooter />
+      </div>
     </div>
   );
 }

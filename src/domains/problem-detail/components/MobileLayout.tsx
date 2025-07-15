@@ -27,30 +27,8 @@ export function MobileLayout({
 
   return (
     <div className="flex flex-col h-full">
-      {/* 탭 헤더 */}
-      <div className="flex bg-editor-page-bg border-b border-editor-page-border">
-        {tabs.map((tab) => {
-          const Icon = tab.icon;
-          return (
-            <Button
-              key={tab.id}
-              variant="ghost"
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 justify-center gap-2 py-3 text-sm font-medium transition-colors rounded-none ${
-                activeTab === tab.id
-                  ? 'text-editor-page-text editor-tab-active'
-                  : 'text-editor-page-text-secondary hover:text-editor-page-text'
-              }`}
-            >
-              <Icon className="w-4 h-4" />
-              {tab.label}
-            </Button>
-          );
-        })}
-      </div>
-
       {/* 탭 컨텐츠 */}
-      <div className="flex-1 overflow-hidden bg-editor-page-surface">
+      <div className="flex-1 overflow-hidden bg-editor-page-bg">
         {activeTab === 'problem' && (
           <div className="h-full overflow-y-auto">
             {problemPanel}
@@ -66,6 +44,30 @@ export function MobileLayout({
             {resultPanel}
           </div>
         )}
+      </div>
+
+      {/* 하단 탭 네비게이션 */}
+      <div className="flex bg-editor-page-bg border-t border-editor-page-border safe-area-padding-bottom">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          return (
+            <Button
+              key={tab.id}
+              variant="ghost"
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-1 flex-col justify-center gap-1 py-2 text-xs font-medium transition-colors rounded-none min-h-[60px] ${
+                activeTab === tab.id
+                  ? 'text-editor-page-text editor-bottom-tab-active'
+                  : 'text-editor-page-text-secondary hover:text-editor-page-text'
+              }`}
+              aria-label={`${tab.label} 탭`}
+              aria-current={activeTab === tab.id ? 'page' : undefined}
+            >
+              <Icon className="w-5 h-5" />
+              <span>{tab.label}</span>
+            </Button>
+          );
+        })}
       </div>
     </div>
   );

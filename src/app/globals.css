@@ -265,26 +265,26 @@
   --color-red-900: #b71c1c;
 
   /* 테마 변수 */
-  --theme-background: #ffffff;
-  --theme-surface: #f9fafb;
-  --theme-primary: #2563eb;
-  --theme-secondary: #64748b;
-  --theme-accent: #0ea5e9;
-  --theme-text-primary: #1f2937;
-  --theme-text-secondary: #6b7280;
-  --theme-text-muted: #9ca3af;
-  --theme-border-primary: #e5e7eb;
-  --theme-border-secondary: #d1d5db;
-  --theme-editor-background: #ffffff;
-  --theme-editor-foreground: #1f2937;
-  --theme-editor-selection: #dbeafe;
-  --theme-editor-line-number: #9ca3af;
-  --theme-editor-comment: #6b7280;
-  --theme-editor-keyword: #7c3aed;
-  --theme-editor-string: #059669;
-  --theme-editor-number: #dc2626;
-  --theme-editor-function: #2563eb;
-  --theme-editor-variable: #1f2937;
+  --theme-background: #212121;
+  --theme-surface: #212121;
+  --theme-primary: #0e639c;
+  --theme-secondary: #616161;
+  --theme-accent: #007acc;
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: #bdbdbd;
+  --theme-text-muted: #9e9e9e;
+  --theme-border-primary: #616161;
+  --theme-border-secondary: #616161;
+  --theme-editor-background: #212121;
+  --theme-editor-foreground: #ffffff;
+  --theme-editor-selection: #264f78;
+  --theme-editor-line-number: #9e9e9e;
+  --theme-editor-comment: #6a9955;
+  --theme-editor-keyword: #569cd6;
+  --theme-editor-string: #ce9178;
+  --theme-editor-number: #b5cea8;
+  --theme-editor-function: #dcdcaa;
+  --theme-editor-variable: #9cdcfe;
 
   /* 에디터 테마 변수 */
   --editor-theme-page-background: var(--theme-background);
@@ -549,6 +549,18 @@
     color: var(--color-editor-ui-primary);
     border-bottom: 2px solid var(--color-editor-ui-primary);
     background-color: var(--color-editor-page-surface);
+  }
+  
+  /* 하단 탭 활성화 스타일 */
+  .editor-bottom-tab-active {
+    color: var(--color-editor-ui-primary);
+    border-top: 2px solid var(--color-editor-ui-primary);
+    background-color: var(--color-editor-page-surface);
+  }
+  
+  /* 세이프 에리어 패딩 */
+  .safe-area-padding-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
   }
   
   /* 테마 미리보기 스타일 */

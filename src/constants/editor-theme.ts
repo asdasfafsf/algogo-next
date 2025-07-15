@@ -42,23 +42,23 @@ export const EDITOR_THEME_CONFIG: EditorThemeConfig = {
   },
   
   'vs-dark': {
-    pageBackground: '#1e1e1e',
-    pageSurface: '#2d2d30',
+    pageBackground: '#212121',
+    pageSurface: '#212121',
     pageText: {
-      primary: '#cccccc',
-      secondary: '#b3b3b3',
-      muted: '#808080',
+      primary: '#ffffff',
+      secondary: '#bdbdbd',
+      muted: '#9e9e9e',
     },
     pageBorder: {
-      primary: '#3e3e42',
-      secondary: '#2d2d30',
+      primary: '#616161',
+      secondary: '#616161',
     },
     editor: {
-      background: '#1e1e1e',
-      foreground: '#cccccc',
+      background: '#212121',
+      foreground: '#ffffff',
       selection: '#264f78',
-      lineNumber: '#858585',
-      cursor: '#cccccc',
+      lineNumber: '#9e9e9e',
+      cursor: '#ffffff',
       syntax: {
         comment: '#6a9955',
         keyword: '#569cd6',
@@ -67,13 +67,13 @@ export const EDITOR_THEME_CONFIG: EditorThemeConfig = {
         function: '#dcdcaa',
         variable: '#9cdcfe',
         type: '#4ec9b0',
-        operator: '#d4d4d4',
-        bracket: '#da70d6',
+        operator: '#212121',
+        bracket: '#212121',
       },
     },
     ui: {
       primary: '#0e639c',
-      secondary: '#3c3c3c',
+      secondary: '#616161',
       accent: '#007acc',
       success: '#89d185',
       warning: '#ffcc02',
@@ -83,7 +83,7 @@ export const EDITOR_THEME_CONFIG: EditorThemeConfig = {
 };
 
 export const EDITOR_THEME_STORAGE_KEY = 'algogo-editor-theme';
-export const DEFAULT_EDITOR_THEME = 'vs-light' as const;
+export const DEFAULT_EDITOR_THEME = 'vs-dark' as const;
 
 export const EDITOR_THEME_LABELS = {
   'vs-light': 'Visual Studio Light',

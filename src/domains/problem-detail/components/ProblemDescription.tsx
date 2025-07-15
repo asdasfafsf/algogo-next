@@ -10,11 +10,11 @@ interface ProblemDescriptionProps {
 
 export function ProblemDescription({ problem }: ProblemDescriptionProps) {
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="h-full overflow-y-auto bg-white">
       <div className="space-y-6 p-6">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <h1 className="text-2xl font-bold mb-2">{problem.title}</h1>
+            <h1 className="text-2xl font-bold mb-2 text-gray-900">{problem.title}</h1>
             <div className="flex items-center gap-2 mb-4">
               <ProblemLevelChip level={problem.level} />
               <ProblemStateChip state={problem.state} />
@@ -31,53 +31,53 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-gray-600">정답률</span>
-              <span className="font-medium">{problem.answerRate.toFixed(1)}%</span>
+              <span className="font-medium text-gray-900">{problem.answerRate.toFixed(1)}%</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">제출 수</span>
-              <span className="font-medium">{problem.submitCount.toLocaleString()}</span>
+              <span className="font-medium text-gray-900">{problem.submitCount.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">정답 수</span>
-              <span className="font-medium">{problem.answerCount.toLocaleString()}</span>
+              <span className="font-medium text-gray-900">{problem.answerCount.toLocaleString()}</span>
             </div>
           </div>
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-gray-600">시간 제한</span>
-              <span className="font-medium">{problem.timeout}초</span>
+              <span className="font-medium text-gray-900">{problem.timeout}초</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">메모리 제한</span>
-              <span className="font-medium">{problem.memoryLimit}MB</span>
+              <span className="font-medium text-gray-900">{problem.memoryLimit}MB</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">출처</span>
-              <span className="font-medium">{problem.source}</span>
+              <span className="font-medium text-gray-900">{problem.source}</span>
             </div>
           </div>
         </div>
 
-        <Card>
+        <Card className="bg-white text-gray-900 border-gray-200">
           <CardHeader>
-            <CardTitle>문제 설명</CardTitle>
+            <CardTitle className="text-gray-900">문제 설명</CardTitle>
           </CardHeader>
           <CardContent>
             <div 
-              className="prose prose-sm max-w-none"
+              className="prose prose-sm max-w-none text-gray-900"
               dangerouslySetInnerHTML={{ __html: problem.content }}
             />
           </CardContent>
         </Card>
 
         {problem.input && (
-          <Card>
+          <Card className="bg-white text-gray-900 border-gray-200">
             <CardHeader>
-              <CardTitle>입력</CardTitle>
+              <CardTitle className="text-gray-900">입력</CardTitle>
             </CardHeader>
             <CardContent>
               <div 
-                className="prose prose-sm max-w-none"
+                className="prose prose-sm max-w-none text-gray-900"
                 dangerouslySetInnerHTML={{ __html: problem.input }}
               />
             </CardContent>
@@ -85,13 +85,13 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
         )}
 
         {problem.output && (
-          <Card>
+          <Card className="bg-white text-gray-900 border-gray-200">
             <CardHeader>
-              <CardTitle>출력</CardTitle>
+              <CardTitle className="text-gray-900">출력</CardTitle>
             </CardHeader>
             <CardContent>
               <div 
-                className="prose prose-sm max-w-none"
+                className="prose prose-sm max-w-none text-gray-900"
                 dangerouslySetInnerHTML={{ __html: problem.output }}
               />
             </CardContent>
@@ -99,23 +99,23 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
         )}
 
         {problem.inputOutputList.length > 0 && (
-          <Card>
+          <Card className="bg-white text-gray-900 border-gray-200">
             <CardHeader>
-              <CardTitle>예제</CardTitle>
+              <CardTitle className="text-gray-900">예제</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {problem.inputOutputList.map((example, index) => (
                   <div key={index} className="grid grid-cols-2 gap-4">
                     <div>
-                      <h4 className="font-medium mb-2">입력 {index + 1}</h4>
-                      <pre className="bg-gray-50 p-3 rounded-lg text-sm overflow-x-auto">
+                      <h4 className="font-medium mb-2 text-gray-900">입력 {index + 1}</h4>
+                      <pre className="bg-gray-50 p-3 rounded-lg text-sm overflow-x-auto text-gray-900">
                         {example.input}
                       </pre>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-2">출력 {index + 1}</h4>
-                      <pre className="bg-gray-50 p-3 rounded-lg text-sm overflow-x-auto">
+                      <h4 className="font-medium mb-2 text-gray-900">출력 {index + 1}</h4>
+                      <pre className="bg-gray-50 p-3 rounded-lg text-sm overflow-x-auto text-gray-900">
                         {example.output}
                       </pre>
                     </div>
@@ -127,13 +127,13 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
         )}
 
         {problem.hint && (
-          <Card>
+          <Card className="bg-white text-gray-900 border-gray-200">
             <CardHeader>
-              <CardTitle>힌트</CardTitle>
+              <CardTitle className="text-gray-900">힌트</CardTitle>
             </CardHeader>
             <CardContent>
               <div 
-                className="prose prose-sm max-w-none"
+                className="prose prose-sm max-w-none text-gray-900"
                 dangerouslySetInnerHTML={{ __html: problem.hint }}
               />
             </CardContent>

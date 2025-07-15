@@ -86,10 +86,10 @@ export function ResizablePanel({
           {isHovering && (
             <button
               onClick={toggleLeftPanel}
-              className="absolute top-1/2 -translate-y-1/2 -right-3 p-1.5 rounded-full bg-white border border-gray-300 shadow-sm hover:shadow-md transition-all duration-200 z-10"
+              className="absolute top-1/2 -translate-y-1/2 -right-3 p-1.5 rounded-full bg-editor-page-bg border border-editor-page-border shadow-sm hover:shadow-md transition-all duration-200 z-10"
               title="문제 설명 접기"
             >
-              <ChevronLeft className="w-4 h-4 text-gray-600" />
+              <ChevronLeft className="w-4 h-4 text-editor-page-text-secondary" />
             </button>
           )}
         </div>
@@ -97,15 +97,15 @@ export function ResizablePanel({
       
       {/* 리사이저 */}
       <div
-        className={`w-2 bg-gray-50 border-l border-r border-gray-300 hover:bg-gray-100 transition-colors relative ${
-          isDragging ? 'bg-gray-200' : ''
+        className={`w-2 bg-editor-page-surface border-l border-r border-editor-page-border hover:bg-editor-page-bg transition-colors relative ${
+          isDragging ? 'bg-editor-page-border' : ''
         } ${isLeftCollapsed ? '' : 'cursor-col-resize'}`}
         onMouseDown={!isLeftCollapsed ? handleMouseDown : undefined}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
         <div className="w-full h-full flex items-center justify-center">
-          {!isLeftCollapsed && <GripVertical className="w-3 h-3 text-gray-400" />}
+          {!isLeftCollapsed && <GripVertical className="w-3 h-3 text-editor-page-text-muted" />}
         </div>
       </div>
       
@@ -113,10 +113,10 @@ export function ResizablePanel({
       {isLeftCollapsed && (
         <button
           onClick={toggleLeftPanel}
-          className="absolute top-1/2 -translate-y-1/2 left-2 p-1.5 rounded-full bg-white border border-gray-300 shadow-sm hover:shadow-md transition-all duration-200 z-10"
+          className="absolute top-1/2 -translate-y-1/2 left-2 p-1.5 rounded-full bg-editor-page-bg border border-editor-page-border shadow-sm hover:shadow-md transition-all duration-200 z-10"
           title="문제 설명 펼치기"
         >
-          <ChevronRight className="w-4 h-4 text-gray-600" />
+          <ChevronRight className="w-4 h-4 text-editor-page-text-secondary" />
         </button>
       )}
       
