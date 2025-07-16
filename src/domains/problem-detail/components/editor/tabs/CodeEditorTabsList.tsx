@@ -88,9 +88,9 @@ export function CodeEditorTabsList({
         {children}
       </TabsList>
       
-      {/* Sliding indicator */}
+      {/* Sliding indicator - moved to bottom */}
       <div
-        className="absolute top-0 h-1 bg-blue-500 transition-all duration-300 ease-out"
+        className="absolute bottom-0 h-1 bg-blue-500 transition-all duration-300 ease-out"
         style={getIndicatorStyle}
       />
     </div>
