@@ -25,8 +25,42 @@ interface CodeResultProps {
   onClearOutput?: () => void;
 }
 
+const sampleTestCases: TestCase[] = [
+  {
+    input: "3\n5 10 15",
+    expectedOutput: "30",
+    actualOutput: "30",
+    status: "passed",
+    runtime: 45,
+    memory: 1024
+  },
+  {
+    input: "4\n1 2 3 4",
+    expectedOutput: "10",
+    actualOutput: "9",
+    status: "failed",
+    runtime: 32,
+    memory: 512
+  },
+  {
+    input: "2\n100 200",
+    expectedOutput: "300",
+    actualOutput: "300",
+    status: "passed",
+    runtime: 28,
+    memory: 768
+  },
+  {
+    input: "1\n0",
+    expectedOutput: "0",
+    status: "error",
+    runtime: 15,
+    memory: 256
+  }
+];
+
 export function CodeResult({ 
-  testCases = [], 
+  testCases = sampleTestCases, 
   customInput = '',
   customOutput = '',
   defaultTab = 'testcases',
