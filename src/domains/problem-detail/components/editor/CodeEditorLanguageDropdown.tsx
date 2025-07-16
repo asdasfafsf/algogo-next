@@ -41,11 +41,7 @@ export function CodeEditorLanguageDropdown({
   };
 
   return (
-    <div className="flex items-center gap-2 min-w-0">
-      <Typography variant="small" className="text-editor-page-text whitespace-nowrap">
-        언어 선택
-      </Typography>
-      
+    <div className="flex items-center min-w-0">
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <Button
