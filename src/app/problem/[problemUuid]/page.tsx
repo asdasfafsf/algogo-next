@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
 import { ProblemHeader } from '@/components/layout/problem/ProblemHeader';
 import { ProblemDescription } from '@/domains/problem-detail/components/problem/ProblemDescription';
-import { CodeEditor } from '@/domains/problem-detail/components/CodeEditor';
-import { CodeResult } from '@/domains/problem-detail/components/CodeResult';
+import { CodeEditor, CodeResult } from '@/domains/problem-detail/components/editor';
 import { ResizablePanel } from '@/domains/problem-detail/components/ResizablePanel';
 import { VerticalResizablePanel } from '@/domains/problem-detail/components/VerticalResizablePanel';
 import { MobileLayout } from '@/domains/problem-detail/components/MobileLayout';
