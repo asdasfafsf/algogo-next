@@ -5,15 +5,7 @@ import { CodeEditorTabs, CodeEditorTabsList, CodeEditorTabsTrigger, CodeEditorTa
 import { CodeResultInput } from './CodeResultInput';
 import { CodeResultOutput } from './CodeResultOutput';
 import { CodeResultTestcase } from './CodeResultTestcase';
-
-interface TestCase {
-  input: string;
-  expectedOutput: string;
-  actualOutput?: string;
-  status: 'pending' | 'passed' | 'failed' | 'error';
-  runtime?: number;
-  memory?: number;
-}
+import { TestCase } from '@/types/testcase.type';
 
 interface CodeResultProps {
   testCases?: TestCase[];
@@ -28,34 +20,63 @@ interface CodeResultProps {
 const sampleTestCases: TestCase[] = [
   {
     input: "3\n5 10 15",
-    expectedOutput: "30",
-    actualOutput: "30",
-    status: "passed",
-    runtime: 45,
-    memory: 1024
+    expected: "30",
+    output: "30",
+    state: "일치"
   },
   {
     input: "4\n1 2 3 4",
-    expectedOutput: "10",
-    actualOutput: "9",
-    status: "failed",
-    runtime: 32,
-    memory: 512
+    expected: "10",
+    output: "9",
+    state: "불일치"
   },
   {
     input: "2\n100 200",
-    expectedOutput: "300",
-    actualOutput: "300",
-    status: "passed",
-    runtime: 28,
-    memory: 768
+    expected: "300",
+    output: "300",
+    state: "일치"
   },
   {
-    input: "1\n0",
-    expectedOutput: "0",
-    status: "error",
-    runtime: 15,
-    memory: 256
+    input: "5\n1 1 1 1 1",
+    expected: "5",
+    output: "5",
+    state: "일치"
+  },
+  {
+    input: "1\n42",
+    expected: "42",
+    output: "24",
+    state: "불일치"
+  },
+  {
+    input: "6\n10 20 30 40 50 60",
+    expected: "210",
+    output: "",
+    state: "실행 중"
+  },
+  {
+    input: "3\n-5 -10 -15",
+    expected: "-30",
+    output: "-30",
+    state: "일치"
+  },
+  {
+    input: "2\n0 0",
+    expected: "0",
+    output: "0",
+    state: "일치"
+  },
+  {
+    input: "4\n1000 2000 3000 4000",
+    expected: "10000",
+    output: "10001",
+    state: "불일치"
+  },
+  {
+    input: "1\n999999999",
+    expected: "999999999",
+    output: "",
+    state: "실행 전"
   }
 ];
 

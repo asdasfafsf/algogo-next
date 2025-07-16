@@ -45,10 +45,9 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
   );
   const resultPanel = (
     <CodeResult 
-      testCases={[]}
       customInput=""
       customOutput=""
-      activeTab="testcases"
+      defaultTab="testcases"
     />
   );
 
