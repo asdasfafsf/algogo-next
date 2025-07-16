@@ -1,4 +1,4 @@
-import { EditorThemeConfig } from '@/types/editor-theme.type';
+import { EditorThemeConfig, EditorSettings } from '@/types/editor-theme.type';
 
 export const EDITOR_THEME_CONFIG: EditorThemeConfig = {
   'vs-light': {
@@ -80,12 +80,104 @@ export const EDITOR_THEME_CONFIG: EditorThemeConfig = {
       error: '#f48771',
     },
   },
+  
+  'monokai': {
+    pageBackground: '#272822',
+    pageSurface: '#3e3d32',
+    pageText: {
+      primary: '#f8f8f2',
+      secondary: '#a6a290',
+      muted: '#75715e',
+    },
+    pageBorder: {
+      primary: '#49483e',
+      secondary: '#3e3d32',
+    },
+    editor: {
+      background: '#272822',
+      foreground: '#f8f8f2',
+      selection: '#49483e',
+      lineNumber: '#90908a',
+      cursor: '#f8f8f0',
+      syntax: {
+        comment: '#75715e',
+        keyword: '#f92672',
+        string: '#e6db74',
+        number: '#ae81ff',
+        function: '#a6e22e',
+        variable: '#f8f8f2',
+        type: '#66d9ef',
+        operator: '#f92672',
+        bracket: '#f8f8f2',
+      },
+    },
+    ui: {
+      primary: '#a6e22e',
+      secondary: '#75715e',
+      accent: '#66d9ef',
+      success: '#a6e22e',
+      warning: '#fd971f',
+      error: '#f92672',
+    },
+  },
+  
+  'github': {
+    pageBackground: '#ffffff',
+    pageSurface: '#f6f8fa',
+    pageText: {
+      primary: '#24292e',
+      secondary: '#586069',
+      muted: '#6a737d',
+    },
+    pageBorder: {
+      primary: '#e1e4e8',
+      secondary: '#eaecef',
+    },
+    editor: {
+      background: '#ffffff',
+      foreground: '#24292e',
+      selection: '#c8e1ff',
+      lineNumber: '#6a737d',
+      cursor: '#24292e',
+      syntax: {
+        comment: '#6a737d',
+        keyword: '#d73a49',
+        string: '#032f62',
+        number: '#005cc5',
+        function: '#6f42c1',
+        variable: '#24292e',
+        type: '#005cc5',
+        operator: '#d73a49',
+        bracket: '#24292e',
+      },
+    },
+    ui: {
+      primary: '#0366d6',
+      secondary: '#586069',
+      accent: '#28a745',
+      success: '#28a745',
+      warning: '#ffd33d',
+      error: '#d73a49',
+    },
+  },
 };
 
 export const EDITOR_THEME_STORAGE_KEY = 'algogo-editor-theme';
+export const EDITOR_SETTINGS_STORAGE_KEY = 'algogo-editor-settings';
 export const DEFAULT_EDITOR_THEME = 'vs-dark' as const;
+
+export const DEFAULT_EDITOR_SETTINGS: EditorSettings = {
+  theme: 'vs-dark',
+  fontSize: 14,
+  tabSize: 4,
+  lineNumber: 'on',
+  defaultLanguage: 'python',
+  problemSize: 110,
+};
 
 export const EDITOR_THEME_LABELS = {
   'vs-light': 'Visual Studio Light',
   'vs-dark': 'Visual Studio Dark',
+  'monokai': 'Monokai',
+  'github': 'GitHub',
 } as const;

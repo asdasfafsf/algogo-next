@@ -1,6 +1,17 @@
 export type EditorTheme = 
   | 'vs-light'           // Visual Studio Light
-  | 'vs-dark';           // Visual Studio Dark
+  | 'vs-dark'            // Visual Studio Dark
+  | 'monokai'            // Monokai
+  | 'github';            // GitHub
+
+export interface EditorSettings {
+  theme: EditorTheme;
+  fontSize: number;
+  tabSize: number;
+  lineNumber: 'on' | 'off' | 'relative';
+  defaultLanguage: string;
+  problemSize: number;
+}
 
 export interface EditorThemeColors {
   // 페이지 전체 배경색
@@ -54,4 +65,9 @@ export interface EditorThemeColors {
 
 export interface EditorThemeConfig {
   [key: string]: EditorThemeColors;
+}
+
+export interface EditorSettingsStorage {
+  settings: EditorSettings;
+  saveToServer: boolean;
 }

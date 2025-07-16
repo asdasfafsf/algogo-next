@@ -12,19 +12,12 @@ import { Checkbox } from '@/components/ui/Checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 import { Input } from '@/components/ui/Input';
 import { cn } from '@/lib/utils';
+import { useEditorTheme } from '@/contexts/EditorThemeContext';
+import { EditorSettings } from '@/types/editor-theme.type';
 
 interface CodeEditorSettingModalProps {
   isOpen: boolean;
   onClose: () => void;
-}
-
-// Mock 타입 정의 (실제 프로젝트에 맞게 수정 필요)
-interface EditorSettings {
-  theme: string;
-  fontSize: number;
-  tabSize: number;
-  lineNumber: string;
-  defaultLanguage: string;
 }
 
 const themeOptions = [
@@ -32,7 +25,7 @@ const themeOptions = [
   { value: 'vs-dark', label: 'Dark', icon: '🌙' },
   { value: 'monokai', label: 'Monokai', icon: '🎨' },
   { value: 'github', label: 'GitHub', icon: '🐙' },
-];
+] as const;
 
 const fontSizeOptions = [
   { value: 12, label: '12px' },
@@ -63,22 +56,46 @@ const problemSizeOptions = [
 ];
 
 export function CodeEditorSettingModal({ isOpen, onClose }: CodeEditorSettingModalProps) {
-  const [settings, setSettings] = useState<EditorSettings>({
-    theme: 'vs-dark',
-    fontSize: 14,
-    tabSize: 4,
-    lineNumber: 'on',
-    defaultLanguage: 'python',
-  });
+  const { 
+    editorSettings, 
+    setEditorSettings, 
+    saveToServer, 
+    setSaveToServer, 
+    saveAllSettings 
+  } = useEditorTheme();
   
-  const [problemSize, setProblemSize] = useState(110);
-  const [saveToServer, setSaveToServer] = useState(true);
+  // 로컬 상태 (모달 내에서만 사용)
+  const [localSettings, setLocalSettings] = useState<EditorSettings>(editorSettings);
+  const [localSaveToServer, setLocalSaveToServer] = useState(saveToServer);
+  
+  // 모달이 열릴 때 현재 설정을 로컬 상태에 복사
+  useEffect(() => {
+    if (isOpen) {
+      setLocalSettings(editorSettings);
+      setLocalSaveToServer(saveToServer);
+    }
+  }, [isOpen, editorSettings, saveToServer]);
 
   const handleSave = useCallback(() => {
-    // 저장 로직 구현
-    console.log('Settings saved:', { settings, problemSize, saveToServer });
+    // 디버깅용 로그
+    console.log('Saving settings:', localSettings);
+    
+    // Context에 설정 저장
+    setEditorSettings(localSettings);
+    setSaveToServer(localSaveToServer);
+    
+    // 직접 로컬 설정값을 전달하여 상태 업데이트 지연 문제 해결
+    saveAllSettings(localSettings, localSaveToServer);
+    
     onClose();
-  }, [settings, problemSize, saveToServer, onClose]);
+  }, [localSettings, localSaveToServer, setEditorSettings, setSaveToServer, saveAllSettings, onClose]);
+  
+  const handleCancel = useCallback(() => {
+    // 변경사항 취소 - 원래 설정으로 되돌림
+    setLocalSettings(editorSettings);
+    setLocalSaveToServer(saveToServer);
+    onClose();
+  }, [editorSettings, saveToServer, onClose]);
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -120,10 +137,10 @@ export function CodeEditorSettingModal({ isOpen, onClose }: CodeEditorSettingMod
                     {problemSizeOptions.map((option) => (
                       <button
                         key={option.value}
-                        onClick={() => setProblemSize(option.value)}
+                        onClick={() => setLocalSettings(prev => ({ ...prev, problemSize: option.value }))}
                         className={cn(
                           "h-11 py-3 px-4 rounded-lg text-sm font-medium transition-all border w-full",
-                          problemSize === option.value
+                          localSettings.problemSize === option.value
                             ? "bg-blue-500 text-white border-blue-500 shadow-sm"
                             : "bg-white text-gray-700 border-gray-300 hover:border-blue-300 hover:bg-blue-50"
                         )}
@@ -149,8 +166,8 @@ export function CodeEditorSettingModal({ isOpen, onClose }: CodeEditorSettingMod
                     테마
                   </label>
                   <Select
-                    value={settings.theme}
-                    onValueChange={(value) => setSettings({ ...settings, theme: value })}
+                    value={localSettings.theme}
+                    onValueChange={(value) => setLocalSettings(prev => ({ ...prev, theme: value as EditorSettings['theme'] }))}
                   >
                     <SelectTrigger className="h-11 w-full">
                       <SelectValue />
@@ -175,8 +192,8 @@ export function CodeEditorSettingModal({ isOpen, onClose }: CodeEditorSettingMod
                     글꼴 크기
                   </label>
                   <Select
-                    value={settings.fontSize.toString()}
-                    onValueChange={(value) => setSettings({ ...settings, fontSize: parseInt(value) })}
+                    value={localSettings.fontSize.toString()}
+                    onValueChange={(value) => setLocalSettings(prev => ({ ...prev, fontSize: parseInt(value) }))}
                   >
                     <SelectTrigger className="h-11 w-full">
                       <SelectValue />
@@ -201,8 +218,8 @@ export function CodeEditorSettingModal({ isOpen, onClose }: CodeEditorSettingMod
                     type="number"
                     min="2"
                     max="8"
-                    value={settings.tabSize}
-                    onChange={(e) => setSettings({ ...settings, tabSize: parseInt(e.target.value) || 4 })}
+                    value={localSettings.tabSize}
+                    onChange={(e) => setLocalSettings(prev => ({ ...prev, tabSize: parseInt(e.target.value) || 4 }))}
                     className="h-11 w-full"
                   />
                 </div>
@@ -214,8 +231,8 @@ export function CodeEditorSettingModal({ isOpen, onClose }: CodeEditorSettingMod
                     줄 번호
                   </label>
                   <Select
-                    value={settings.lineNumber}
-                    onValueChange={(value) => setSettings({ ...settings, lineNumber: value })}
+                    value={localSettings.lineNumber}
+                    onValueChange={(value) => setLocalSettings(prev => ({ ...prev, lineNumber: value as EditorSettings['lineNumber'] }))}
                   >
                     <SelectTrigger className="h-11 w-full">
                       <SelectValue />
@@ -237,8 +254,8 @@ export function CodeEditorSettingModal({ isOpen, onClose }: CodeEditorSettingMod
                     기본 언어
                   </label>
                   <Select
-                    value={settings.defaultLanguage}
-                    onValueChange={(value) => setSettings({ ...settings, defaultLanguage: value })}
+                    value={localSettings.defaultLanguage}
+                    onValueChange={(value) => setLocalSettings(prev => ({ ...prev, defaultLanguage: value }))}
                   >
                     <SelectTrigger className="h-11 w-full">
                       <SelectValue />
@@ -263,8 +280,8 @@ export function CodeEditorSettingModal({ isOpen, onClose }: CodeEditorSettingMod
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-200">
                 <label className="flex items-start gap-3 cursor-pointer">
                   <Checkbox
-                    checked={saveToServer}
-                    onCheckedChange={(checked) => setSaveToServer(checked as boolean)}
+                    checked={localSaveToServer}
+                    onCheckedChange={(checked) => setLocalSaveToServer(checked as boolean)}
                     className="w-5 h-5 mt-0.5"
                   />
                   <div>
@@ -288,7 +305,7 @@ export function CodeEditorSettingModal({ isOpen, onClose }: CodeEditorSettingMod
         <div className="border-t border-gray-100 bg-gray-50 px-6 py-4">
           <div className="flex justify-end gap-3">
             <Button
-              onClick={onClose}
+              onClick={handleCancel}
               variant="outline"
               className="px-6"
             >

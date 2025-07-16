@@ -1,19 +1,25 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { EditorTheme, EditorThemeColors } from '@/types/editor-theme.type';
+import { EditorTheme, EditorThemeColors, EditorSettings, EditorSettingsStorage } from '@/types/editor-theme.type';
 import { 
   EDITOR_THEME_CONFIG, 
   EDITOR_THEME_STORAGE_KEY, 
-  DEFAULT_EDITOR_THEME 
+  EDITOR_SETTINGS_STORAGE_KEY,
+  DEFAULT_EDITOR_THEME,
+  DEFAULT_EDITOR_SETTINGS
 } from '@/constants/editor-theme';
 
 interface EditorThemeContextType {
   editorTheme: EditorTheme;
   currentEditorColors: EditorThemeColors;
   setEditorTheme: (theme: EditorTheme) => void;
-  isEditorThemeActive: boolean;
-  setIsEditorThemeActive: (active: boolean) => void;
+  // 확장된 에디터 설정
+  editorSettings: EditorSettings;
+  setEditorSettings: (settings: EditorSettings) => void;
+  saveToServer: boolean;
+  setSaveToServer: (save: boolean) => void;
+  saveAllSettings: (settingsToSave?: EditorSettings, saveToServerFlag?: boolean) => void;
 }
 
 const EditorThemeContext = createContext<EditorThemeContextType | undefined>(undefined);
@@ -24,7 +30,8 @@ interface EditorThemeProviderProps {
 
 export function EditorThemeProvider({ children }: EditorThemeProviderProps) {
   const [editorTheme, setEditorThemeState] = useState<EditorTheme>(DEFAULT_EDITOR_THEME);
-  const [isEditorThemeActive, setIsEditorThemeActive] = useState(false);
+  const [editorSettings, setEditorSettingsState] = useState<EditorSettings>(DEFAULT_EDITOR_SETTINGS);
+  const [saveToServer, setSaveToServer] = useState(true);
   const [mounted, setMounted] = useState(false);
 
   // 현재 에디터 테마 색상 계산
@@ -36,9 +43,53 @@ export function EditorThemeProvider({ children }: EditorThemeProviderProps) {
     const validTheme = EDITOR_THEME_CONFIG[newTheme] ? newTheme : DEFAULT_EDITOR_THEME;
     
     setEditorThemeState(validTheme);
+    // 설정도 함께 업데이트
+    setEditorSettingsState(prev => ({ ...prev, theme: validTheme }));
+    
     if (typeof window !== 'undefined') {
       localStorage.setItem(EDITOR_THEME_STORAGE_KEY, validTheme);
       updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[validTheme]);
+    }
+  };
+
+  // 에디터 설정 변경 함수
+  const setEditorSettings = (newSettings: EditorSettings) => {
+    setEditorSettingsState(newSettings);
+    // 테마가 변경된 경우 CSS 변수도 업데이트
+    if (newSettings.theme !== editorTheme) {
+      setEditorThemeState(newSettings.theme);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(EDITOR_THEME_STORAGE_KEY, newSettings.theme);
+        // 테마 활성화 상태와 관계없이 CSS 변수 업데이트
+        updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[newSettings.theme]);
+      }
+    }
+  };
+
+  // 모든 설정 저장 함수 - 특정 설정값을 받아서 저장
+  const saveAllSettings = (settingsToSave?: EditorSettings, saveToServerFlag?: boolean) => {
+    if (typeof window !== 'undefined') {
+      // 전달받은 설정이 있으면 사용, 없으면 현재 상태 사용
+      const finalSettings = settingsToSave || editorSettings;
+      const finalSaveToServer = saveToServerFlag !== undefined ? saveToServerFlag : saveToServer;
+      
+      const settingsData: EditorSettingsStorage = {
+        settings: finalSettings,
+        saveToServer: finalSaveToServer,
+      };
+      localStorage.setItem(EDITOR_SETTINGS_STORAGE_KEY, JSON.stringify(settingsData));
+      
+      // 테마 설정을 별도로도 저장
+      localStorage.setItem(EDITOR_THEME_STORAGE_KEY, finalSettings.theme);
+      
+      // CSS 변수 강제 업데이트
+      updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[finalSettings.theme]);
+      
+      // 서버 저장 로직이 필요한 경우 여기에 추가
+      if (finalSaveToServer) {
+        // TODO: 서버에 설정 저장하는 API 호출
+        console.log('Settings saved to server:', settingsData);
+      }
     }
   };
 
@@ -84,86 +135,65 @@ export function EditorThemeProvider({ children }: EditorThemeProviderProps) {
     root.style.setProperty('--editor-theme-ui-error', colors.ui.error);
   };
 
-  // 에디터 테마 CSS 변수 제거
-  const removeEditorThemeCSSVariables = () => {
-    if (typeof window === 'undefined') return;
 
-    const root = document.documentElement;
-    const editorThemeVariables = [
-      '--editor-theme-page-background',
-      '--editor-theme-page-surface',
-      '--editor-theme-page-text-primary',
-      '--editor-theme-page-text-secondary',
-      '--editor-theme-page-text-muted',
-      '--editor-theme-page-border-primary',
-      '--editor-theme-page-border-secondary',
-      '--editor-theme-editor-background',
-      '--editor-theme-editor-foreground',
-      '--editor-theme-editor-selection',
-      '--editor-theme-editor-line-number',
-      '--editor-theme-editor-cursor',
-      '--editor-theme-syntax-comment',
-      '--editor-theme-syntax-keyword',
-      '--editor-theme-syntax-string',
-      '--editor-theme-syntax-number',
-      '--editor-theme-syntax-function',
-      '--editor-theme-syntax-variable',
-      '--editor-theme-syntax-type',
-      '--editor-theme-syntax-operator',
-      '--editor-theme-syntax-bracket',
-      '--editor-theme-ui-primary',
-      '--editor-theme-ui-secondary',
-      '--editor-theme-ui-accent',
-      '--editor-theme-ui-success',
-      '--editor-theme-ui-warning',
-      '--editor-theme-ui-error',
-    ];
-
-    editorThemeVariables.forEach(variable => {
-      root.style.removeProperty(variable);
-    });
-  };
-
-  // 초기 에디터 테마 로드
+  // 초기 에디터 테마 및 설정 로드
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem(EDITOR_THEME_STORAGE_KEY) as EditorTheme;
-      const savedActive = localStorage.getItem(`${EDITOR_THEME_STORAGE_KEY}-active`) === 'true';
       
-      // 저장된 테마가 유효하지 않은 경우 vs-dark로 강제 설정
-      const validTheme = savedTheme && EDITOR_THEME_CONFIG[savedTheme] ? savedTheme : DEFAULT_EDITOR_THEME;
+      // 기존 활성화 상태 키 제거 (처음 한 번만)
+      const oldActiveKey = `${EDITOR_THEME_STORAGE_KEY}-active`;
+      if (localStorage.getItem(oldActiveKey)) {
+        localStorage.removeItem(oldActiveKey);
+      }
+      
+      // 저장된 설정 로드
+      const savedSettingsData = localStorage.getItem(EDITOR_SETTINGS_STORAGE_KEY);
+      let savedSettings = DEFAULT_EDITOR_SETTINGS;
+      let savedSaveToServer = true;
+      
+      if (savedSettingsData) {
+        try {
+          const parsedData: EditorSettingsStorage = JSON.parse(savedSettingsData);
+          savedSettings = { ...DEFAULT_EDITOR_SETTINGS, ...parsedData.settings };
+          savedSaveToServer = parsedData.saveToServer;
+        } catch (error) {
+          console.warn('Failed to parse saved editor settings:', error);
+        }
+      }
+      
+      // 저장된 테마가 유효하지 않은 경우 설정의 테마 또는 기본값 사용
+      const validTheme = savedTheme && EDITOR_THEME_CONFIG[savedTheme] 
+        ? savedTheme 
+        : EDITOR_THEME_CONFIG[savedSettings.theme] 
+        ? savedSettings.theme 
+        : DEFAULT_EDITOR_THEME;
+      
+      // 설정의 테마도 업데이트
+      const finalSettings = { ...savedSettings, theme: validTheme };
       
       setEditorThemeState(validTheme);
-      setIsEditorThemeActive(savedActive);
+      setEditorSettingsState(finalSettings);
+      setSaveToServer(savedSaveToServer);
       
       // 유효하지 않은 테마가 저장되어 있다면 올바른 테마로 업데이트
       if (savedTheme !== validTheme) {
         localStorage.setItem(EDITOR_THEME_STORAGE_KEY, validTheme);
       }
       
-      if (savedActive) {
-        updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[validTheme]);
-      } else {
-        // 테마가 비활성화 상태일 때도 vs-dark 색상을 기본으로 설정
-        updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[DEFAULT_EDITOR_THEME]);
-      }
+      // 항상 선택된 테마 적용
+      updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[validTheme]);
     }
     setMounted(true);
   }, []);
 
-  // 에디터 테마 활성화/비활성화 처리
+  // 에디터 테마 변경 시 CSS 변수 업데이트
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem(`${EDITOR_THEME_STORAGE_KEY}-active`, isEditorThemeActive.toString());
-      
-      if (isEditorThemeActive) {
-        updateEditorThemeCSSVariables(currentEditorColors);
-      } else {
-        // 테마가 비활성화 상태일 때도 vs-dark 색상을 기본으로 설정
-        updateEditorThemeCSSVariables(EDITOR_THEME_CONFIG[DEFAULT_EDITOR_THEME]);
-      }
+      // 항상 현재 선택된 테마 적용
+      updateEditorThemeCSSVariables(currentEditorColors);
     }
-  }, [isEditorThemeActive, currentEditorColors]);
+  }, [currentEditorColors]);
 
   // 서버 사이드 렌더링 방지
   if (!mounted) {
@@ -175,8 +205,11 @@ export function EditorThemeProvider({ children }: EditorThemeProviderProps) {
       editorTheme,
       currentEditorColors,
       setEditorTheme,
-      isEditorThemeActive,
-      setIsEditorThemeActive,
+      editorSettings,
+      setEditorSettings,
+      saveToServer,
+      setSaveToServer,
+      saveAllSettings,
     }}>
       {children}
     </EditorThemeContext.Provider>
