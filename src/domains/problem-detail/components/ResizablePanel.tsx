@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { GripVertical, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 
 interface ResizablePanelProps {
   leftPanel: React.ReactNode;
@@ -84,13 +85,15 @@ export function ResizablePanel({
           
           {/* 접기 버튼 - 동그란 버튼 */}
           {isHovering && (
-            <button
+            <Button
               onClick={toggleLeftPanel}
-              className="absolute top-1/2 -translate-y-1/2 -right-3 p-1.5 rounded-full bg-editor-page-bg border border-editor-page-border shadow-sm hover:shadow-md transition-all duration-200 z-10"
+              variant="outline"
+              size="icon"
+              className="absolute top-1/2 -translate-y-1/2 -right-3 !w-8 !h-8 rounded-full bg-white border-gray-300 shadow-sm hover:shadow-md transition-all duration-200 z-10 cursor-pointer"
               title="문제 설명 접기"
             >
-              <ChevronLeft className="w-4 h-4 text-editor-page-text-secondary" />
-            </button>
+              <ChevronLeft className="w-4 h-4 text-gray-600" />
+            </Button>
           )}
         </div>
       )}
@@ -111,13 +114,15 @@ export function ResizablePanel({
       
       {/* 펼치기 버튼 - 접힌 상태일 때 항상 보임 */}
       {isLeftCollapsed && (
-        <button
+        <Button
           onClick={toggleLeftPanel}
-          className="absolute top-1/2 -translate-y-1/2 left-2 p-1.5 rounded-full bg-editor-page-bg border border-editor-page-border shadow-sm hover:shadow-md transition-all duration-200 z-10"
+          variant="outline"
+          size="icon"
+          className="absolute top-1/2 -translate-y-1/2 left-2 !w-8 !h-8 rounded-full bg-white border-gray-300 shadow-sm hover:shadow-md transition-all duration-200 z-10 cursor-pointer"
           title="문제 설명 펼치기"
         >
-          <ChevronRight className="w-4 h-4 text-editor-page-text-secondary" />
-        </button>
+          <ChevronRight className="w-4 h-4 text-gray-600" />
+        </Button>
       )}
       
       {/* 우측 패널 */}
