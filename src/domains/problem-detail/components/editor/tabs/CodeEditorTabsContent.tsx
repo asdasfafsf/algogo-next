@@ -20,7 +20,7 @@ export function CodeEditorTabsContent({
     <TabsContent
       value={value}
       className={cn(
-        "flex-1 overflow-y-auto bg-editor-page-bg text-editor-page-text mt-0 ring-0 focus-visible:ring-0",
+        "flex-1 overflow-hidden bg-editor-page-bg text-editor-page-text mt-0 ring-0 focus-visible:ring-0",
         className
       )}
       {...props}
