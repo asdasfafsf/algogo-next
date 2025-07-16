@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/Popover';
 import { Button } from '@/components/ui/Button';
+import { Typography } from '@/components/ui/Typography';
 
 interface Language {
   value: string;
@@ -41,9 +42,9 @@ export function CodeEditorLanguageDropdown({
 
   return (
     <div className="flex items-center gap-2 min-w-0">
-      <span className="text-sm font-medium text-editor-page-text whitespace-nowrap">
+      <Typography variant="small" className="text-editor-page-text whitespace-nowrap">
         언어 선택
-      </span>
+      </Typography>
       
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
@@ -52,20 +53,25 @@ export function CodeEditorLanguageDropdown({
             disabled={disabled}
             className="h-10 w-32 justify-between bg-editor-page-bg border-editor-page-border text-editor-page-text-secondary hover:bg-editor-page-base-neutral-hover focus:border-editor-page-border focus:ring-0 transition-colors cursor-pointer rounded-lg"
           >
-            <span className="font-medium text-sm cursor-pointer">{selectedLang.label}</span>
+            <Typography variant="small" className="cursor-pointer truncate">
+              {selectedLang.label}
+            </Typography>
             <ChevronDown className="h-4 w-4 shrink-0 opacity-60 cursor-pointer" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-32 p-0 bg-editor-page-bg border-editor-page-border rounded-lg" align="start">
-          <div className="py-1">
+          <div>
             {languages.map((language) => (
-              <button
+              <Button
                 key={language.value}
+                variant="ghost"
                 onClick={() => handleLanguageSelect(language)}
-                className="w-full p-3 text-left text-editor-page-text-secondary hover:bg-editor-page-base-neutral-hover hover:text-editor-page-text transition-colors cursor-pointer rounded-md"
+                className="w-full justify-start p-3 h-auto text-editor-page-text-secondary hover:bg-editor-page-base-neutral-hover hover:text-editor-page-text transition-colors cursor-pointer rounded-md"
               >
-                <span className="font-medium text-sm cursor-pointer">{language.label}</span>
-              </button>
+                <Typography variant="small" className="cursor-pointer">
+                  {language.label}
+                </Typography>
+              </Button>
             ))}
           </div>
         </PopoverContent>
