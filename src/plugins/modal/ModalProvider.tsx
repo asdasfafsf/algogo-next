@@ -1,6 +1,6 @@
 "use client";
 
-/* eslint-disable @typescript-eslint/no-redeclare */
+ 
 import React, { useState } from 'react';
 import ModalController from './ModalController';
 import ModalContext from './ModalContext';

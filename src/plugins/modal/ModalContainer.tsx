@@ -1,8 +1,8 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/jsx-no-useless-fragment */
+ 
+ 
 import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import useModal from './useModal';
