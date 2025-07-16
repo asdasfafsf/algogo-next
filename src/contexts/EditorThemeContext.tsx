@@ -107,6 +107,10 @@ export function EditorThemeProvider({ children }: EditorThemeProviderProps) {
     root.style.setProperty('--editor-theme-page-text-muted', colors.pageText.muted);
     root.style.setProperty('--editor-theme-page-border-primary', colors.pageBorder.primary);
     root.style.setProperty('--editor-theme-page-border-secondary', colors.pageBorder.secondary);
+    root.style.setProperty('--editor-theme-page-border-tertiary', colors.pageBorder.tertiary);
+    root.style.setProperty('--editor-theme-page-base-neutral', colors.pageBase.neutral);
+    root.style.setProperty('--editor-theme-page-base-neutral-hover', colors.pageBase.neutralHover);
+    root.style.setProperty('--editor-theme-page-base-neutral-active', colors.pageBase.neutralActive);
     
     // 에디터 관련 변수
     root.style.setProperty('--editor-theme-editor-background', colors.editor.background);

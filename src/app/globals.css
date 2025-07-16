@@ -273,8 +273,8 @@
   --theme-text-primary: #ffffff;
   --theme-text-secondary: #bdbdbd;
   --theme-text-muted: #9e9e9e;
-  --theme-border-primary: #616161;
-  --theme-border-secondary: #616161;
+  --theme-border-primary: #424242;
+  --theme-border-secondary: #424242;
   --theme-editor-background: #212121;
   --theme-editor-foreground: #ffffff;
   --theme-editor-selection: #264f78;
@@ -294,6 +294,10 @@
   --editor-theme-page-text-muted: var(--theme-text-muted);
   --editor-theme-page-border-primary: var(--theme-border-primary);
   --editor-theme-page-border-secondary: var(--theme-border-secondary);
+  --editor-theme-page-border-tertiary: #373737;
+  --editor-theme-page-base-neutral: #373737;
+  --editor-theme-page-base-neutral-hover: #404040;
+  --editor-theme-page-base-neutral-active: #4a4a4a;
   --editor-theme-editor-background: var(--theme-editor-background);
   --editor-theme-editor-foreground: var(--theme-editor-foreground);
   --editor-theme-ui-primary: var(--theme-primary);
@@ -311,6 +315,10 @@
   --color-editor-page-text-muted: var(--editor-theme-page-text-muted);
   --color-editor-page-border: var(--editor-theme-page-border-primary);
   --color-editor-page-border-secondary: var(--editor-theme-page-border-secondary);
+  --color-editor-page-border-tertiary: var(--editor-theme-page-border-tertiary);
+  --color-editor-page-base-neutral: var(--editor-theme-page-base-neutral);
+  --color-editor-page-base-neutral-hover: var(--editor-theme-page-base-neutral-hover);
+  --color-editor-page-base-neutral-active: var(--editor-theme-page-base-neutral-active);
   --color-editor-ui-primary: var(--editor-theme-ui-primary);
   --color-editor-ui-secondary: var(--editor-theme-ui-secondary);
   --color-editor-ui-accent: var(--editor-theme-ui-accent);

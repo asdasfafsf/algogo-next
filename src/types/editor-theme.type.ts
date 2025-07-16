@@ -29,6 +29,14 @@ export interface EditorThemeColors {
   pageBorder: {
     primary: string;
     secondary: string;
+    tertiary: string;
+  };
+  
+  // 베이스/중성 색상
+  pageBase: {
+    neutral: string;
+    neutralHover: string;
+    neutralActive: string;
   };
   
   // 에디터 관련 색상

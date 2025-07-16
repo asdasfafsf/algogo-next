@@ -10,8 +10,14 @@ export const EDITOR_THEME_CONFIG: EditorThemeConfig = {
       muted: '#8c959f',
     },
     pageBorder: {
-      primary: '#d0d7de',
-      secondary: '#e1e8ed',
+      primary: '#e1e8ed',
+      secondary: '#f1f3f4',
+      tertiary: '#f8f9fa',
+    },
+    pageBase: {
+      neutral: '#f6f8fa',
+      neutralHover: '#eef2f5',
+      neutralActive: '#e1e7ec',
     },
     editor: {
       background: '#ffffff',
@@ -50,8 +56,14 @@ export const EDITOR_THEME_CONFIG: EditorThemeConfig = {
       muted: '#9e9e9e',
     },
     pageBorder: {
-      primary: '#616161',
-      secondary: '#616161',
+      primary: '#424242',
+      secondary: '#424242',
+      tertiary: '#373737',
+    },
+    pageBase: {
+      neutral: '#373737',
+      neutralHover: '#404040',
+      neutralActive: '#4a4a4a',
     },
     editor: {
       background: '#212121',
@@ -90,8 +102,14 @@ export const EDITOR_THEME_CONFIG: EditorThemeConfig = {
       muted: '#75715e',
     },
     pageBorder: {
-      primary: '#49483e',
-      secondary: '#3e3d32',
+      primary: '#3e3d32',
+      secondary: '#49483e',
+      tertiary: '#34332a',
+    },
+    pageBase: {
+      neutral: '#3e3d32',
+      neutralHover: '#49483e',
+      neutralActive: '#54534a',
     },
     editor: {
       background: '#272822',
@@ -130,8 +148,14 @@ export const EDITOR_THEME_CONFIG: EditorThemeConfig = {
       muted: '#6a737d',
     },
     pageBorder: {
-      primary: '#e1e4e8',
-      secondary: '#eaecef',
+      primary: '#eaecef',
+      secondary: '#f1f3f4',
+      tertiary: '#f8f9fa',
+    },
+    pageBase: {
+      neutral: '#f6f8fa',
+      neutralHover: '#e1e7ec',
+      neutralActive: '#d0d7de',
     },
     editor: {
       background: '#ffffff',
