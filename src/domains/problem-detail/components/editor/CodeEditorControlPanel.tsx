@@ -85,7 +85,7 @@ export function CodeEditorControlPanel({
   }, []);
 
   return (
-    <div ref={containerRef} className="flex items-center justify-end p-4 border-b border-editor-page-border min-w-0">
+    <div ref={containerRef} className="flex items-center justify-end p-2 border-b border-editor-page-border min-w-0">
       <div className="flex items-center gap-1 flex-shrink-0">
         <CodeEditorLanguageDropdown
           selectedLanguage={selectedLanguage}
