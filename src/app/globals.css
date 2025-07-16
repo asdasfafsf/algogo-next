@@ -749,3 +749,8 @@
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* 스크롤바 밀림 방지 */
+.scrollbar-gutter-stable {
+  scrollbar-gutter: stable;
+}

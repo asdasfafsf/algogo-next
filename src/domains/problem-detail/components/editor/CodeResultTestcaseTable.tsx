@@ -31,7 +31,7 @@ export function CodeResultTestcaseTable({ testCases }: CodeResultTestcaseTablePr
 
   return (
     <div className="overflow-hidden rounded-lg border border-editor-page-border">
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto scrollbar-gutter-stable">
         <table className="w-full min-w-[600px]">
           <thead className="bg-editor-page-surface/30">
             <tr>

@@ -40,7 +40,7 @@ export function ProblemTable({ problems, sort = PROBLEM_SORT.DEFAULT }: ProblemT
 
   return (
     <div className="bg-white/95 backdrop-blur-sm border border-slate-200/60 rounded-2xl shadow-lg shadow-slate-900/5 overflow-hidden">
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto scrollbar-gutter-stable">
         <table className="w-full min-w-[800px]">
           <thead className="bg-gradient-to-r from-slate-50 via-blue-50/20 to-slate-50 border-b border-slate-200/80 backdrop-blur-sm">
             <tr>

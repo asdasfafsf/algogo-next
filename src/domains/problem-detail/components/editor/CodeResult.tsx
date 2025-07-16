@@ -99,7 +99,7 @@ export function CodeResult({
     <CodeEditorTabs 
       value={activeTab} 
       onValueChange={handleTabChange}
-      className="h-full bg-editor-page-surface"
+      className="h-full bg-editor-page-surface flex flex-col"
     >
       <CodeEditorTabsList>
         <CodeEditorTabsTrigger value="input">
@@ -112,27 +112,29 @@ export function CodeResult({
           테스트 케이스
         </CodeEditorTabsTrigger>
       </CodeEditorTabsList>
+      
+      <div className="flex-1 min-h-0 relative">
+        <CodeEditorTabsContent value="input" className="absolute inset-0">
+          <CodeResultInput
+            customInput={customInput}
+            onInputChange={onInputChange}
+            onRunCode={onRunCode}
+          />
+        </CodeEditorTabsContent>
 
-      <CodeEditorTabsContent value="input">
-        <CodeResultInput
-          customInput={customInput}
-          onInputChange={onInputChange}
-          onRunCode={onRunCode}
-        />
-      </CodeEditorTabsContent>
+        <CodeEditorTabsContent value="output" className="absolute inset-0">
+          <CodeResultOutput
+            customOutput={customOutput}
+            onClearOutput={onClearOutput}
+          />
+        </CodeEditorTabsContent>
 
-      <CodeEditorTabsContent value="output">
-        <CodeResultOutput
-          customOutput={customOutput}
-          onClearOutput={onClearOutput}
-        />
-      </CodeEditorTabsContent>
-
-      <CodeEditorTabsContent value="testcases">
-        <CodeResultTestcase
-          testCases={testCases}
-        />
-      </CodeEditorTabsContent>
+        <CodeEditorTabsContent value="testcases" className="absolute inset-0">
+          <CodeResultTestcase
+            testCases={testCases}
+          />
+        </CodeEditorTabsContent>
+      </div>
     </CodeEditorTabs>
   );
 }
