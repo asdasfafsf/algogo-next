@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/Breadcrumb';
 import { Settings, FileText } from 'lucide-react';
 import { CompilerInfoModal } from '@/components/modals/CompilerInfoModal';
+import { CodeEditorSettingModal } from '@/components/modals/CodeEditorSettingModal';
 import Link from 'next/link';
 
 interface ProblemHeaderProps {
@@ -19,6 +20,7 @@ interface ProblemHeaderProps {
 
 export function ProblemHeader({ problemTitle }: ProblemHeaderProps) {
   const [isCompilerInfoOpen, setIsCompilerInfoOpen] = useState(false);
+  const [isEditorSettingOpen, setIsEditorSettingOpen] = useState(false);
 
   return (
     <>
@@ -78,6 +80,7 @@ export function ProblemHeader({ problemTitle }: ProblemHeaderProps) {
             {/* 에디터 세팅 모달 */}
             <div className="relative group">
               <button
+                onClick={() => setIsEditorSettingOpen(true)}
                 className="p-2 rounded-md text-editor-page-text-secondary hover:text-editor-page-text hover:bg-editor-page-surface transition-colors duration-200 cursor-pointer"
               >
                 <Settings className="w-5 h-5" />
@@ -95,6 +98,12 @@ export function ProblemHeader({ problemTitle }: ProblemHeaderProps) {
     <CompilerInfoModal
       isOpen={isCompilerInfoOpen}
       onClose={() => setIsCompilerInfoOpen(false)}
+    />
+    
+    {/* 에디터 설정 모달 */}
+    <CodeEditorSettingModal
+      isOpen={isEditorSettingOpen}
+      onClose={() => setIsEditorSettingOpen(false)}
     />
     </>
   );
