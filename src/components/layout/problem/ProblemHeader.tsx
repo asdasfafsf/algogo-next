@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { 
   Breadcrumb, 
   BreadcrumbList, 
@@ -9,6 +10,7 @@ import {
   BreadcrumbPage 
 } from '@/components/ui/Breadcrumb';
 import { Settings, FileText } from 'lucide-react';
+import { CompilerInfoModal } from '@/components/modals/CompilerInfoModal';
 import Link from 'next/link';
 
 interface ProblemHeaderProps {
@@ -16,7 +18,10 @@ interface ProblemHeaderProps {
 }
 
 export function ProblemHeader({ problemTitle }: ProblemHeaderProps) {
+  const [isCompilerInfoOpen, setIsCompilerInfoOpen] = useState(false);
+
   return (
+    <>
     <header className="sticky top-0 z-50 w-full border-b border-editor-page-border bg-editor-page-bg backdrop-blur supports-[backdrop-filter]:bg-editor-page-bg/60">
       <div className="px-4 sm:px-6">
         <div className="flex h-14 items-center justify-between">
@@ -60,6 +65,7 @@ export function ProblemHeader({ problemTitle }: ProblemHeaderProps) {
             {/* 컴파일러 정보 문서 */}
             <div className="relative group">
               <button
+                onClick={() => setIsCompilerInfoOpen(true)}
                 className="p-2 rounded-md text-editor-page-text-secondary hover:text-editor-page-text hover:bg-editor-page-surface transition-colors duration-200 cursor-pointer"
               >
                 <FileText className="w-5 h-5" />
@@ -84,5 +90,12 @@ export function ProblemHeader({ problemTitle }: ProblemHeaderProps) {
         </div>
       </div>
     </header>
+    
+    {/* 컴파일러 정보 모달 */}
+    <CompilerInfoModal
+      isOpen={isCompilerInfoOpen}
+      onClose={() => setIsCompilerInfoOpen(false)}
+    />
+    </>
   );
 }
