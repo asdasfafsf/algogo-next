@@ -8,25 +8,28 @@ import { Typography } from '@/components/ui/Typography';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
 interface TestCaseModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
   testCases: TestCase[];
   onTestCasesChange?: (testCases: TestCase[]) => void;
+  // Props injected by DialogContext
+  dialogId?: number;
+  onDialogClose?: (result?: TestCase[]) => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export function TestCaseModal({ 
-  isOpen, 
+  isOpen,
   onClose, 
   testCases, 
-  onTestCasesChange 
+  onTestCasesChange,
+  onDialogClose,
+  open = false,
+  onOpenChange
 }: TestCaseModalProps) {
   const [editableTestCases, setEditableTestCases] = useState<TestCase[]>([]);
 
-  const handleOpen = () => {
-    if (isOpen) {
-      setEditableTestCases(testCases.map(tc => ({ ...tc })));
-    }
-  };
 
   const addTestCase = () => {
     const newTestCase: TestCase = {
@@ -54,24 +57,54 @@ export function TestCaseModal({
 
   const handleSave = () => {
     onTestCasesChange?.(editableTestCases);
-    onClose();
+    if (onOpenChange) {
+      onOpenChange(false);
+    }
+    if (onClose) {
+      onClose();
+    }
+    // Call DialogContext close function if available
+    if (onDialogClose) {
+      onDialogClose(editableTestCases);
+    }
   };
 
   const handleCancel = () => {
-    onClose();
+    if (onOpenChange) {
+      onOpenChange(false);
+    }
+    if (onClose) {
+      onClose();
+    }
+    // Call DialogContext close function if available
+    if (onDialogClose) {
+      onDialogClose(undefined);
+    }
   };
 
   // Initialize editableTestCases when modal opens
   useEffect(() => {
-    if (isOpen) {
-      handleOpen();
+    const modalIsOpen = isOpen || open;
+    if (modalIsOpen) {
+      setEditableTestCases(testCases.map(tc => ({ ...tc })));
     }
-  }, [isOpen, testCases]);
+  }, [isOpen, open, testCases]);
+
+  const modalIsOpen = isOpen || open;
+  
+  const handleOpenChange = (newOpen: boolean) => {
+    if (onOpenChange) {
+      onOpenChange(newOpen);
+    }
+    if (!newOpen) {
+      handleCancel();
+    }
+  };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+    <Dialog open={modalIsOpen} onOpenChange={handleOpenChange}>
       <DialogContent 
-        className="!max-w-none !w-[95vw] !max-w-[800px] !h-[95vh] !max-h-[700px] p-0 gap-0 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50"
+        className="!w-[95vw] !max-w-[800px] !h-[95vh] !max-h-[700px] p-0 gap-0 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50"
         showCloseButton={false}
       >
         {/* Header */}
@@ -85,7 +118,7 @@ export function TestCaseModal({
                 <DialogTitle className="text-xl font-semibold leading-tight">
                   테스트 케이스 편집
                 </DialogTitle>
-                <Typography variant="p" className="text-gray-600 dark:text-gray-400 text-sm mt-1 leading-tight">
+                <Typography variant="small" className="text-gray-600 dark:text-gray-400 mt-1 leading-tight">
                   알고리즘 문제 해결을 위한 테스트 케이스를 관리하세요
                 </Typography>
               </div>
