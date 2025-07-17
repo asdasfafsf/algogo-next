@@ -39,7 +39,6 @@ export function CodeEditorTemplateDropdown({
   onTemplateChange,
   onTemplateAdd,
   onTemplateEdit,
-  onTemplateDelete,
   disabled = false,
   placeholder = '템플릿 선택'
 }: CodeEditorTemplateDropdownProps) {

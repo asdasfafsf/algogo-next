@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ModalProvider from "@/plugins/modal/ModalProvider";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { EditorThemeProvider } from "@/contexts/EditorThemeContext";
 
@@ -39,9 +38,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <EditorThemeProvider>
-            <ModalProvider>
               {children}
-            </ModalProvider>
           </EditorThemeProvider>
         </ThemeProvider>
         <div id="modal-root" />

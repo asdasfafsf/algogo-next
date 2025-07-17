@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { CodeEditorTabs, CodeEditorTabsList, CodeEditorTabsTrigger, CodeEditorTabsContent } from './tabs';
 import { CodeResultInput } from './CodeResultInput';
 import { CodeResultOutput } from './CodeResultOutput';

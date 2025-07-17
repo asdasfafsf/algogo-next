@@ -10,8 +10,8 @@ import {
   BreadcrumbPage 
 } from '@/components/ui/Breadcrumb';
 import { Settings, FileText } from 'lucide-react';
-import { CompilerInfoModal } from '@/components/modals/CompilerInfoModal';
-import { CodeEditorSettingModal } from '@/components/modals/CodeEditorSettingModal';
+import { CompilerInfoModal } from '@/components/modal/CompilerInfoModal';
+import { CodeEditorSettingModal } from '@/components/modal/CodeEditorSettingModal';
 import Link from 'next/link';
 
 interface ProblemHeaderProps {
