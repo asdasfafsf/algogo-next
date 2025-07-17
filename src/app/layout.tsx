@@ -44,6 +44,7 @@ export default function RootLayout({
             </ModalProvider>
           </EditorThemeProvider>
         </ThemeProvider>
+        <div id="modal-root" />
       </body>
     </html>
   );
