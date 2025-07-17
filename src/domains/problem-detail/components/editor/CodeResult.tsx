@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { CodeEditorTabs, CodeEditorTabsList, CodeEditorTabsTrigger, CodeEditorTabsContent } from './tabs';
 import { CodeResultInput } from './CodeResultInput';
 import { CodeResultOutput } from './CodeResultOutput';
@@ -92,7 +92,7 @@ export function CodeResult({
   onTestCasesChange
 }: CodeResultProps) {
   const [activeTab, setActiveTab] = useState(defaultTab);
-
+  
   const handleTabChange = (value: string) => {
     setActiveTab(value as 'input' | 'output' | 'testcases');
   };
