@@ -47,7 +47,6 @@ export function CodeResultInput({
             <TooltipTrigger asChild>
               <button
                 onClick={onRunCode}
-                disabled={!customInput?.trim()}
                 className="p-1 text-green-500 hover:text-green-600 disabled:text-editor-page-text-muted disabled:cursor-not-allowed cursor-pointer transition-colors duration-200 rounded"
               >
                 <Play className="w-5 h-5 fill-current" />

@@ -15,6 +15,7 @@ interface CodeResultProps {
   onRunCode?: () => void;
   onInputChange?: (input: string) => void;
   onClearOutput?: () => void;
+  onTestCasesChange?: (testCases: TestCase[]) => void;
 }
 
 const sampleTestCases: TestCase[] = [
@@ -87,7 +88,8 @@ export function CodeResult({
   defaultTab = 'testcases',
   onRunCode,
   onInputChange,
-  onClearOutput
+  onClearOutput,
+  onTestCasesChange
 }: CodeResultProps) {
   const [activeTab, setActiveTab] = useState(defaultTab);
 
@@ -132,6 +134,7 @@ export function CodeResult({
         <CodeEditorTabsContent value="testcases" className="absolute inset-0">
           <CodeResultTestcase
             testCases={testCases}
+            onTestCasesChange={onTestCasesChange}
           />
         </CodeEditorTabsContent>
       </div>

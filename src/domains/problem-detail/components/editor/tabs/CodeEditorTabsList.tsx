@@ -77,8 +77,8 @@ export function CodeEditorTabsList({
           "border-0",
           // Background transparent as container has background
           "bg-transparent",
-          // Always full width for equal tab distribution
-          "w-full",
+          // Mobile: full width, Desktop: auto width for fixed-width tabs
+          "w-full md:w-auto",
           // Always use inline-flex for proper tab layout
           "inline-flex",
           className
