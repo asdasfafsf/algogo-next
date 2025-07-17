@@ -27,9 +27,13 @@ export function ProblemTypeList({ typeList }: ProblemTypeListProps) {
         <button onClick={handleClick} className="cursor-pointer">
           {isVisible ? (
             <div className="flex gap-1 flex-wrap">
-              {typeList.map((type) => (
+              {typeList.length > 0 ? typeList.map((type) => (
                 <ProblemTypeChip key={type} type={type} />
-              ))}
+              )) : (
+                <Chip variant="soft-outlined" color="gray" size="small">
+                  유형 없음
+                </Chip>
+              )}
             </div>
           ) : (
             <Chip variant="soft-outlined" color="gray" size="small">

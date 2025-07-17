@@ -7,6 +7,7 @@ import { ProblemTypeList } from './ProblemTypeList';
 import { ProblemContent } from './ProblemContent';
 import { ProblemContentTitle } from './ProblemContentTitle';
 import { ProblemInputOutputList } from './ProblemInputOutputList';
+import { ProblemStateChip } from '@/components/shared/ProblemStateChip';
 
 interface ProblemDescriptionProps {
   problem: Problem;
@@ -25,9 +26,10 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
         
         <div className="flex items-center gap-2 flex-wrap mb-6">
           <ProblemLevel level={problem.level} />
- 
-          <div className="h-4 w-px bg-gray-300" />
           <ProblemTypeList typeList={problem.typeList} />
+          {problem.state && (
+            <ProblemStateChip state={problem.state} />
+          )}
           {problem.isSpecialJudge && (
             <>
             <Chip variant="soft-outlined" color="amber" size="small">
