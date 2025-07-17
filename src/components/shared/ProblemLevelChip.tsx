@@ -47,7 +47,7 @@ export function ProblemLevelChip({
       onClick={handleClick}
       className={className}
     >
-      <span className="font-bold">{getLevelLabel(level)}</span>
+     {getLevelLabel(level)}
     </Chip>
   )
 }

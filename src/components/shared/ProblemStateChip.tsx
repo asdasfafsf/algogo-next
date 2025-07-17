@@ -42,7 +42,7 @@ export function ProblemStateChip({
       onClick={handleClick}
       className={className}
     >
-      <span className="font-bold">{label}</span>
+      {label}
     </Chip>
   )
 }
