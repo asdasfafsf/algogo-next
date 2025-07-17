@@ -69,7 +69,7 @@ export function VerticalResizablePanel({
       
       {/* 리사이저 */}
       <div
-        className={`h-2 bg-editor-page-surface border-t border-b border-editor-page-border cursor-row-resize hover:bg-editor-page-bg transition-colors ${
+        className={`h-2 bg-editor-page-surface cursor-row-resize hover:bg-editor-page-bg transition-colors ${
           isDragging ? 'bg-editor-page-border' : ''
         }`}
         onMouseDown={handleMouseDown}

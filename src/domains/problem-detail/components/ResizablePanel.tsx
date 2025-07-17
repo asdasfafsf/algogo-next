@@ -100,7 +100,7 @@ export function ResizablePanel({
       
       {/* 리사이저 */}
       <div
-        className={`w-2 bg-editor-page-surface border-l border-r border-editor-page-border hover:bg-editor-page-bg transition-colors relative ${
+        className={`w-2 bg-editor-page-surface hover:bg-editor-page-bg transition-colors relative ${
           isDragging ? 'bg-editor-page-border' : ''
         } ${isLeftCollapsed ? '' : 'cursor-col-resize'}`}
         onMouseDown={!isLeftCollapsed ? handleMouseDown : undefined}
@@ -128,7 +128,7 @@ export function ResizablePanel({
       {/* 우측 패널 */}
       <div
         style={{ width: `${isLeftCollapsed ? 'calc(100% - 8px)' : `calc(${100 - leftWidth}% - 4px)`}` }}
-        className="flex flex-col"
+        className="flex flex-col border-l border-editor-page-border"
       >
         {rightPanel}
       </div>

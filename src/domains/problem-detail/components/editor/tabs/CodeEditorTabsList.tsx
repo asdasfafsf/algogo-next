@@ -68,7 +68,7 @@ export function CodeEditorTabsList({
   }, [activeTabRect]);
 
   return (
-    <div className="relative w-full border-b border-editor-page-border bg-editor-page-surface" ref={tabsListRef}>
+    <div className="relative w-full border-t border-b border-editor-page-border bg-editor-page-surface" ref={tabsListRef}>
       <TabsList
         className={cn(
           // Base styles
