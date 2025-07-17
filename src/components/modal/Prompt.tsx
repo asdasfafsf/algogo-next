@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/Button'
 import { MaterialInput } from '@/components/ui/MaterialInput'
 
@@ -19,6 +19,9 @@ interface PromptProps {
   onCancel?: () => void
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  // Props injected by DialogContext
+  dialogId?: number
+  onDialogClose?: (result?: string | boolean | null | undefined | void) => void
 }
 
 const getDefaultTitle = (variant: PromptVariant): string => {
@@ -60,7 +63,8 @@ export function Prompt({
   onConfirm,
   onCancel,
   open = false,
-  onOpenChange
+  onOpenChange,
+  onDialogClose
 }: PromptProps) {
   const [value, setValue] = useState(defaultValue)
   const promptTitle = title || getDefaultTitle(variant)
@@ -73,6 +77,10 @@ export function Prompt({
     if (onConfirm) {
       onConfirm(value)
     }
+    // Call DialogContext close function if available
+    if (onDialogClose) {
+      onDialogClose(value)
+    }
   }
 
   const handleCancel = () => {
@@ -83,6 +91,10 @@ export function Prompt({
       onCancel()
     }
     setValue(defaultValue) // Reset value on cancel
+    // Call DialogContext close function if available
+    if (onDialogClose) {
+      onDialogClose(null)
+    }
   }
 
   const handleOpenChange = (newOpen: boolean) => {
@@ -94,6 +106,10 @@ export function Prompt({
         onCancel()
       }
       setValue(defaultValue) // Reset value when closing
+      // Call DialogContext close function if available
+      if (onDialogClose) {
+        onDialogClose(null)
+      }
     }
   }
 
@@ -110,15 +126,11 @@ export function Prompt({
         className="w-[400px] max-w-[calc(100vw-2rem)] mx-4 p-0 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.1)]"
         showCloseButton={false}
       >
-        <div
-          role="dialog"
-          aria-labelledby="prompt-title"
-          className="w-full bg-white dark:bg-gray-800 rounded-2xl"
-        >
+        <div className="w-full bg-white dark:bg-gray-800 rounded-2xl">
           <div className="flex justify-between items-center px-6 py-5">
-            <h2 id="prompt-title" className="text-[17px] font-semibold text-gray-800 dark:text-gray-200">
+            <DialogTitle className="text-[17px] font-semibold text-gray-800 dark:text-gray-200">
               {promptTitle}
-            </h2>
+            </DialogTitle>
           </div>
 
           <div className="px-6 pb-3 pt-1">

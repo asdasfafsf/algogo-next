@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/Button'
 
 export type AlertVariant = 'info' | 'success' | 'warning' | 'error'
@@ -14,6 +14,9 @@ interface AlertProps {
   onClose?: () => void
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  // Props injected by DialogContext
+  dialogId?: number
+  onDialogClose?: (result?: string | boolean | null | undefined | void) => void
 }
 
 const getDefaultTitle = (variant: AlertVariant): string => {
@@ -38,7 +41,8 @@ export function Alert({
   confirmText = '확인',
   onClose,
   open = false,
-  onOpenChange
+  onOpenChange,
+  onDialogClose
 }: AlertProps) {
   const alertTitle = title || getDefaultTitle(variant)
 
@@ -49,14 +53,24 @@ export function Alert({
     if (onClose) {
       onClose()
     }
+    // Call DialogContext close function if available
+    if (onDialogClose) {
+      onDialogClose()
+    }
   }
 
   const handleOpenChange = (newOpen: boolean) => {
     if (onOpenChange) {
       onOpenChange(newOpen)
     }
-    if (!newOpen && onClose) {
-      onClose()
+    if (!newOpen) {
+      if (onClose) {
+        onClose()
+      }
+      // Call DialogContext close function if available
+      if (onDialogClose) {
+        onDialogClose()
+      }
     }
   }
 
@@ -66,15 +80,11 @@ export function Alert({
         className="w-[400px] max-w-[calc(100vw-2rem)] mx-4 p-0 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.1)]"
         showCloseButton={false}
       >
-        <div
-          role="dialog"
-          aria-labelledby="alert-title"
-          className="w-full bg-white dark:bg-gray-800 rounded-2xl"
-        >
+        <div className="w-full bg-white dark:bg-gray-800 rounded-2xl">
           <div className="flex justify-between items-center px-5 py-4 sm:px-7 sm:py-5">
-            <h2 id="alert-title" className="text-base sm:text-[17px] font-semibold text-gray-800 dark:text-gray-200">
+            <DialogTitle className="text-base sm:text-[17px] font-semibold text-gray-800 dark:text-gray-200">
               {alertTitle}
-            </h2>
+            </DialogTitle>
           </div>
 
           <div className="px-5 pb-5 pt-2 sm:px-7 sm:pb-7 text-sm sm:text-[15px] leading-relaxed text-gray-600 dark:text-gray-400">

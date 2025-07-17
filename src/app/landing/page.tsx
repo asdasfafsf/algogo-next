@@ -9,8 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
-import useModal from '@/plugins/modal/useModal';
-import AlertModal from '@/components/modals/AlertModal';
+import { useModals } from '@/contexts';
 import { LandingHeader } from '@/components/layout/landing/LandingHeader';
 import { LandingFooter } from '@/components/layout/landing/LandingFooter';
 import { FadeInSection } from '@/components/ui/FadeInSection';
@@ -39,11 +38,10 @@ function FeatureCard({ icon, title, description }: FeatureCardProps) {
 
 export default function Landing() {
   const router = useRouter();
-  const modal = useModal();
+  const { alert } = useModals();
 
-  const handleAlert = (message: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    modal.push('Alert', AlertModal as any, { content: message });
+  const handleAlert = async (message: string) => {
+    await alert(message);
   };
 
   return (

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { EditorThemeProvider } from "@/contexts/EditorThemeContext";
+import { DialogProvider } from "@/contexts";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +39,9 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <EditorThemeProvider>
+            <DialogProvider>
               {children}
+            </DialogProvider>
           </EditorThemeProvider>
         </ThemeProvider>
         <div id="modal-root" />

@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/Button'
 
 export type ConfirmVariant = 'info' | 'success' | 'warning' | 'error'
@@ -16,6 +16,9 @@ interface ConfirmProps {
   onCancel?: () => void
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  // Props injected by DialogContext
+  dialogId?: number
+  onDialogClose?: (result?: string | boolean | null | undefined | void) => void
 }
 
 const getDefaultTitle = (variant: ConfirmVariant): string => {
@@ -55,7 +58,8 @@ export function Confirm({
   onConfirm,
   onCancel,
   open = false,
-  onOpenChange
+  onOpenChange,
+  onDialogClose
 }: ConfirmProps) {
   const confirmTitle = title || getDefaultTitle(variant)
   const confirmButtonColor = getConfirmButtonColor(variant)
@@ -67,6 +71,10 @@ export function Confirm({
     if (onConfirm) {
       onConfirm()
     }
+    // Call DialogContext close function if available
+    if (onDialogClose) {
+      onDialogClose(true)
+    }
   }
 
   const handleCancel = () => {
@@ -76,14 +84,24 @@ export function Confirm({
     if (onCancel) {
       onCancel()
     }
+    // Call DialogContext close function if available
+    if (onDialogClose) {
+      onDialogClose(false)
+    }
   }
 
   const handleOpenChange = (newOpen: boolean) => {
     if (onOpenChange) {
       onOpenChange(newOpen)
     }
-    if (!newOpen && onCancel) {
-      onCancel()
+    if (!newOpen) {
+      if (onCancel) {
+        onCancel()
+      }
+      // Call DialogContext close function if available
+      if (onDialogClose) {
+        onDialogClose(false)
+      }
     }
   }
 
@@ -93,15 +111,11 @@ export function Confirm({
         className="w-[400px] max-w-[calc(100vw-2rem)] mx-4 p-0 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.1)]"
         showCloseButton={false}
       >
-        <div
-          role="dialog"
-          aria-labelledby="confirm-title"
-          className="w-full bg-white dark:bg-gray-800 rounded-2xl"
-        >
+        <div className="w-full bg-white dark:bg-gray-800 rounded-2xl">
           <div className="flex justify-between items-center px-6 py-5">
-            <h2 id="confirm-title" className="text-[17px] font-semibold text-gray-800 dark:text-gray-200">
+            <DialogTitle className="text-[17px] font-semibold text-gray-800 dark:text-gray-200">
               {confirmTitle}
-            </h2>
+            </DialogTitle>
           </div>
 
           <div className="px-6 pb-5 pt-1 text-[15px] leading-relaxed text-gray-600 dark:text-gray-400 min-h-[60px]">

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useDialog } from '@/contexts/ShadcnDialogContext'
+import { useModals, DialogProvider } from '@/contexts'
 import { Button } from '@/components/ui/Button'
 
 const meta = {
@@ -15,7 +15,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 function ModalDemo() {
-  const { alert, confirm, prompt } = useDialog()
+  const { alert, confirm, prompt } = useModals()
 
   return (
     <div className="space-y-4">
@@ -179,12 +179,16 @@ function ModalDemo() {
 }
 
 export const Default: Story = {
-  args: {},
+  render: () => (
+    <DialogProvider>
+      <ModalDemo />
+    </DialogProvider>
+  ),
 }
 
 export const AlertVariants: Story = {
   render: () => {
-    const { alert } = useDialog()
+    const { alert } = useModals()
     
     return (
       <div className="space-y-4">
@@ -215,11 +219,18 @@ export const AlertVariants: Story = {
       </div>
     )
   },
+  decorators: [
+    (Story) => (
+      <DialogProvider>
+        <Story />
+      </DialogProvider>
+    ),
+  ],
 }
 
 export const ConfirmVariants: Story = {
   render: () => {
-    const { confirm, alert } = useDialog()
+    const { confirm, alert } = useModals()
     
     return (
       <div className="space-y-4">
@@ -251,11 +262,18 @@ export const ConfirmVariants: Story = {
       </div>
     )
   },
+  decorators: [
+    (Story) => (
+      <DialogProvider>
+        <Story />
+      </DialogProvider>
+    ),
+  ],
 }
 
 export const PromptVariants: Story = {
   render: () => {
-    const { prompt, alert } = useDialog()
+    const { prompt, alert } = useModals()
     
     return (
       <div className="space-y-4">
@@ -286,4 +304,11 @@ export const PromptVariants: Story = {
       </div>
     )
   },
+  decorators: [
+    (Story) => (
+      <DialogProvider>
+        <Story />
+      </DialogProvider>
+    ),
+  ],
 }
