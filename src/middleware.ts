@@ -50,20 +50,10 @@ async function refreshTokens(refreshToken: string): Promise<NextResponse | null>
         // 파싱된 쿠키들을 설정
         parsedCookies.forEach(cookie => {
           // 백엔드에서 받은 원본 옵션 그대로 사용
-          const options = {
-            domain: cookie.domain,
-            path: cookie.path,
-            expires: cookie.expires,
-            maxAge: cookie.maxAge,
-            secure: cookie.secure,
-            httpOnly: cookie.httpOnly,
-            sameSite: cookie.sameSite,
-            partitioned: cookie.partitioned,
-            priority: cookie.priority
-          };
-          
-          cookieStore.set(cookie.name, cookie.value, options);
-          response.cookies.set(cookie.name, cookie.value, options);
+
+          const { name, value, ...options } = cookie;
+          cookieStore.set(name, value, options);
+          response.cookies.set(name, value, options);
         });
       }
       
