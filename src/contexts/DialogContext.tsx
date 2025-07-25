@@ -5,6 +5,12 @@ import React, { createContext, useContext, useState, useCallback, ReactNode } fr
 // 다이얼로그 결과 타입 정의
 type DialogResult = string | boolean | null | undefined | void
 
+// 공통 Dialog Props 인터페이스 정의
+interface DialogComponentProps {
+  dialogId?: number;
+  onDialogClose?: (result?: DialogResult) => void;
+}
+
 interface DialogItem {
   id: number
   component: React.ReactNode
@@ -48,7 +54,7 @@ export function DialogProvider({ children }: { children: ReactNode }) {
       {children}
       {dialogs.map(dialog => (
         <React.Fragment key={dialog.id}>
-          {React.cloneElement(dialog.component as React.ReactElement, {
+          {React.cloneElement(dialog.component as React.ReactElement<DialogComponentProps>, {
             dialogId: dialog.id,
             onDialogClose: (result?: DialogResult) => closeDialog(dialog.id, result)
           })}

@@ -18,7 +18,7 @@ const getStateDisplay = (state: ProblemState) => {
     case PROBLEM_STATE.FAILED:
       return { label: "실패", color: "red" as const }
     case PROBLEM_STATE.NONE:
-      return { label: "미해결", color: "orange" as const }
+      return { label: "미해결", color: "yellow" as const }
     default:
       return { label: state, color: "gray" as const }
   }

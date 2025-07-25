@@ -6,6 +6,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/Popover
 import { Button } from '@/components/ui/Button';
 import { Typography } from '@/components/ui/Typography';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/Tooltip';
+import { useCreateCodeTemplateModal } from '@/contexts/hooks/useCreateCodeTemplateModal';
+import { CodeTemplate } from '@/types/code-template.type';
 
 interface Template {
   value: string;
@@ -43,6 +45,7 @@ export function CodeEditorTemplateDropdown({
   placeholder = '템플릿 선택'
 }: CodeEditorTemplateDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { openCreateCodeTemplateModal } = useCreateCodeTemplateModal();
   const selectedTemp = templates.find(template => template.value === selectedTemplate) || templates[0];
 
   const handleTemplateSelect = (template: Template) => {
@@ -55,8 +58,17 @@ export function CodeEditorTemplateDropdown({
     onTemplateEdit?.(template);
   };
 
-  const handleTemplateAdd = () => {
-    onTemplateAdd?.();
+  const handleTemplateAdd = async () => {
+    try {
+      const result = await openCreateCodeTemplateModal();
+      if (result) {
+        // 성공적으로 템플릿이 생성됨
+        console.log('새 템플릿 생성됨:', result);
+        onTemplateAdd?.();
+      }
+    } catch (error) {
+      console.error('템플릿 생성 실패:', error);
+    }
     setIsOpen(false);
   };
 
