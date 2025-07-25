@@ -304,11 +304,4 @@ export const PromptVariants: Story = {
       </div>
     )
   },
-  decorators: [
-    (Story) => (
-      <DialogProvider>
-        <Story />
-      </DialogProvider>
-    ),
-  ],
 }
