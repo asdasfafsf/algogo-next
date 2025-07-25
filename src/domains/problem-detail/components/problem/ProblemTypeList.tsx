@@ -16,7 +16,6 @@ interface ProblemTypeListProps {
 
 export function ProblemTypeList({ typeList }: ProblemTypeListProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
 
   const handleClick = () => {
     setIsVisible(!isVisible);
