@@ -82,6 +82,21 @@ The project follows comprehensive frontend design guidelines defined in `cursorr
 - Abstract complex interactions into dedicated components
 - Use IIFE for complex conditional logic
 
+### State Management
+- **Zustand Store Best Practices**:
+  - ALWAYS use individual selectors when accessing store values
+  - Avoid destructuring entire store state to prevent unnecessary re-renders
+  - Example:
+    ```typescript
+    // ❌ Bad - causes re-renders when any store value changes
+    const { value1, value2, value3 } = useStore();
+    
+    // ✅ Good - only re-renders when specific values change
+    const value1 = useStore((state) => state.value1);
+    const value2 = useStore((state) => state.value2);
+    const value3 = useStore((state) => state.value3);
+    ```
+
 ### Server Component Rules (CRITICAL)
 - **ALWAYS maintain Server Components when possible** - This is essential for MathJax rendering
 - Problem description components MUST remain as Server Components for proper MathJax integration
