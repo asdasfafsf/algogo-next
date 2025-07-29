@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { CodeEditorControlPanel } from './CodeEditorControlPanel';
 import { MonacoEditor } from './MonacoEditor';
-import { useTestCaseModal } from '@/contexts';
 import { TestCase } from '@/types/testcase.type';
+import { useTestCaseModal } from '../../hooks/useTestCaseModal';
 
 interface CodeEditorProps {
   initialCode?: string;
@@ -16,25 +16,22 @@ interface CodeEditorProps {
 export function CodeEditor({ 
   initialCode = '# 여기에 코드를 작성하세요\n\n', 
   selectedLanguage = 'python',
-  testCases = [],
-  onTestCasesChange
 }: CodeEditorProps) {
+  const { openModal, setTestcases } = useTestCaseModal();
   const [code, setCode] = useState(initialCode);
-  const { openTestCaseModal } = useTestCaseModal();
 
   const handleCodeChange = (value: string | undefined) => {
     setCode(value || '');
   };
 
   const handleAddTestCase = async () => {
-    const result = await openTestCaseModal(testCases, {
-      onTestCasesChange
-    });
-    
-    if (result && onTestCasesChange) {
-      onTestCasesChange(result);
+    const result = await openModal();
+    if (result) {
+      setTestcases(result);
     }
   };
+
+
 
   return (
     <div className="h-full flex flex-col bg-editor-page-surface">

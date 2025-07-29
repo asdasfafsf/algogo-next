@@ -1,2 +1,2 @@
 export { DialogProvider, useDialogContext } from './DialogContext'
-export { useModals, useAlert, useConfirm, usePrompt, useTestCaseModal } from './hooks'
+export { useModals, useAlert, useConfirm, usePrompt, useTestCase } from './hooks'

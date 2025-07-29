@@ -1,2 +1,2 @@
 export { useModals, useAlert, useConfirm, usePrompt } from './useModals'
-export { useTestCaseModal } from './useTestCaseModal'
+export { useTestCase } from './useTestCase' 
