@@ -1,4 +1,4 @@
-import { Language } from "./language.type";
+import { Language, MonacoLanguage } from "./language.type";
 
 export type CodeTemplate = {
   uuid: string;
@@ -18,6 +18,13 @@ export type CodeTemplateSummary = {
   updatedAt?: Date;
 }
 
-
 export type CreateCodeTemplate = Omit<CodeTemplate, 'uuid' | 'createdAt' | 'updatedAt'>
 export type UpdateCodeTemplate = Omit<CodeTemplate, 'createdAt' | 'updatedAt'>
+
+
+
+export type RequestSaveCode = {
+  problemUuid: string;
+  content: string;
+  language: Language
+};  
