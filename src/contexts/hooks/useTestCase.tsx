@@ -22,7 +22,6 @@ export function useTestCase() {
       />
     )
     
-    // Convert DialogContext result to TestCase[] | undefined
     return Array.isArray(result) ? result : undefined
   }, [showDialog])
 
