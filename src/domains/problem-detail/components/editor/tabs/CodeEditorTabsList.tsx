@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { TabsList } from "@/components/ui/tabs"
+import { TabsList } from "@/components/ui/Tabs"
 import { cn } from "@/lib/utils"
 
 interface CodeEditorTabsListProps {

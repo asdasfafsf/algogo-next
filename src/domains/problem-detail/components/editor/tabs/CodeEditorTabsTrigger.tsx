@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { TabsTrigger } from "@/components/ui/tabs"
+import { TabsTrigger } from "@/components/ui/Tabs"
 import { cn } from "@/lib/utils"
 
 interface CodeEditorTabsTriggerProps {

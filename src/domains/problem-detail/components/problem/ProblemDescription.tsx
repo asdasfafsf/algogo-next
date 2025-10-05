@@ -98,7 +98,7 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
 
         <ProblemInputOutputList inputOutputList={problem.inputOutputList} />
 
-        {problem.subTaskList.map((subTask) => (
+        {problem?.subTaskList?.map((subTask) => (
           <div key={subTask.order}>
             <ProblemContentTitle title={subTask.title} />
             <ProblemContent content={subTask.content} />
