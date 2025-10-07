@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getProblem as getProblemPure } from '../pure/problem.api';
+import { getProblem as getProblemPure } from '../pure/problem-v2.api';
 import { retryAsync, isNotFoundError } from '@/lib/utils/retry';
 import { Problem } from '@/types/problem.type';
 import { ApiResponse } from '@/types/api.type';

@@ -4,7 +4,7 @@ import { ProblemListBanner, ProblemListSection } from '@/domains/problem'
 import { ProblemTrainingSection } from '@/domains/problem'
 import type { IquiryProblemsSummary, ProblemSort, ProblemState, ProblemType } from '@/types/problem.type'
 import { PROBLEM_SORT } from '@/constants/problem.constant'
-import { getProblemList } from '@/lib/api/pure/problem.api'
+import { getProblemList } from '@/lib/api/pure/problem-v2.api'
 
 export const metadata: Metadata = {
   title: '알고고 - 알고리즘 학습 플랫폼',
