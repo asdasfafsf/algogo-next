@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
-import { oauthLoginV2 } from '@/lib/api/oauth-v2.api';
+import { oauthLoginV2 } from '@/lib/api/pure/oauth.api';
 import { OAuthProvider } from '@/types/auth.type';
-import { getMe } from '@/lib/api/me.api';
+import { getMe } from '@/lib/api/pure/me.api';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
