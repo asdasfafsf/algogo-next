@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { apiClient } from './api-client';
+import { apiClient } from '../api-client';
 import { ApiResponse } from '@/types/api.type';
 import { Language } from '@/types/language.type';
 import { Code, CodeSetting, CodeTemplate, CodeTemplateSummary, CreateCodeTemplate, UpdateCodeTemplate } from '@/types/code-template.type';

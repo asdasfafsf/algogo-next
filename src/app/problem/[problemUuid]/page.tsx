@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { ProblemHeader } from '@/components/layout/problem/ProblemHeader';
 import { ProblemDescription } from '@/domains/problem-detail/components/problem/ProblemDescription';
 import { ProblemFooter } from '@/components/layout/problem/ProblemFooter';
-import { getProblem } from '@/lib/api/problem-v2.api';
+import { getProblem } from '@/lib/api/server/problem.api';
+import { getSetting, loadCode } from '@/lib/api/server/code.api';
 import { CodeEditor, CodeResult } from '@/domains/problem-detail/components/editor';
 import { ResizablePanel } from '@/domains/problem-detail/components/ResizablePanel';
 import { VerticalResizablePanel } from '@/domains/problem-detail/components/VerticalResizablePanel';
@@ -32,15 +33,22 @@ export async function generateMetadata({ params }: ProblemDetailPageProps): Prom
 
 export default async function ProblemDetailPage({ params }: ProblemDetailPageProps) {
   const { problemUuid } = await params;
+
+  // 서버 API는 재시도 + 에러 처리 정책이 포함되어 있음
   const problemResponse = await getProblem(problemUuid);
+  const settingResponse = await getSetting();
+  const codeResponse = await loadCode(problemUuid, settingResponse.data.defaultLanguage);
+
   const problem = problemResponse.data;
+  const defaultLanguage = settingResponse.data.defaultLanguage;
+  const initialCode = codeResponse.data.content;
 
   const problemPanel = <ProblemDescription problem={problem} />;
 
   const codePanel = (
-    <CodeEditor 
-      initialCode="# 여기에 코드를 작성하세요\n\n"
-      selectedLanguage="python"
+    <CodeEditor
+      initialCode={initialCode}
+      selectedLanguage={defaultLanguage}
     />
   );
   
