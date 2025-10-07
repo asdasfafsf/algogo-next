@@ -1,14 +1,15 @@
 "use client"
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CodeEditorTabs, CodeEditorTabsList, CodeEditorTabsTrigger, CodeEditorTabsContent } from './tabs';
 import { CodeResultInput } from './CodeResultInput';
 import { CodeResultOutput } from './CodeResultOutput';
 import { CodeResultTestcase } from './CodeResultTestcase';
 import { TestCase } from '@/types/testcase.type';
+import { useTestcaseStore } from '@/lib/stores/useTestcaseStore';
 
 interface CodeResultProps {
-  testCases?: TestCase[];
+  initialTestCases?: TestCase[];
   customInput?: string;
   customOutput?: string;
   defaultTab?: 'input' | 'output' | 'testcases';
@@ -18,71 +19,9 @@ interface CodeResultProps {
   onTestCasesChange?: (testCases: TestCase[]) => void;
 }
 
-const sampleTestCases: TestCase[] = [
-  {
-    input: "3\n5 10 15",
-    expected: "30",
-    output: "30",
-    state: "일치"
-  },
-  {
-    input: "4\n1 2 3 4",
-    expected: "10",
-    output: "9",
-    state: "불일치"
-  },
-  {
-    input: "2\n100 200",
-    expected: "300",
-    output: "300",
-    state: "일치"
-  },
-  {
-    input: "5\n1 1 1 1 1",
-    expected: "5",
-    output: "5",
-    state: "일치"
-  },
-  {
-    input: "1\n42",
-    expected: "42",
-    output: "24",
-    state: "불일치"
-  },
-  {
-    input: "6\n10 20 30 40 50 60",
-    expected: "210",
-    output: "",
-    state: "실행 중"
-  },
-  {
-    input: "3\n-5 -10 -15",
-    expected: "-30",
-    output: "-30",
-    state: "일치"
-  },
-  {
-    input: "2\n0 0",
-    expected: "0",
-    output: "0",
-    state: "일치"
-  },
-  {
-    input: "4\n1000 2000 3000 4000",
-    expected: "10000",
-    output: "10001",
-    state: "불일치"
-  },
-  {
-    input: "1\n999999999",
-    expected: "999999999",
-    output: "",
-    state: "실행 전"
-  }
-];
 
 export function CodeResult({ 
-  testCases = sampleTestCases, 
+  initialTestCases = [], 
   customInput = '',
   customOutput = '',
   defaultTab = 'testcases',
@@ -92,7 +31,13 @@ export function CodeResult({
   onTestCasesChange
 }: CodeResultProps) {
   const [activeTab, setActiveTab] = useState(defaultTab);
-  
+  const setTestCase = useTestcaseStore((state) => state.setTestcases);
+  const testCases = useTestcaseStore((state) => state.testcases);
+
+  useEffect(() => {
+    setTestCase(initialTestCases);
+  }, [initialTestCases])
+
   const handleTabChange = (value: string) => {
     setActiveTab(value as 'input' | 'output' | 'testcases');
   };
@@ -134,7 +79,6 @@ export function CodeResult({
         <CodeEditorTabsContent value="testcases" className="absolute inset-0">
           <CodeResultTestcase
             testCases={testCases}
-            onTestCasesChange={onTestCasesChange}
           />
         </CodeEditorTabsContent>
       </div>

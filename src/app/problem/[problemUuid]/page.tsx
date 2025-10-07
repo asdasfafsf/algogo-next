@@ -49,6 +49,12 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
       customInput=""
       customOutput=""
       defaultTab="testcases"
+      initialTestCases={problem.inputOutputList.map(elem => ({
+        ...elem,
+        readOnly: true,
+        expected: elem.output,
+        state: '실행 전',
+      }))}
     />
   );
 
