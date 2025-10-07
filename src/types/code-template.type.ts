@@ -1,7 +1,4 @@
-import { Language, MonacoLanguage } from "./language.type";
-
-
-
+import { Language } from "./language.type";
 
 export type Code = {
   problemUuid: string;
