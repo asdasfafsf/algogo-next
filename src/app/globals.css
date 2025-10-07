@@ -264,6 +264,67 @@
   --color-red-800: #c62828;
   --color-red-900: #b71c1c;
 
+  /* 테마 변수 */
+  --theme-background: #212121;
+  --theme-surface: #212121;
+  --theme-primary: #0e639c;
+  --theme-secondary: #616161;
+  --theme-accent: #007acc;
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: #bdbdbd;
+  --theme-text-muted: #9e9e9e;
+  --theme-border-primary: #424242;
+  --theme-border-secondary: #424242;
+  --theme-editor-background: #212121;
+  --theme-editor-foreground: #ffffff;
+  --theme-editor-selection: #264f78;
+  --theme-editor-line-number: #9e9e9e;
+  --theme-editor-comment: #6a9955;
+  --theme-editor-keyword: #569cd6;
+  --theme-editor-string: #ce9178;
+  --theme-editor-number: #b5cea8;
+  --theme-editor-function: #dcdcaa;
+  --theme-editor-variable: #9cdcfe;
+
+  /* 에디터 테마 변수 */
+  --editor-theme-page-background: var(--theme-background);
+  --editor-theme-page-surface: var(--theme-surface);
+  --editor-theme-page-text-primary: var(--theme-text-primary);
+  --editor-theme-page-text-secondary: var(--theme-text-secondary);
+  --editor-theme-page-text-muted: var(--theme-text-muted);
+  --editor-theme-page-border-primary: var(--theme-border-primary);
+  --editor-theme-page-border-secondary: var(--theme-border-secondary);
+  --editor-theme-page-border-tertiary: #373737;
+  --editor-theme-page-base-neutral: #373737;
+  --editor-theme-page-base-neutral-hover: #404040;
+  --editor-theme-page-base-neutral-active: #4a4a4a;
+  --editor-theme-editor-background: var(--theme-editor-background);
+  --editor-theme-editor-foreground: var(--theme-editor-foreground);
+  --editor-theme-ui-primary: var(--theme-primary);
+  --editor-theme-ui-secondary: var(--theme-secondary);
+  --editor-theme-ui-accent: var(--theme-accent);
+  --editor-theme-ui-success: var(--theme-primary);
+  --editor-theme-ui-warning: var(--theme-accent);
+  --editor-theme-ui-error: var(--theme-accent);
+
+  /* Tailwind 에디터 테마 색상 */
+  --color-editor-page-bg: var(--editor-theme-page-background);
+  --color-editor-page-surface: var(--editor-theme-page-surface);
+  --color-editor-page-text: var(--editor-theme-page-text-primary);
+  --color-editor-page-text-secondary: var(--editor-theme-page-text-secondary);
+  --color-editor-page-text-muted: var(--editor-theme-page-text-muted);
+  --color-editor-page-border: var(--editor-theme-page-border-primary);
+  --color-editor-page-border-secondary: var(--editor-theme-page-border-secondary);
+  --color-editor-page-border-tertiary: var(--editor-theme-page-border-tertiary);
+  --color-editor-page-base-neutral: var(--editor-theme-page-base-neutral);
+  --color-editor-page-base-neutral-hover: var(--editor-theme-page-base-neutral-hover);
+  --color-editor-page-base-neutral-active: var(--editor-theme-page-base-neutral-active);
+  --color-editor-ui-primary: var(--editor-theme-ui-primary);
+  --color-editor-ui-secondary: var(--editor-theme-ui-secondary);
+  --color-editor-ui-accent: var(--editor-theme-ui-accent);
+  --color-editor-ui-success: var(--editor-theme-ui-success);
+  --color-editor-ui-warning: var(--editor-theme-ui-warning);
+  --color-editor-ui-error: var(--editor-theme-ui-error);
 }
 
 :root {
@@ -453,4 +514,243 @@
   .logo-bounce-on-hover:hover .logo-bounce {
     animation: logo-bounce 0.8s ease-in-out infinite;
   }
+  
+  /* 테마 기반 유틸리티 클래스 */
+  .theme-bg {
+    background-color: var(--theme-background);
+  }
+  
+  .theme-surface {
+    background-color: var(--theme-surface);
+  }
+  
+  .theme-text-primary {
+    color: var(--theme-text-primary);
+  }
+  
+  .theme-text-secondary {
+    color: var(--theme-text-secondary);
+  }
+  
+  .theme-text-muted {
+    color: var(--theme-text-muted);
+  }
+  
+  .theme-border-primary {
+    border-color: var(--theme-border-primary);
+  }
+  
+  .theme-border-secondary {
+    border-color: var(--theme-border-secondary);
+  }
+  
+  .theme-editor-bg {
+    background-color: var(--theme-editor-background);
+  }
+  
+  .theme-editor-text {
+    color: var(--theme-editor-foreground);
+  }
+  
+  /* 탭 활성화 스타일 */
+  .editor-tab-active {
+    color: var(--color-editor-ui-primary);
+    border-bottom: 2px solid var(--color-editor-ui-primary);
+    background-color: var(--color-editor-page-surface);
+  }
+  
+  /* 하단 탭 활성화 스타일 */
+  .editor-bottom-tab-active {
+    color: var(--color-editor-ui-primary);
+    border-top: 2px solid var(--color-editor-ui-primary);
+    background-color: var(--color-editor-page-surface);
+  }
+  
+  /* 세이프 에리어 패딩 */
+  .safe-area-padding-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* 테마 미리보기 스타일 */
+  .theme-preview-light {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+  }
+  
+  .theme-preview-dark {
+    background-color: #1a1a1a;
+    border-color: #666;
+  }
+}
+
+
+
+
+
+
+
+.problem-content .no-mathjax{ 
+  pointer-events: none;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.problem-content * {
+  list-style-position: inside;
+}
+
+.problem-content img {
+  display: inline;
+}
+
+.problem-content ul {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  display: block;
+  font-size: 16px;
+  line-height: 30px;
+  list-style-type: disc;
+  margin-block-end: 10px;
+  margin-block-start: 0px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  padding-bottom: 0px;
+  padding-inline-start: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  text-size-adjust: 100%;
+  unicode-bidi: isolate;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+  
+.problem-content p {
+  border-radius: 0px;
+  box-sizing: border-box;
+  color: rgb(85, 85, 85);
+  display: block;
+  font-size: 16px;
+  line-height: 30px;
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+  text-size-adjust: 100%;
+}
+
+.problem-content pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #333;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.problem-content ol {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  box-sizing: border-box;
+  color: rgb(51, 51, 51);
+  display: block;
+  font-size: 16px;
+  line-height: 30px;
+  list-style-type: decimal;
+  margin-block-end: 10px;
+  margin-block-start: 10px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+
+  text-size-adjust: 100%;
+  unicode-bidi: isolate;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.problem-content li {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  box-sizing: border-box;
+  color: rgb(85, 85, 85);
+  font-size: 16px;
+  line-height: 30px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  padding-bottom: 0px;
+  
+  padding-right: 0px;
+  padding-top: 0px;
+  text-align: left;
+  text-size-adjust: 100%;
+  unicode-bidi: isolate;
+  
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+/* 테이블 스타일 추가 */
+.problem-content table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.problem-content table th,
+.problem-content table td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.problem-content table th {
+  font-weight: bold;
+  background-color: #f5f5f5;
+}
+
+.problem-content table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.problem-content table tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* 반응형 테이블 */
+@media screen and (max-width: 767px) {
+  .problem-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 스크롤바 밀림 방지 */
+.scrollbar-gutter-stable {
+  scrollbar-gutter: stable;
 }

@@ -14,11 +14,11 @@ interface ProblemStateChipProps {
 const getStateDisplay = (state: ProblemState) => {
   switch (state) {
     case PROBLEM_STATE.SOLVED:
-      return { label: "맞힌 문제", color: "green" as const }
+      return { label: "성공", color: "green" as const }
     case PROBLEM_STATE.FAILED:
-      return { label: "틀린 문제", color: "red" as const }
+      return { label: "실패", color: "red" as const }
     case PROBLEM_STATE.NONE:
-      return { label: "안 푼 문제", color: "gray" as const }
+      return { label: "미해결", color: "yellow" as const }
     default:
       return { label: state, color: "gray" as const }
   }
@@ -42,7 +42,7 @@ export function ProblemStateChip({
       onClick={handleClick}
       className={className}
     >
-      <span className="font-bold">{label}</span>
+      {label}
     </Chip>
   )
 }

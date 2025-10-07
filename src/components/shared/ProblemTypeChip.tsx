@@ -26,7 +26,7 @@ export function ProblemTypeChip({
       onClick={handleClick}
       className={className}
     >
-      <span className="font-bold">{type}</span>
+     {type}
     </Chip>
   )
 }

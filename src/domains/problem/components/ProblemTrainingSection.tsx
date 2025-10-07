@@ -1,7 +1,5 @@
 import { Zap, BookOpen, Settings } from "lucide-react";
-
 import { Typography } from "@/components/ui/Typography";
-
 import { ProblemTrainingCard } from "./ProblemTrainingCard";
 
 export const ProblemTrainingSection = () => {

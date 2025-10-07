@@ -82,6 +82,28 @@ The project follows comprehensive frontend design guidelines defined in `cursorr
 - Abstract complex interactions into dedicated components
 - Use IIFE for complex conditional logic
 
+### State Management
+- **Zustand Store Best Practices**:
+  - ALWAYS use individual selectors when accessing store values
+  - Avoid destructuring entire store state to prevent unnecessary re-renders
+  - Example:
+    ```typescript
+    // ❌ Bad - causes re-renders when any store value changes
+    const { value1, value2, value3 } = useStore();
+    
+    // ✅ Good - only re-renders when specific values change
+    const value1 = useStore((state) => state.value1);
+    const value2 = useStore((state) => state.value2);
+    const value3 = useStore((state) => state.value3);
+    ```
+
+### Server Component Rules (CRITICAL)
+- **ALWAYS maintain Server Components when possible** - This is essential for MathJax rendering
+- Problem description components MUST remain as Server Components for proper MathJax integration
+- Only create Client Components when absolutely necessary for interactivity
+- Use CSS variables and minimal Client Components for features like font size control
+- MathJax requires server-rendered HTML to function properly with SEO and performance
+
 ## Development Notes
 
 ### Fonts
@@ -99,3 +121,56 @@ The project follows comprehensive frontend design guidelines defined in `cursorr
 - Browser testing with Playwright
 - Coverage reporting with v8
 - Accessibility testing built into Storybook
+
+### Editor Theme System
+A specialized theme system for problem-solving pages (`problem/[problemUuid]`) that provides code editor-based theming:
+
+#### Theme Configuration
+- **Default Theme**: vs-dark (gray-900 based color palette)
+- **Available Themes**: vs-light, vs-dark
+- **Theme Storage**: localStorage with key `algogo-editor-theme`
+- **Theme Context**: `EditorThemeContext` with higher priority than general theme
+
+#### Color Application Rules
+1. **Problem Area**: Always white background regardless of theme
+2. **Code & Result Areas**: Follow editor theme variables
+3. **Headers, Footers, Tabs**: Follow editor theme variables
+4. **Base Colors**: 
+   - Default: gray-900 (#212121) background
+   - vs-light override: white background
+   - vs-dark: gray-900 background (default)
+
+#### Implementation Guidelines
+- Use `bg-editor-page-bg` for main backgrounds
+- Use `text-editor-page-text` for primary text
+- Use `text-editor-page-text-secondary` for secondary text
+- Use `text-editor-page-text-muted` for muted text
+- Use `border-editor-page-border` for borders
+- **Problem Description**: Force white background with `bg-white` and `text-gray-900`
+- **Code/Result Areas**: Use editor theme variables for dynamic theming
+
+#### CSS Variables Structure
+```css
+/* Default theme colors (vs-dark) */
+--theme-background: #212121;
+--theme-surface: #212121;
+--theme-text-primary: #ffffff;
+--theme-text-secondary: #bdbdbd;
+--theme-text-muted: #9e9e9e;
+--theme-border-primary: #616161;
+
+/* Editor theme variables (inherit from theme) */
+--editor-theme-page-background: var(--theme-background);
+--editor-theme-page-surface: var(--theme-surface);
+/* ... */
+
+/* TailwindCSS integration */
+--color-editor-page-bg: var(--editor-theme-page-background);
+--color-editor-page-text: var(--editor-theme-page-text-primary);
+/* ... */
+```
+
+#### Mobile Considerations
+- Mobile tabs positioned at bottom for better thumb accessibility
+- Safe area padding for devices with notches: `safe-area-padding-bottom`
+- Responsive breakpoint: `md` (768px) for desktop/mobile layout switching
