@@ -5,7 +5,7 @@ import { Plus, Trash2, X } from 'lucide-react';
 import { TestCase } from '@/types/testcase.type';
 import { Button } from '@/components/ui/Button';
 import { Typography } from '@/components/ui/Typography';
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/Dialog';
 
 interface TestCaseModalProps {
   isOpen?: boolean;

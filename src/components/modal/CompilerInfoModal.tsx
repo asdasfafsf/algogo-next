@@ -5,7 +5,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/components/ui/Dialog';
 import { Button } from '@/components/ui/Button';
 
 interface CompilerInfoModalProps {

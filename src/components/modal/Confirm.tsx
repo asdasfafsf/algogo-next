@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/Dialog'
 import { Button } from '@/components/ui/Button'
 
 export type ConfirmVariant = 'info' | 'success' | 'warning' | 'error'

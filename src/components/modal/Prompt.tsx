@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/Dialog'
 import { Button } from '@/components/ui/Button'
 import { MaterialInput } from '@/components/ui/MaterialInput'
 
