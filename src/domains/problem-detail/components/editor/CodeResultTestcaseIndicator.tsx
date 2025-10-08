@@ -3,6 +3,7 @@
 import { Play, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { TestCase } from '@/types/testcase.type';
+import { useTestCaseModal } from '../../hooks/useTestCaseModal';
 
 interface CodeResultTestcaseIndicatorProps {
   testCases: TestCase[];
@@ -12,6 +13,7 @@ export function CodeResultTestcaseIndicator({ testCases }: CodeResultTestcaseInd
   const passedCount = testCases.filter(tc => tc.state === '일치').length;
   const failedCount = testCases.filter(tc => tc.state === '불일치').length;
   const runningCount = testCases.filter(tc => tc.state === '실행 중').length;
+  const { openModal } = useTestCaseModal();
 
   return (
     <div className="flex items-center justify-between px-2 py-3 bg-editor-page-surface/60 rounded-lg w-full">
@@ -55,6 +57,7 @@ export function CodeResultTestcaseIndicator({ testCases }: CodeResultTestcaseInd
           variant="ghost" 
           size="xs"
           className="h-8 px-2 hover:bg-editor-page-surface text-editor-page-text-secondary hover:text-gray-600"
+          onClick={() => openModal()}
         >
           <FileText className="w-3.5 h-3.5" />
           <span className="hidden md:inline ml-1">테스트케이스 추가</span>

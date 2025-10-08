@@ -1,4 +1,11 @@
-import { Language, MonacoLanguage } from "./language.type";
+import { Language } from "./language.type";
+
+export type Code = {
+  problemUuid: string;
+  language: Language
+  content: string;
+}
+
 
 export type CodeTemplate = {
   uuid: string;
@@ -22,9 +29,11 @@ export type CreateCodeTemplate = Omit<CodeTemplate, 'uuid' | 'createdAt' | 'upda
 export type UpdateCodeTemplate = Omit<CodeTemplate, 'createdAt' | 'updatedAt'>
 
 
-
-export type RequestSaveCode = {
-  problemUuid: string;
-  content: string;
-  language: Language
-};  
+export type CodeSetting = {
+  fontSize: number;
+  problemContentRate: number;
+  theme: "vs-dark" | 'vs-light' | 'monokai' | 'github';
+  tabSize: number;
+  lineNumber: 'on' | 'off' | 'relative';
+  defaultLanguage: Language
+}

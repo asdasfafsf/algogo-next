@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
-import { oauthLoginV2 } from '@/lib/api/oauth-v2.api';
+import { oauthLoginV2 } from '@/lib/api/pure/oauth.api';
 import { OAuthProvider } from '@/types/auth.type';
-import { getMe } from '@/lib/api/me.api';
+import { getMe } from '@/lib/api/pure/me.api';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
@@ -37,7 +37,15 @@ export default function OAuthCallback({ params }: CallbackPageProps) {
       }
       
       try {
-        await oauthLoginV2({ provider: provider as OAuthProvider, code })
+        const loginResponse = await oauthLoginV2({ provider: provider as OAuthProvider, code })
+
+        if (loginResponse.data?.accessToken) {
+          localStorage.setItem('accessToken', loginResponse.data.accessToken);
+          localStorage.setItem('refreshToken', loginResponse.data.refreshToken);
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         const meResponse = await getMe()
         const userData = meResponse.data
         setMe(userData)

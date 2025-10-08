@@ -5,24 +5,39 @@ import { CodeEditorControlPanel } from './CodeEditorControlPanel';
 import { MonacoEditor } from './MonacoEditor';
 import { TestCase } from '@/types/testcase.type';
 import { useTestCaseModal } from '../../hooks/useTestCaseModal';
+import { getDefaultTemplate } from '@/constants/code-template.constant';
+import { Language } from '@/types/language.type';
+import { CodeSetting } from '@/types/code-template.type';
+import { MONACO_LANGUAGE } from '@/constants/language.constant';
+import { useCodeEditorStore } from '@/lib/stores';
+import { useCodeEditor } from '../../hooks/useCodeEditor';
 
 interface CodeEditorProps {
   initialCode?: string;
-  selectedLanguage?: string;
+  initialLanguage?: Language;
   testCases?: TestCase[];
+  setting: CodeSetting
   onTestCasesChange?: (testCases: TestCase[]) => void;
 }
 
-export function CodeEditor({ 
-  initialCode = '# 여기에 코드를 작성하세요\n\n', 
-  selectedLanguage = 'python',
+export function CodeEditor({
+  initialCode,
+  setting,
+  initialLanguage = 'Python',
 }: CodeEditorProps) {
   const { openModal, setTestcases } = useTestCaseModal();
-  const [code, setCode] = useState(initialCode);
 
-  const handleCodeChange = (value: string | undefined) => {
-    setCode(value || '');
-  };
+  const { currentCode, handleCodeChange, selectedLanguage } = useCodeEditor({
+    initialLanguage,
+    initialCodes: {
+      Python: initialCode || getDefaultTemplate('Python'),
+      Java: initialCode || getDefaultTemplate('Java'),
+      'C++': initialCode || getDefaultTemplate('C++'),
+      'Node.js': initialCode || getDefaultTemplate('Node.js'),
+      [initialLanguage]: initialCode || getDefaultTemplate(initialLanguage),
+    },
+  });
+
 
   const handleAddTestCase = async () => {
     const result = await openModal();
@@ -42,10 +57,15 @@ export function CodeEditor({
       
       <div className="flex-1 relative overflow-hidden">
         <MonacoEditor
-          value={code}
+          value={currentCode}
           onChange={handleCodeChange}
-          language={selectedLanguage}
-          theme="vs-dark"
+          language={MONACO_LANGUAGE[selectedLanguage]}
+          theme={setting.theme}
+          options={{
+            fontSize: setting.fontSize,
+            lineNumbers: setting.lineNumber,
+            tabSize: setting.tabSize,
+          }}
           height="100%"
           className="absolute inset-0"
         />

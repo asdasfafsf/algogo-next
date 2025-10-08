@@ -12,7 +12,6 @@ function needsTokenRefresh(accessToken: string): boolean {
     const now = Math.floor(Date.now() / 1000);
     const timeLeft = decoded.exp - now;
     
-    // 만료되었거나 1분(60초) 이내에 만료 예정이면 갱신 필요
     return timeLeft <= 60;
   } catch {
     return true; // 이상한 토큰이면 갱신 필요
@@ -39,18 +38,12 @@ async function refreshTokens(refreshToken: string): Promise<NextResponse | null>
       const setCookieHeaders = refreshResponse.headers.get('set-cookie');
       
       if (setCookieHeaders) {
-        // Next.js 공식 방식: refreshResponse에서 직접 ResponseCookies 생성
         const refreshCookies = new ResponseCookies(refreshResponse.headers);
         
-        // ResponseCookies에서 파싱된 쿠키들 가져오기
         const parsedCookies = refreshCookies.getAll();
-        
         const cookieStore = await cookies();
         
-        // 파싱된 쿠키들을 설정
         parsedCookies.forEach(cookie => {
-          // 백엔드에서 받은 원본 옵션 그대로 사용
-
           const { name, value, ...options } = cookie;
           cookieStore.set(name, value, options);
           response.cookies.set(name, value, options);
@@ -69,16 +62,18 @@ async function refreshTokens(refreshToken: string): Promise<NextResponse | null>
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
-  // 정적 파일과 API 경로는 건너뛰기
+  console.log('start middleware')
   if (
     pathname.startsWith('/_next/') ||
-    pathname.startsWith('/api/') ||
     pathname.includes('.') ||
     pathname.includes('/oauth/v2/callback') ||
     pathname.includes('/login')
   ) {
     return NextResponse.next();
   }
+
+
+  console.log('start check token')
 
   const accessToken = request.cookies.get('access_token')?.value;
   const refreshToken = request.cookies.get('refresh_token')?.value;
@@ -90,7 +85,6 @@ export async function middleware(request: NextRequest) {
       return refreshedResponse;
     }
     
-    // 갱신 실패시 만료된 토큰 삭제
     const response = NextResponse.next();
     response.cookies.delete('access_token');
     return response;
