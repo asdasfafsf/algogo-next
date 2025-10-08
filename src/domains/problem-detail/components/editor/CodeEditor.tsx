@@ -9,10 +9,12 @@ import { getDefaultTemplate } from '@/constants/code-template.constant';
 import { Language } from '@/types/language.type';
 import { CodeSetting } from '@/types/code-template.type';
 import { MONACO_LANGUAGE } from '@/constants/language.constant';
+import { useCodeEditorStore } from '@/lib/stores';
+import { useCodeEditor } from '../../hooks/useCodeEditor';
 
 interface CodeEditorProps {
   initialCode?: string;
-  selectedLanguage?: Language;
+  initialLanguage?: Language;
   testCases?: TestCase[];
   setting: CodeSetting
   onTestCasesChange?: (testCases: TestCase[]) => void;
@@ -21,15 +23,21 @@ interface CodeEditorProps {
 export function CodeEditor({
   initialCode,
   setting,
-  selectedLanguage = 'Python',
+  initialLanguage = 'Python',
 }: CodeEditorProps) {
-  const defaultCode = initialCode || getDefaultTemplate(selectedLanguage);
   const { openModal, setTestcases } = useTestCaseModal();
-  const [code, setCode] = useState(defaultCode);
 
-  const handleCodeChange = (value: string | undefined) => {
-    setCode(value || '');
-  };
+  const { currentCode, handleCodeChange, selectedLanguage } = useCodeEditor({
+    initialLanguage,
+    initialCodes: {
+      Python: initialCode || getDefaultTemplate('Python'),
+      Java: initialCode || getDefaultTemplate('Java'),
+      'C++': initialCode || getDefaultTemplate('C++'),
+      'Node.js': initialCode || getDefaultTemplate('Node.js'),
+      [initialLanguage]: initialCode || getDefaultTemplate(initialLanguage),
+    },
+  });
+
 
   const handleAddTestCase = async () => {
     const result = await openModal();
@@ -49,7 +57,7 @@ export function CodeEditor({
       
       <div className="flex-1 relative overflow-hidden">
         <MonacoEditor
-          value={code}
+          value={currentCode}
           onChange={handleCodeChange}
           language={MONACO_LANGUAGE[selectedLanguage]}
           theme={setting.theme}
