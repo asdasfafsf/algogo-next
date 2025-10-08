@@ -74,6 +74,10 @@ The project follows comprehensive frontend design guidelines defined in `cursorr
 - **Predictability**: Consistent return types, descriptive names, single responsibility
 - **Cohesion**: Feature-based organization, form-level vs field-level validation strategies
 - **Coupling**: Scoped state management, component composition over props drilling
+- **Comments**:
+  - ❌ NO unnecessary inline comments
+  - ✅ ONLY use JSDoc documentation comments for functions/classes
+  - Code should be self-explanatory through clear naming and structure
 
 ### Key Patterns
 - Use TypeScript discriminated unions for validation results
@@ -174,3 +178,20 @@ A specialized theme system for problem-solving pages (`problem/[problemUuid]`) t
 - Mobile tabs positioned at bottom for better thumb accessibility
 - Safe area padding for devices with notches: `safe-area-padding-bottom`
 - Responsive breakpoint: `md` (768px) for desktop/mobile layout switching
+
+### API Layer Architecture
+API calls are organized into three layers for clear separation of concerns:
+
+```
+src/lib/api/
+├── pure/          # Pure HTTP calls (no retry/error handling)
+├── server/        # Server Component policies (retry, fallback, notFound)
+└── client/        # Client Component policies (toast, loading states)
+```
+
+**Rules:**
+- `pure/`: Only axios calls, no business logic
+- `server/`: Retry logic, 404 handling, default fallbacks for SSR
+- `client/`: Client-specific error handling for CSR
+- Import from `api/server/*` in Server Components
+- Import from `api/client/*` in Client Components

@@ -1,4 +1,4 @@
-import apiClient from "./api-client";
+import apiClient from "@/lib/api/api-client";
 import type { ApiResponse } from "@/types/api.type";
 import type { Me } from "@/types/me.type";
 

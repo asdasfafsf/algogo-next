@@ -1,7 +1,7 @@
 "use client"
 
-import { useRef, useEffect } from 'react';
-import Editor from '@monaco-editor/react';
+import { useRef } from 'react';
+import Editor, { type EditorProps } from '@monaco-editor/react';
 
 interface MonacoEditorProps {
   value: string;
@@ -9,7 +9,7 @@ interface MonacoEditorProps {
   language?: string;
   theme?: string;
   height?: string | number;
-  options?: any;
+  options?: EditorProps['options'];
   className?: string;
 }
 

@@ -3,8 +3,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { Me } from '@/types/me.type'
-import { logout } from '../api/auth-v2.api'
-
+import { logout } from '../api/pure/auth.api'
 interface AuthState {
   me: Me | null
   isLoading: boolean
