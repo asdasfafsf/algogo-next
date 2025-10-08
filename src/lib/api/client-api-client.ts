@@ -16,17 +16,6 @@ const failedQueue: {
 }[] = [];
 
 clientApiClient.interceptors.request.use((config) => {
-  if (config.url?.includes('/api/v2/auth/refresh')) {
-    return config;
-  }
-
-  const token = localStorage.getItem('accessToken');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  } else {
-    config.headers.Authorization = undefined;
-  }
-
   return config;
 });
 

@@ -37,7 +37,15 @@ export default function OAuthCallback({ params }: CallbackPageProps) {
       }
       
       try {
-        await oauthLoginV2({ provider: provider as OAuthProvider, code })
+        const loginResponse = await oauthLoginV2({ provider: provider as OAuthProvider, code })
+
+        if (loginResponse.data?.accessToken) {
+          localStorage.setItem('accessToken', loginResponse.data.accessToken);
+          localStorage.setItem('refreshToken', loginResponse.data.refreshToken);
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         const meResponse = await getMe()
         const userData = meResponse.data
         setMe(userData)
