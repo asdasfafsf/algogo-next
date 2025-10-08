@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from 'react';
 import { CodeResultTestcaseIndicator } from './CodeResultTestcaseIndicator';
 import { CodeResultTestcaseTable } from './CodeResultTestcaseTable';
 import { TestCase } from '@/types/testcase.type';
