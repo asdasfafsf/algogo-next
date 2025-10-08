@@ -1,44 +1,34 @@
 "use client"
 
-import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/Popover';
 import { Button } from '@/components/ui/Button';
 import { Typography } from '@/components/ui/Typography';
+import { Language } from '@/types/language.type';
+import { LANGUAGE } from '@/constants/language.constant';
+import { useLanguageSelect } from '../../hooks/useLanguageSelect';
 
-interface Language {
-  value: string;
+interface LanguageOption {
+  value: Language;
   label: string;
-  icon?: string;
 }
 
 interface CodeEditorLanguageDropdownProps {
-  selectedLanguage?: string;
-  languages?: Language[];
-  onLanguageChange?: (language: string) => void;
   disabled?: boolean;
 }
 
-const DEFAULT_LANGUAGES: Language[] = [
-  { value: 'python', label: 'Python' },
-  { value: 'java', label: 'Java' },
-  { value: 'cpp', label: 'C++' },
-  { value: 'javascript', label: 'JavaScript' },
+const LANGUAGE_OPTIONS: LanguageOption[] = [
+  { value: LANGUAGE.Python, label: 'Python' },
+  { value: LANGUAGE.Java, label: 'Java' },
+  { value: LANGUAGE['C++'], label: 'C++' },
+  { value: LANGUAGE['Node.js'], label: 'Node.js' },
 ];
 
 export function CodeEditorLanguageDropdown({
-  selectedLanguage = 'python',
-  languages = DEFAULT_LANGUAGES,
-  onLanguageChange,
   disabled = false
 }: CodeEditorLanguageDropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const selectedLang = languages.find(lang => lang.value === selectedLanguage) || languages[0];
-
-  const handleLanguageSelect = (language: Language) => {
-    onLanguageChange?.(language.value);
-    setIsOpen(false);
-  };
+  const { selectedLanguage, isOpen, setIsOpen, handleLanguageSelect } = useLanguageSelect();
+  const selectedLang = LANGUAGE_OPTIONS.find(lang => lang.value === selectedLanguage) || LANGUAGE_OPTIONS[0];
 
   return (
     <div className="flex items-center min-w-0">
@@ -57,11 +47,11 @@ export function CodeEditorLanguageDropdown({
         </PopoverTrigger>
         <PopoverContent className="w-32 p-0 bg-editor-page-bg border-editor-page-border rounded-lg" align="start">
           <div>
-            {languages.map((language) => (
+            {LANGUAGE_OPTIONS.map((language) => (
               <Button
                 key={language.value}
                 variant="ghost"
-                onClick={() => handleLanguageSelect(language)}
+                onClick={() => handleLanguageSelect(language.value)}
                 className="w-full justify-start p-3 h-auto text-editor-page-text-secondary hover:bg-editor-page-base-neutral-hover hover:text-editor-page-text transition-colors cursor-pointer rounded-md"
               >
                 <Typography variant="small" className="cursor-pointer">
