@@ -49,6 +49,7 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
     <CodeEditor
       initialCode={initialCode}
       selectedLanguage={defaultLanguage}
+      setting={settingResponse.data}
     />
   );
   
