@@ -48,7 +48,7 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
   const codePanel = (
     <CodeEditor
       initialCode={initialCode}
-      selectedLanguage={defaultLanguage}
+      initialLanguage={defaultLanguage}
       setting={settingResponse.data}
     />
   );
