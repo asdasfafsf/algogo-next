@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { CodeEditorControlPanel } from './CodeEditorControlPanel';
 import { MonacoEditor } from './MonacoEditor';
 import { TestCase } from '@/types/testcase.type';
@@ -26,17 +26,19 @@ export function CodeEditor({
   initialLanguage = 'Python',
 }: CodeEditorProps) {
   const { openModal, setTestcases } = useTestCaseModal();
+  const initializeCodes = useCodeEditorStore((state) => state.initializeCodes);
+  const { currentCode, handleCodeChange, selectedLanguage } = useCodeEditor();
 
-  const { currentCode, handleCodeChange, selectedLanguage } = useCodeEditor({
-    initialLanguage,
-    initialCodes: {
-      Python: initialCode || getDefaultTemplate('Python'),
-      Java: initialCode || getDefaultTemplate('Java'),
+  useEffect(() => {
+    const defaultCodes: Record<Language, string> = {
+      'Python': initialCode || getDefaultTemplate('Python'),
+      'Java': initialCode || getDefaultTemplate('Java'),
       'C++': initialCode || getDefaultTemplate('C++'),
       'Node.js': initialCode || getDefaultTemplate('Node.js'),
-      [initialLanguage]: initialCode || getDefaultTemplate(initialLanguage),
-    },
-  });
+    };
+
+    initializeCodes(defaultCodes, initialLanguage);
+  }, []);
 
 
   const handleAddTestCase = async () => {
