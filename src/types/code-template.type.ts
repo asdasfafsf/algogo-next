@@ -7,6 +7,11 @@ export type Code = {
 }
 
 
+export type CodeTemplateResponse = {
+  defaultList: CodeTemplate[];
+  summaryList: CodeTemplateSummary[];
+}
+
 export type CodeTemplate = {
   uuid: string;
   name: string;

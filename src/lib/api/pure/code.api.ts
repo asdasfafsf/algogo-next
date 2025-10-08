@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { apiClient } from '../api-client';
 import { ApiResponse } from '@/types/api.type';
 import { Language } from '@/types/language.type';
-import { Code, CodeSetting, CodeTemplate, CodeTemplateSummary, CreateCodeTemplate, UpdateCodeTemplate } from '@/types/code-template.type';
+import { Code, CodeSetting, CodeTemplate, CodeTemplateResponse, CodeTemplateSummary, CreateCodeTemplate, UpdateCodeTemplate } from '@/types/code-template.type';
 
 export const saveCode = async (saveCode: Code) => {
   const response: AxiosResponse<ApiResponse<null>> = await apiClient.put('/api/v1/code/problem', saveCode);
@@ -45,6 +45,6 @@ export const getTemplate = async (uuid: string) => {
 };
 
 export const getTemplates = async () => {
-  const response: AxiosResponse<ApiResponse<CodeTemplateSummary[]>> = await apiClient.get('/api/v1/code/template');
+  const response: AxiosResponse<ApiResponse<CodeTemplateResponse>> = await apiClient.get('/api/v1/code/templates');
   return response.data;
 };
